@@ -1,0 +1,515 @@
+<html>
+  <script language="JavaScript" type="text/javascript">
+    <!--
+		function sizeTbl2(h,i) {
+		var tbl = document.getElementById(i);
+		tbl.style.display = h;
+		}
+		// -->
+  </script> 
+
+  
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Python. Structures conditionnelles. Boucles.</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushPython.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+  
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+    
+    <h1 class='title'>Introduction à Python. Structures conditionnelles et boucles.</h1>
+    
+    
+    
+    
+    <a name='contents'></a>
+    
+    <h2>Contenu</h2>
+    <p>Dans le premier TD nous avons vu ensemble un certain nombre
+      d'objets permettant à python de stocker des informations sous la
+      forme de variables simples (objets de type int, float, str ou
+      bool) ou de tableaux (listes, tuples et dictionnaires).</p>
+
+    <p>Lorsque l'on développe un programme on a généralement besoin
+      de <b>tester</b> si <b>une condition</b> est vraie (<i>e.g.</i>
+      l'utilisateur a-t-il soumis un fichier qui existe ou une réponse
+      valide,..). Les informations étant stockées dans des variables
+      le programme doit alors pouvoir interroger les variables et
+      tester leur contenu. Les stuctures conditionnelles
+      (e.g.<span class="code">if</span> ... <span class="code">else</span>) offre la possibilité de réaliser
+      de tels tests.</p>
+
+    <p>Par ailleurs, lorsque de l'information réside dans un tableau,
+      il sera souvent nécessaire de <b>parcourir le tableau</b> pour,
+      par exemple, afficher son contenu, tester le contenu de chacune
+      de ses positions, effectuer un calcul à partir de chacune des
+      valeurs. De manière plus générale, lorsque l'on souhaitera
+      répéter une instruction, on utilisera alors, des <b>boucles</b>
+      (<span class="code">for</span>, <span class="code">while</span>,...). </p>
+
+    <ul>
+      <li><a href='#conditional'>Structures conditionelles</a></li>
+      <li><a href='#loop'>Boucles itératives</a></li>
+    </ul> 
+    
+
+
+    <hr>  
+    <a name='conditional'></a>
+    <h2>Structures conditionnelles.</h2>
+    <h3>Présentation</h3>
+
+    <p>Une structure conditionnelle permet de tester si une condition
+      est vraie ou fausse. Ces structures conditionnelles évaluent de
+      manière générale un test ou une expression booléenne (e.g.
+      <i>a &gt; 4, b &lt; 4, 5 &le; b &le; 10, ...</i>). Dans la
+      structure <span class="code">if...else</span> classique, on
+      exécutera un certain nombre d'instructions si la condition est
+      vraie, et un autre jeu d'intructions si celle-ci s'avère
+      fausse. </p>
+
+    <p>Ci-dessous sont présentées un certain nombre de syntaxes
+      possibles pour ces structures de contrôle.</p>
+
+    <p class="attention">Attention! En python, l'indentation est
+      significative. En particulier, le domaine d'application d'une
+      structure conditionnelle est défini par les lignes qui sont en
+      retrait par rapport à l'instruction initiale.</p>
+    
+    <div class="protocol">
+      <p>Une structure <span class="code">if</span> simple:<p>
+	
+	<pre class="brush:python;">
+if test:				 		# 'test' est une expression booléenne (e.g a > 3).
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition est vraie ( e.g print() ).
+	</pre>
+	
+	
+      <p>la structure <span class="code">if...else</span>:<p>
+	<pre class="brush:python;">
+if test:				  		# 'test' est une expression booléenne (e.g a > 3).
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition est vraie ( e.g print() ).
+else:							# sinon (si 'test' est faux).
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition est fausse.
+	</pre>
+
+      <p>la structure <span class="code">if...elif...else</span>:<p>
+	
+	<pre class="brush:python;">
+if test:				  		# 'test' est une expression booléenne (e.g a == 1).
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition 'test' est vraie ( e.g print() ).
+elif test2:						# teste une autre expression, 'test2' (e.g a == 2),  si 'test' est faux.
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition 'test2' est vraie. 
+elif test3:						# teste une autre expression, 'test3' (e.g a == 3),  si 'test' et test2 sont faux.
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition 'test3' est vraie. 
+else:							# Sinon, si 'test', 'test2' et 'test3' sont faux alors...				
+	instruction(s)				# une/des instruction(s) réalisée(s) si aucune condition n'est vérifiée.
+	</pre>
+    </div>
+    
+
+    <h3>Structures if...else imbriquées</h3>
+    <p>Les instructions réalisées dans le corps d'un if, elif ou else
+      peuvent elles-même comporter des structures conditionnelles:</p>
+
+    <pre class="brush:python;" >
+if test:				 		# 'test' est une expression booléenne
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition 'test' est vraie
+	if test2:					# 'test' est une expression booléenne.
+		instruction(s)			# une/des instruction(s) réalisée(s) si la condition 'test2' est vraie.
+else:
+	instruction(s)				# une/des instruction(s) réalisée(s) si la condition 'test' est fausse.
+    </pre>
+
+
+    <h3>Opérateurs de comparaison</h3>	
+    <p>Afin de pouvoir effectuer des tests renvoyant une valeur vraie
+      ou fausse on dispose d'un certain nombre d'opérateurs de
+      comparaison. Les plus fréquemment utilisés sont présentés
+      ci-dessous.</p>
+   
+
+    <table >
+      <tr>
+	<th>Operateur</th><th >Description</th>
+      </tr>
+      <tr>
+	<td>a == b</td><td>Opérateur d'égalité. Renvoie <span class="code">true</span> si a et b contiennent des valeurs égales.</td>
+      </tr>
+      <tr>
+	<td>a != b</td><td>Renvoie <span class="code">true</span> si a et b contiennent des valeurs différentes.</td>
+      </tr>
+      <tr>
+	<td>a &gt; b</td><td>Renvoie <span class="code">true</span> si la valeur de a est supérieure à la valeur de b.</td>
+      </tr>
+      <tr>
+	<td> a &lt; b</td><td>Renvoie <span class="code">true</span> si la valeur de a est inférieure à la valeur de b.</td>
+      </tr>
+      <tr>
+	<td>a &gt;= b</td><td>Renvoie <span class="code">true</span> si la valeur de a est supérieure ou égale à la valeur de b.</td>
+      </tr>
+      <tr>
+	<td>a &lt;= b</td><td>Renvoie <span class="code">true</span> si la valeur de a est inférieure ou égale à la valeur de b.</td>
+      </tr>
+      <tr>
+	<td>c &lt;  a &lt; b</td><td>Renvoie <span class="code">true</span> si la valeur de a est supérieure ou égale à c et inférieure ou égale à b.</td>
+      </tr>
+      <tr>
+	<td>c &lt;=  a &lt;= b</td><td>Renvoie <span class="code">true</span> si la valeur de a est strictement supérieure à c et inférieure à b.</td>
+      </tr>
+    </table>
+    
+    
+    <h3>Opérateurs logiques</h3>
+    <p>On a fréquemment besoin de combiner plusieurs test (condition 1
+      est vraie et condition b est vraie). Pour combiner les
+      opérations de comparaison on utilisera des opérateurs
+      logiques.</p>
+
+
+    <table>
+      <tr>
+	<th style="width:10%">Operator</th><th style="width:45%">Description</th><th>Example</th>
+      </tr>
+      <tr>
+	<td>and </td>
+	<td> L'opérateur logique ET. Renvoie True si les deux conditions sont vraies (sinon False).</td>
+	<td> a < b and c > d</td>
+      </tr>
+      <tr>
+	<td>or</td>
+	<td> L'opérateur logique OR. Renvoie True si l'une des deux conditions est vraie (sinon False).</td>
+	<td> a < b or c > d</td>
+      </tr>
+      <tr>
+	<td>not</td>
+	<td>L'opérateur de négation logique, NON. Renvoie True si son argument est faux et False si il est vrai.</td>
+	<td>not(a &lt; b) </td>
+      </tr>
+    </table>
+    
+
+    <h3>Exercice</h3>
+    <div class='protocol'>
+      <p>Lancez le programme <b>geany</b>. Créez un nouveau fichier. A
+	la première ligne de ce fichier, indiquez:</p>
+      <pre class="brush:python;">
+	# -*- coding: utf8 -*-
+</pre>
+
+      <p>Sauvegardez le fichier sous le nom "ReadSeq.py". </p>
+      <p> Allez dans le menu <span class="command">Build > Set Build
+	Commands</span> et aux lignes "compile" et "execute" changez
+	les lignes ci-dessous et cliquez
+	sur <span class="option">OK</span>.</p>
+
+      <ol>
+	<li>python -m py_compile "%f"     ---&gt;          python<b>3</b> -m py_compile "%f"</li>
+	<li>python "%f"       ---&gt;              python<b>3</b> "%f"</li>
+      </ol>
+    </div>
+    <div class='exo'>
+      <p>Créez un petit programme qui permet de demander une séquence
+	nucléotidique à un utilisateur. Le programme devra : </p>
+      
+      <ol>
+	<li>Demander une séquence à l'utilisateur (regardez l'aide sur
+	  la fonction <b>input()</b>)</li>
+	<li>Transformer cette séquence en majuscules.</li>
+	<li>Compter le nombre de A, de C, de T, de G puis la somme
+	  totale de nucléotide A, C, T et G.</li>
+	<li>S'assurer que taille de la séquence est bien comprise
+	  entre 5 et 10: si cette condition n'est pas vérifiée, le
+	  programe affichera "Longueur incorrecte".</li>
+	<li>Dans le cas contraire (où la condition (4) est vérifiée),
+	  le programme affichera "Longueur correcte" et devra tester si
+	  la séquence contient exclusivement les nucléotides A,C,G,T. Si
+	  oui, il affichera "Alphabet valide" sinon il affichera
+	  "Alphabet non valide". </li>
+      </ol>
+    </div>
+<!-- Commenter avant le TD -->
+<!-- -->
+     <a href="javascript:sizeTbl2('block','sol_0x')" class="sol" >View solution</a>| 
+     <a href="javascript:sizeTbl2('none','sol_0x')" >Hide solution</a>
+     <div id=sol_0x  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+# -*- coding: ISO-8859-1 -*-
+
+"""
+Date: Wed Oct 22 15:29:48 CEST 2014
+Auteur: DP
+Synopsis: Un petit programme permettant
+De lire un séquence, de tester sa taille
+et son contenu
+"""
+
+
+# Demander une sequence à l'utilisateur
+dna = input("Entrez une Sequence:\n")
+
+# Transformer la séquence en majuscule
+dna = dna.upper()
+
+nb_A = dna.count("A")
+nb_C = dna.count("C")
+nb_T = dna.count("T")
+nb_G = dna.count("G")
+
+# Combien de A, C, G et T au total
+nb_nuc =  nb_A  + nb_C + nb_T + nb_G
+
+# La longueur de la séquence est-elle correcte ?
+if  5 <= nb_nuc <= 10 :	
+	
+	print("Longueur correcte")
+
+	# La séquence contient-elle exclusivement les nucléotides ATCG ?
+	if nb_nuc != len(dna):
+		print("Alphabet non valide")
+	else:
+		print("Alphabet valide")
+else:
+	print("Longueur incorrecte")
+		   </pre>
+     </div>
+     <!-- --->
+     
+     
+     <hr>
+     <a name='loop'></a>
+     <h2>Boucles.</h2>
+     <h3>Présentation</h3>
+    <p>Comme indiqué en introduction, il est souvent nécessaire de
+      réaliser des itérations (boucles). Les deux types de boucles que
+      l'on rencontre le plus fréquemment sont les boucles <b>for</b>
+      et les boucles <b>while</b>, toutes deux implémentées dans le
+      langage Python (qui propose aussi la structure <b>with</b> que
+      nous ne développerons pas ici).</p>
+    
+    <h3>Boucles for</h3>
+    <p>La boucle for peut être utilisée pour répéter une instruction
+      un certain nombre de fois. Elle permet de parcourir des listes,
+      des chaînes de caractères (dont nous avons vu qu'elles
+      ressemblaient dans une certaine mesure aux listes), les clefs
+      d'un dictionnaire, les lignes d'un fichier, <i>etc</i>. En
+      Python, la boucle for se présente typiquement de la manière
+      suivante: </p>
+
+    <pre class="brush:python;">
+# La variable v prend successivement la valeur des différents éléments de la liste
+for v in liste:				# Pour chaque élément v de la liste 
+	instruction(v)			# On effectue une opération avec v         
+
+# La variable v prend successivement la valeur des différents éléments de la liste
+# La variable p contient la position 
+for p,v in enumerate(liste):			# Pour chaque élément v de la liste on énumère sa position (p) et sa valeur (v) 
+	instruction(v)						# On effectue une opération avec v         
+	instruction(p)						# On effectue une opération avec p         
+</pre>
+    
+    <p>Ci-dessous, on propose quelques exemples permettant d'illustret l'utilisation de boucles for</p>
+    <div class='protocol'>
+      <p>Copiez-collez les instructions suivantes ligne par ligne dans
+	IPython. Analysez les résultats et répondez aux questions.</p>
+      
+      <pre class="brush:python;">
+###################################################
+### Effectuer une opération n fois              ###
+###################################################
+n = 100
+for i in range(n):
+	print("je le fais")
+
+
+###################################################
+### Fonction range()                            ###
+###################################################
+help(range)
+
+# Exercice 1 : Faire un programme affichant les multiples de 3 inférieurs à 20.
+
+
+###################################################
+### Parcourir des listes                        ###
+###################################################
+chroms = ["Chr1", "Chr2", "Chr3", "Chr4", "Chr5", "Chr6", "Chr7"]
+
+for c in chroms:
+	print(c)
+
+for p,c in enumerate(chroms):
+	print(p, c)
+  
+###################################################
+### Parcourir des châines de caractères         ###
+###################################################
+dna = 'ATGCTCGCTCGCTCGATGAAAATGTG'
+
+# On passe les en revue les nucléotides contenus dans la séquence
+for  nuc in dna:
+	print("La séquence contient "+ nuc)
+
+# Exercice 2: Passez en revue les nucléotides contenus dans la séquence pour afficher pour chacun "La séquence contient un X en position Y"
+
+###################################################
+### Parcourir un Dictionnaire                   ###
+###################################################
+# Un tableau associatif dont les clefs sont des noms d'utilisateurs
+# Et les valeurs des mots de passe
+ 
+login2passwd = {"Alain":"abc123", "John":"qwerty", "Alice":"1234567"} 
+
+# Afficher les clefs
+for key in login2passwd:
+	print(key)
+
+# Afficher les clefs et valeurs 
+# Il faut utiliser la méthode item()
+for key, value in login2passwd.items():
+	print("Value is " + value + " for key " + key) 
+
+# Exercice 3: Écrivez une boucle permettant d'afficher le nom des personnes dont le mot de passe contient la chaîne "123"
+</pre>
+      
+    </div>
+
+<!-- Commenter avant le TD -->
+<!-- -->
+     <a href="javascript:sizeTbl2('block','sol_1x')" class="sol" >View solution</a>| 
+     <a href="javascript:sizeTbl2('none','sol_1x')" >Hide solution</a>
+     <div id=sol_1x  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+# Exercice 1
+for i in range(3,20,3):
+	print(i)
+
+# Exercice 2
+for v,nuc in dna:
+	print("La séquence contient un "+ nuc +" en position ", v)
+
+# Exercice 3
+for key, value in login2passwd.items():
+	if "123" in value:
+		print(key) 
+
+      </pre>
+     </div>
+     <!-- -->
+
+<h3>Boucles while</h3>
+<p>La boucle while permet d'effectuer un jeu d'instruction tant qu'une condition est vrai.</p>
+
+
+<pre class="brush:python;">
+while condition:		# Tant que la condition est vraie (e.g. a > 10) alors le jeu d'instructions est exécuté
+	statement(s)		# Une ou plusieurs instruction(s) à exécuter
+	
+exemple:
+
+while a < b :
+	a=raw_input("Entrez un nombre: ")
+</pre>
+      
+      <p>Ci-dessous, on propose quelques exemples permettant
+	d'illustrer l'utilisation de boucles while</p>
+      <div class='protocol'>
+	<p>Copiez collez les instructions suivantes une ligne après
+	  l'autre dans IPython. Analysez les résulats.</p>
+	
+	<pre class="brush:python;">
+#########################################
+###     Un exemple de boucle while    ###
+#########################################
+
+password=None # La variable password est initialisé à None (vide)
+
+# On effectue une boucle while
+
+while password != "^^@@??))":						## Tant que le mot de passe n'est pas  "^^@@??))"
+    password=raw_input("Enter a password please:")  ## On demande un nouveau mot de passe à l'utilisateur
+print "Welcome"
+
+## Un exemple de boucle infini:
+
+while True:
+	print("C'est vrai et ça le restera longtemps")
+
+	</pre>
+	
+	
+	<h3>Breaks and continue</h3>
+	<p>Comme dans beacoup d'autres langages, le mot
+	  clef <span class="code">break</span>, permet de 'casser' une
+	  boucle, de l'arrêter avant qu'elle n'arrive à sa fin.</p>
+
+	<p>Le mot clef <span class="code">continue</span> permet de
+	  passer directement à la prochaine itération, sans effectuer la
+	  suite des instructions de cette itération.</p>
+	
+    
+	<pre class="brush:python;">
+###########################
+###  Break et continue  ###
+###########################
+## Exemple 1
+# La sortie est:
+# 0 1 2 3 4
+
+for i in range(10):
+	if i==5:
+		break
+	print(i)
+
+## Exemple 2
+# La sortie est 
+# 1 2 8 9 10
+
+i = 0
+while i < 10:
+	i += 1
+	if  2 < i < 8:
+		continue
+	print(i)
+		    </pre>
+
+	<p>Pour conclure, une particularité de python est la
+	  possibilité de terminer une boucle par
+	  un <span class="code">else</span>. Cela permet d'effectuer
+	  certaines intructions uniquement lorsque la boucle a atteint
+	  son terme sans interruption (break).
+
+	  <pre class="brush:python;">
+##############################
+###   for/while ... else   ###
+##############################
+# L'un de vous entre une lettre sans le dire à l'autre. L'autre a dix essai pour deviner.
+
+secret = input()
+secret = secret.upper()
+for i in range(10):
+	essai = input("essai "+str(i))
+	essai = essai.upper()
+	if essai==secret:
+		print("WIN: "+secret+" found!")
+		break
+else:
+	print("Not found after 10 attempts: LOST!")
+	  </pre>
+      </div>
+      <hr>
+  </body>
+</html>

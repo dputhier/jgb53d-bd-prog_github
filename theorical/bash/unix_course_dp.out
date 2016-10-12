@@ -1,0 +1,45 @@
+\BOOKMARK [2][]{Outline0.1}{Pourquoi UNIX/Linux ?}{}% 1
+\BOOKMARK [3][]{Outline0.1.1.4}{Architecture d'un ordinateur}{Outline0.1}% 2
+\BOOKMARK [3][]{Outline0.1.2.5}{Qu'est ce qu'un syst\350me d'exploitation ?}{Outline0.1}% 3
+\BOOKMARK [3][]{Outline0.1.3.6}{UNIX/Linux: historique}{Outline0.1}% 4
+\BOOKMARK [3][]{Outline0.1.4.8}{Pourquoi utiliser Linux en biologie ?}{Outline0.1}% 5
+\BOOKMARK [3][]{Outline0.1.5.9}{Pourquoi utiliser Linux en biologie ?}{Outline0.1}% 6
+\BOOKMARK [3][]{Outline0.1.6.10}{Si vous souhaitez installer Linux}{Outline0.1}% 7
+\BOOKMARK [2][]{Outline0.2}{Notions de base pour l'utilisation du shell}{}% 8
+\BOOKMARK [3][]{Outline0.2.1.12}{Quelques bonnes habitudes}{Outline0.2}% 9
+\BOOKMARK [3][]{Outline0.2.2.13}{Quelques bonnes habitudes}{Outline0.2}% 10
+\BOOKMARK [3][]{Outline0.2.3.14}{Le terminal: Arghhh !!!}{Outline0.2}% 11
+\BOOKMARK [3][]{Outline0.2.4.15}{Aide sur les commandes}{Outline0.2}% 12
+\BOOKMARK [2][]{Outline0.3}{Fichiers et r\351pertoires}{}% 13
+\BOOKMARK [3][]{Outline0.3.1.20}{Organisation des fichiers sous Linux}{Outline0.3}% 14
+\BOOKMARK [3][]{Outline0.3.2.25}{Chemins relatifs et absolus}{Outline0.3}% 15
+\BOOKMARK [3][]{Outline0.3.3.29}{Op\351rations sur les dossiers}{Outline0.3}% 16
+\BOOKMARK [3][]{Outline0.3.4.36}{Op\351rations sur les fichiers}{Outline0.3}% 17
+\BOOKMARK [2][]{Outline0.4}{Redirection}{}% 18
+\BOOKMARK [3][]{Outline0.4.1.47}{Entr\351es-Sorties \(E"026E30F S\) d'un processus.}{Outline0.4}% 19
+\BOOKMARK [3][]{Outline0.4.2.48}{Les op\351rateurs de redirection}{Outline0.4}% 20
+\BOOKMARK [3][]{Outline0.4.3.50}{Les tubes \(pipes\).}{Outline0.4}% 21
+\BOOKMARK [2][]{Outline0.5}{Expressions r\351guli\350res}{}% 22
+\BOOKMARK [3][]{Outline0.5.1.54}{D\351finition}{Outline0.5}% 23
+\BOOKMARK [2][]{Outline0.6}{Les filtres}{}% 24
+\BOOKMARK [3][]{Outline0.6.1.57}{D\351finition}{Outline0.6}% 25
+\BOOKMARK [3][]{Outline0.6.2.58}{La commande grep}{Outline0.6}% 26
+\BOOKMARK [3][]{Outline0.6.3.60}{La commande sort}{Outline0.6}% 27
+\BOOKMARK [3][]{Outline0.6.4.61}{La commande tr}{Outline0.6}% 28
+\BOOKMARK [3][]{Outline0.6.5.62}{La commande sed}{Outline0.6}% 29
+\BOOKMARK [2][]{Outline0.7}{La commande AWK}{}% 30
+\BOOKMARK [2][]{Outline0.8}{Contr\364le des processus}{}% 31
+\BOOKMARK [3][]{Outline0.8.1.67}{D\351finition}{Outline0.8}% 32
+\BOOKMARK [3][]{Outline0.8.2.68}{top}{Outline0.8}% 33
+\BOOKMARK [3][]{Outline0.8.3.69}{Premier plan et arri\350re plan}{Outline0.8}% 34
+\BOOKMARK [3][]{Outline0.8.4.70}{La commande nohup}{Outline0.8}% 35
+\BOOKMARK [2][]{Outline0.9}{R\351seau}{}% 36
+\BOOKMARK [3][]{Outline0.9.1.71}{Un point fort}{Outline0.9}% 37
+\BOOKMARK [2][]{Outline0.10}{Bioinformatique et reproductibilit\351....}{}% 38
+\BOOKMARK [3][]{Outline0.10.1.73}{Tout reproduire, m\352me les erreurs...}{Outline0.10}% 39
+\BOOKMARK [3][]{Outline0.10.2.74}{makefile}{Outline0.10}% 40
+\BOOKMARK [2][]{Outline0.11}{Quelques \351l\351ments pour la programmation \(Bash Scripting\).}{}% 41
+\BOOKMARK [3][]{Outline0.11.1.79}{variables}{Outline0.11}% 42
+\BOOKMARK [3][]{Outline0.11.2.80}{Les boucles}{Outline0.11}% 43
+\BOOKMARK [3][]{Outline0.11.3.81}{Backquoting}{Outline0.11}% 44
+\BOOKMARK [3][]{Outline0.11.4.82}{Bash scripting}{Outline0.11}% 45

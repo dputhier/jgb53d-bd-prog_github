@@ -1,0 +1,360 @@
+
+<html>
+  <script language="JavaScript" type="text/javascript">
+    <!--
+		function sizeTbl2(h,i) {
+		var tbl = document.getElementById(i);
+		tbl.style.display = h;
+		}
+		// -->
+  </script> 
+
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Définition de fonctions.</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushPython.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+
+    <h1 class='title'>Introduction à Python. Définition de fonctions.</h1>
+
+
+
+	<a name='contents'></a>
+
+	<h2>Contenu</h2>
+
+	<p>Outre les instructions procédurales que vous avez découvert lors des scéances précédentes, les langages de programmation vous offrent la possibilité de créer vos propres fonctions.
+L'intérêt d'une fonction est de regrouper une série d'instructions que l'on souhaite répéter plus d'une fois dans un programme.
+
+		<ul>
+		<li><a href='#fonction'>Définition de fonctions</a></li>
+		<li><a href='#exercice'>Exercice d'application</a></li>
+		</ul> 
+
+
+      <hr>  
+    <a name='fonction'></a>
+    <h2>Fonctions</h2>
+    <h3>Définition et appel</h3>
+	La création d'une fonction se fait grâce au mot-clé <b>def</b>. Celui-ci est suivi du nom de la fonction. On décrit ensuite les opérations qui doivent être effectuées par la fonction en marquant l'indentation. Python crée alors un objet fonction au nom de la fonction. Le programme python peut alors exécuter, ou <i>appeler</i> cette fonction.
+
+<pre class="brush:python;">
+##################################
+##  Exemple de fonction simple  ##
+##################################
+
+def printHello():
+	print("Hello!")
+
+printHello()
+
+</pre>
+<br>
+
+	<h3>Passage d'arguments</h3>
+
+Une fonction dépendent fréquemment de paramètres, ou <i>arguments</i>, nécessaires à la réalisation de la fonction mais qui peuvent varier lors des différents appels à cette fonction. Pour spécifier les arguments d'une fonction, vous devez les lister entre parenthèses après son nom.
+
+<pre class="brush:python;">
+############################################
+##  Exemple de fonctions avec paramètres  ##
+############################################
+
+def printWarning(message):
+	print("Warning: ", message) 
+	
+printWarning("Attention!")
+printWarning("Les arguments ne sont pas typés")
+printWarning(501+165)
+
+def printMultiply(number1, number2, number3):
+	print(number1 * number2 * number3) 
+
+printMultiply(1, 2, 4)
+printMultiply("test", 2, 4)
+
+</pre>
+	Si le typage des arguments n'est pas possible, d'autres possibilités intéressantes s'offrent à vous. Il est tout d'abord possible, lors de l'appel à la fonction, de référencer les arguments par mot-clé (leur nom) plutôt que par leur position. Il n'est plus alors obligatoire de respecter l'ordre établi des arguments. Attention toutefois au fait qu'après le premier argument passé par mot-clé vous ne pouvez plus passer d'arguments par valeur. Vous pouvez également spécifier une valeur par défault pour vos arguments. Ces arguments deviennent alors optionels lors de l'appel à la fonction (il peut être préférable de placer ces arguments à la fin de la liste). Finalement, il est possible pour une fonction de recevoir un nombre de arguments arbitraire: inconnu à l'avance et pouvant être différent à chaque appel.
+
+<pre class="brush:python;">
+###################################
+##  Exemple d'appel par mot-clé  ##
+###################################
+
+def printBreakfast(toast, egg, bacon):
+	print("I'll have ", toast, " toast(s), ", egg, " egg(s) and ", bacon, " bacon slice(s).")
+
+printBreakfast(2, 3, 4)
+printBreakfast(2, bacon=3, egg=4)
+printBreakfast(egg=2, bacon=3, toast=4)
+# INTERDIT: printBreakfast(bacon=3, 2, egg=4)
+
+
+####################################################
+##  Exemple d'arguments avec valeurs par défault  ##
+####################################################
+
+def printBreakfast(toast, egg=2, bacon=3):
+	print("I'll have ", toast, " toast(s), ", egg, " egg(s) and ", bacon, " bacon slice(s).")
+
+printBreakfast(2)
+printBreakfast(2, 10)
+printBreakfast(bacon=8, toast=2)
+
+
+#######################################
+##  Exemple d'arguments arbitraires  ##
+#######################################
+
+def printArgs(arg1, arg2, *otherArgs, **argsByKeyWords):
+	print("Standard argument arg1 = ", arg1)
+	print("Standard argument arg2 = ", arg2)
+	print("Arguments by value: ", otherArgs)
+	#for valueArgs in otherArgs:
+	#	print("Argument by value = ", valueArgs)
+	print("Arguments by key-words: ", argsByKeyWords)
+	#for keyWord in argsByKeyWords:
+	#	print("Argument by keyword ", keyWord, " = ", argsByKeyWords[keyWord])
+
+printArgs('A', 'B', 'C', 'D', 'E', 'F', next='G', last='Z')
+print('\n')
+printArgs(next='G', last='Z', arg1='A', arg2='B')
+</pre>
+<br>
+
+
+	<h3>Variable retour</h3>
+
+Une fonction est parfois créé pour manipuler des données et réaliser des calculs que l'on souhaite réutiliser par la suite. Dans ce cas, le simple affichage du résultat ne nous satisfera pas. On peut alors demander à la fonction de renvoyer son résultat avec le mot clé <b>return</b>. Lors de l'appel à la fonction, ce résultat pourra alors être conserver dans une variable (par affectation). Finalement, Python permet de renvoyer plusieurs résultats sous la forme d'un tuple.
+
+<pre class="brush:python;">
+
+###############################################
+##  Exemple de fonctions avec retour simple  ##
+###############################################
+
+def exponential(x, y):
+	return x ** y
+
+result = exponential(2,4)
+print(result)
+result = exponential(3,3)
+print(result)
+
+
+##########################################################
+##  Exemple de fonctions avec retour multiple (tupple)  ##
+##########################################################
+
+def add_substract_multiply_divide(x, y):
+	return x+y, x-y, x*y, x/y
+
+myTuple = add_substract_multiply_divide(4, 2)
+print(myTuple)
+a, s, m, d = myTuple = add_substract_multiply_divide(121, 11)
+print(a)
+print(s)
+print(m)
+print(d)
+
+</pre>
+<br>
+
+
+	<h3>Portée des variables et arguments modifiables (ou non)</h3>
+
+Dans une fonction, toute affectation à une variable (y compris à l'argument) revient à créer une nouvelle variable de portée locale. Il est toutefois possible de créer/d'utiliser des variables globales dans un fonction, mais l'on ne pourra les modifier qu'en les déclarant avec le mot-clé <b>global</b>. Il faut finalement être très prudent avec vos arguments car ils sont passés dans un mode dit "de référence". Cela signifie que les objets "modifiables" (typiquement tous sauf les nombres et les chaines de caractères, ou comme les tuples), une fois passés en arguments, peuvent être altérés par les opérations de la fonction.
+
+<pre class="brush:python;">
+
+##################################
+##  Exemple de variable locale  ##
+##################################
+
+def addTwelveFunction(y, z):
+	x = 8
+	print("inside x = ", x)
+	z = 4
+	return x + y + z
+
+x, y = 3 , 1
+r = addTwelveFunction(x,y)
+print(r)
+print("outside x = ", x)
+# Et z alors?
+
+###################################
+##  Exemple de variable globale  ##
+###################################
+cpt = 0 
+msgFinal = " Attention!"
+
+def printNumberedMessage(msg):
+	global cpt
+	cpt += 1
+	print(cpt, " ", msg, msgFinal)
+
+printNumberedMessage("Alors?")
+printNumberedMessage("Ça marche!")
+printNumberedMessage("Mais peut être pas pour longtemps...")
+
+
+#####################################
+##  Exemple d'argument modifiable  ##
+#####################################
+
+def modifiable1(myList):
+	myList.extend([4, 5, 6])
+	myList.reverse()
+	return myList
+
+testList = [1, 2, 3]
+print("1 Before: ", testList)
+result = modifiable1(testList)
+print("1 After: ", testList)
+print("1 Result: ", result)
+
+def modifiable2(myList):
+	myList = myList + [4,5,6]
+	# ou
+	# myList = myList[:]
+	# myList.extend([4, 5, 6])
+	# MAIS ATTENTION PAS: myList += [4,5,6] 
+	myList.reverse()
+	return myList
+
+testList = [1, 2, 3]
+print("2 Before: ", testList)
+result = modifiable2(testList)
+print("2 After: ", testList)
+print("2 Result: ", result)
+
+</pre>
+<br>
+
+
+<hr>
+ 
+    <a name='exercice'></a>
+    <h2>Exercice d'application</h2>
+	Écrivez les fonctions Python permettant de répondre aux questions suivantes (certaines de ces questions ont été vues dans les TDs précédents lors de l'analyse en ligne de commandes des fichiers <b><a href="../../data/chromInfo.txt">chromInfo.txt</a></b> et <b><a href="../../data/refGene_hg38.txt">refGene_hg38.txt</a></b>). Vos réponses doivent être écrites directement dans un fichier en Python.
+	<div class='exo'>
+	<ol>
+		<li>Combien de transcrits compte le génome humain?</li>
+		<li>Quelle est la proportion de transcripts codants/non-codants dans les chromosomes réguliers (chr1 à chr22, chrX et chrY)? (Rappel: les noms des transcrits codants (2ème colonne) commencent par "NM_")</li>
+		<li>Combien de gènes (colonne 13) distincts produisent ces transcrits?</li>
+		<li>Quel gène possède le plus grand nombre d'exons? Combien de plus que le suivant?</li>
+		<li>Quel est le nombre de gènes par chromosome?</li>
+		<li>Trier les chromosomes en fonction de leur nombre moyen de gènes par paires de bases</li>
+	</ol>
+	</div>
+<br>
+<hr>
+
+<!-- Commenter avant le TD -->
+<!-- -->
+     <a href="javascript:sizeTbl2('block','sol_0x')" class="sol" >View solution</a>| 
+     <a href="javascript:sizeTbl2('none','sol_0x')" >Hide solution</a>
+     <div id=sol_0x  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+##############
+# Question 1 #
+##############
+
+resultFile = open("results.txt","w")
+
+def readTranscriptFile(fileName):
+	myFile = open(fileName,"r")
+	myList = myFile.readlines()
+	myFile.close()
+	return myList
+
+
+myFileAsList = readTranscriptFile("refGene_hg38.txt")
+resultFile.write( "Nombre de transcrits (tous chromosomes confondus) = " + str(len(myFileAsList)) + "\n")
+
+##############
+# Question 2 #
+##############
+goodChrom = ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8", "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15", "chr16", "chr17", "chr18", "chr19", "chr20", "chr21", "chr22", "chrX", "chrY"]
+def codantNonCodant(fileAsList):
+	codants, nonCodants = 0 , 0
+	for myLine in fileAsList:
+		myColumns = myLine.split("\t")
+		if( myColumns[2] in goodChrom ):
+			if(myColumns[1].startswith("NM_")):
+				codants+=1
+			else:
+				nonCodants+=1
+	return codants, nonCodants
+
+
+cod, nonCod = codantNonCodant(myFileAsList)
+resultFile.write( "Codants: " + str(cod) + " / Non-codants: " + str(nonCod) + " / Ratio = " + str(cod/nonCod) + "\n" )
+
+
+##############
+# Question 3 #
+##############
+def geneNumber(fileAsList):
+	geneList = []
+	for myLine in fileAsList:
+		myColumns = myLine.split("\t")
+		if( myColumns[2] in goodChrom and myColumns[1].startswith("NM_") and not myColumns[12] in geneList ):
+			geneList.append(myColumns[12])
+	return len(geneList)
+
+
+resultFile.write( "Numbre of distinct genes: " + str(geneNumber(myFileAsList)) + "\n" )
+
+
+##############
+# Question 4 #
+##############
+def geneWithMaxExon(fileAsList):
+	global resultFile
+	maxExon=0
+	exonMap = {}
+	for myLine in fileAsList:
+		myColumns = myLine.split("\t")
+		if( not myColumns[12] in exonMap ):
+			exonMap[myColumns[12]] = 1
+		else:
+			exonMap[myColumns[12]] += 1
+			if( exonMap[myColumns[12]] > maxExon ):
+				memGene = myColumns[12]
+				maxExon = exonMap[myColumns[12]]
+	resultFile.write( memGene + "\t" + str(maxExon) + "\n" )
+	
+	# Autre (meilleure) solution
+	exonNumbers = list(exonMap.values())
+	exonNumbers.sort()
+	maxExon = exonNumbers.pop()
+	for myGene, exon in exonMap.items():
+		if( exon == maxExon ):
+			resultFile.write( "The gene having the larger number of exons is " + myGene + " with " + str(exon) + " exons\n")
+
+geneWithMaxExon(myFileAsList)
+
+resultFile.close()
+
+<!-- -->
+<br>
+
+ </body>
+</html>

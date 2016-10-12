@@ -1,0 +1,21 @@
+2015-10-27 11:23:48.122 [NotebookApp] Using existing profile dir: u'/Users/puthier/.ipython/profile_default'
+2015-10-27 11:23:48.128 [NotebookApp] Using MathJax from CDN: https://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-10-27 11:23:48.156 [NotebookApp] The port 8888 is already in use, trying another random port.
+2015-10-27 11:23:48.157 [NotebookApp] The port 8889 is already in use, trying another random port.
+2015-10-27 11:23:48.157 [NotebookApp] The port 8890 is already in use, trying another random port.
+2015-10-27 11:23:48.158 [NotebookApp] Serving notebooks from local directory: /Users/puthier/git/jgb53d-bd-prog/practicals/04_python_2015
+2015-10-27 11:23:48.158 [NotebookApp] 0 active kernels 
+2015-10-27 11:23:48.158 [NotebookApp] The IPython Notebook is running at: http://localhost:8891/
+2015-10-27 11:23:48.158 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+2015-10-27 11:23:53.151 [NotebookApp] Kernel started: dba8f169-640a-401c-bf44-93b11ce4fec1
+2015-10-27 11:25:16.615 [NotebookApp] interrupted
+Serving notebooks from local directory: /Users/puthier/git/jgb53d-bd-prog/practicals/04_python_2015
+1 active kernels 
+The IPython Notebook is running at: http://localhost:8891/
+Shutdown this notebook server (y/[n])? 2015-10-27 11:25:17.011 [NotebookApp] CRITICAL | received signal 2, stopping
+2015-10-27 11:25:17.012 [NotebookApp] Shutting down kernels
+2015-10-27 11:25:17.096 [NotebookApp] CRITICAL | received signal 2, stopping
+2015-10-27 11:25:17.180 [NotebookApp] CRITICAL | received signal 2, stopping
+2015-10-27 11:25:17.264 [NotebookApp] CRITICAL | received signal 2, stopping
+2015-10-27 11:25:17.348 [NotebookApp] CRITICAL | received signal 2, stopping
+2015-10-27 11:25:17.453 [NotebookApp] Kernel shutdown: dba8f169-640a-401c-bf44-93b11ce4fec1

@@ -1,0 +1,793 @@
+<html>
+
+
+  <script language="JavaScript" type="text/javascript">
+    <!--
+	function sizeTbl2(h,i) {
+	var tbl = document.getElementById(i);
+	tbl.style.display = h;
+	}
+	// -->
+  </script> 
+
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Python. Structures de données</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushPython.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+  
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+
+    <h1 class='title'>Exercices autour des fichiers de séquences au format FASTA</h1>
+
+    <hr>
+    <a name='contenu'></a>
+    <h2>Contenu</h2>
+    <ol>
+      <li><a href='#objectifs'>Objectifs du TD</a></li>
+      <li><a href="#telechargement">Téléchargement des fichiers de séquences codantes</a></li>
+      <li><a href="#lecture">Lecture d'un fichier FASTA</a></li>
+      <li><a href="#revCompl">Calcul de la séquence réverse complémentaire</a></li>
+      <li><a href="#traduction">Des nucléotides aux acides aminés</a></li>
+      <li><a href="#compoNT">Composition en bases et séquences aléatoires</a></li>
+      <li><a href="#avance">Pour les plus avancés...</a></li>
+    </ol>
+
+    <a name='objectifs'></a>
+    <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+    <h2>Objectifs</h2>
+
+    <p>Le format le plus courant pour stocker les séquences
+      biologiques (ADN ou protéine) est le FASTA. Ce format
+      non-tabulaire va nous servir de cas d'étude pour mettre en
+      pratique les connaissances que vous avez acquises du langage
+      Python.
+    </p>
+
+    <p>Au cours de ce TD, vous serez amenés à implémenter des
+      fonctions permettant de réaliser des opérations de base sur des
+      séquences biologiques. Vous testerez votre code sur deux
+      fichiers de séquences nucléotiques (ARN messagers)
+      provenant de deux organismes: 
+      <ol>
+	<li>l'entérobactérie <a href="../../data/sequences/Escherichia_coli_str_K-12_substr_MG1655.PATRIC.fa"
+	  download><span class="organism">Escherichia
+	  coli</span></a></li>
+	<li>l'eucaryote agent de la malaria: <a download
+	href="../../data/sequences/PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa"><span class="organism">Plasmodium
+	falciparum</span></a></li>
+      </ol>
+      (cliquez sur les liens pour enregistrer les fichiers)
+
+
+      <a name="telechargement"></a>
+      <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+      <h2>Téléchargement automatique des séquences</h2>
+
+
+      <p>Afin de faciliter l'ouverture et la lecture des fichiers
+	fasta, nous allons les télécharger dans un dossier situé au
+	mÃªme endroit pour chaque étudiant, relativement à la racine de
+	son compte Unix.</p>
+      
+      <p>Ouvrez un nouveau <span class="program">terminal Unix</span>,
+	et copiez-collez les instructions ci-dessous. Elles
+	réaliseront automatiquement les opérations suivantes:
+	<ol>
+	  <li>Vous positionner à la racine de votre compte</li>
+	  <li>Créer un dossier spécifique pour le cours
+	    (<span class="file">jgb53d-bd-prog</span>), puis un
+	    sous-dossier pour les données
+	    (<span class="file">data</span>) et un sous-sous dossier
+	    pour les données de type séquences
+	    (<span class="file">sequences</span>).</li>
+	  <li>Télécharger dans ce dossier séquences deux fichiers de
+	    séquences codantes (<span class="concept">CDS</span>)
+	    utilisés pour ces travaux pratiques (l'un
+	    pour <span class="organism">Escherichia coli</span>,
+	    l'autre pour <span class="organism">Plasmodium
+	    falciparum</span>).</li>
+	</ol>
+      </p>
+
+      <pre class="brush:bash;">
+## Copy-paste the following instructions in a terminal
+cd $HOME ## Go to the root of your account in linux
+pwd      ## Check the current working directory
+
+## Create a directory to store sequence files
+mkdir -p jgb53d-bd-prog/data/sequences
+cd  jgb53d-bd-prog/data/sequences
+
+## Get the sequence files from the Web site
+wget -nc http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/sequences/Escherichia_coli_str_K-12_substr_MG1655.PATRIC.fa
+wget -nc http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/sequences/PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa
+
+## List the sequences and check that the two sequence files are there
+ls -1
+      </pre>
+
+      <a name="lecture"></a>
+      <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+      <h2>Méthodes de lecture d'un fichier FASTA</h2>
+      
+      <div class="exo">
+	<p>Après observation du contenu du fichier FASTA, écrivez une
+	  fonction qui prend en paramètre un nom de fichier, affiche le
+	  nombre de gènes et retourne un dictionnaire associant le gène
+	  à sa séquence.</p>
+      </div>
+
+      <a href="javascript:sizeTbl2('block','sol_0x')" class="sol" >View solution</a>| 
+      <a href="javascript:sizeTbl2('none','sol_0x')" >Hide solution</a>
+      <div id=sol_0x  style="overflow:hidden;display:none">
+
+	<p>Nous présentons ici trois solutions légèrement différentes,
+	  afin de montrer différentes manières d'extraire
+	  l'identifiant de gène à partir des lignes d'en-tÃªte d'un
+	  fichier fasta (les lignes qui commencent par ">").</p>
+
+	<h4>Solution 1: extraction "brute" de l'ID des séquences</h4>
+
+	<p class="tips">
+	  <b>Astuce:</b> le copier-coller ne fonctionne pas toujours
+	  très bien entre une source de code (éditeur, site Web du
+	  cours, document pdf) et le terminal oÃ¹ vous voulez
+	  l'exécuter. Les tabulations sont parfois converties en
+	  espaces blancs de faÃ§on imprévisible, ce qui a pour effet de
+	  casser la syntaxe python. Fort heureusement,
+	  l'interpréteur <span class="program">ipython</span> permet
+	  de coller proprement le code en
+	  tapant <span class="code">%paste</span> à la ligne d'invite.
+	</p>
+
+	<p class="tips">Nous nommerons la méthode de la première
+	  solution <span class="command">read_fasta_file_1</span>, la
+	  seconde <span class="command">read_fasta_file_2</span>. Par
+	  contre, la méthode de la troisième solution sera simplement
+	  nommée <span class="command">read_fasta_file</span> (sans
+	  indice), car c'est elle que nous retiendrons pour effectuer
+	  les analyses suivantes.</p>
+
+	<pre class="brush:python;">
+def read_fasta_file_1(file_name):
+    """
+    This function reads a sequence file in fasta format, and returns a
+    dictionnary with one entry per sequence (key=ID, value = sequence).
+
+    Args:
+        file_name: name of the input file. This file is supposed to be formated in fasta.
+
+    Return: 
+        seq_dict: a list of strings, each corresponding to one sequence of the input file.
+
+    Examples:
+        plasmoCodingGenes = read_fasta_file_1("PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa")
+    """
+    myFile = open(file_name,"r")
+    print("Reading sequences from file\n", "\t", file_name)
+    geneName = ""
+    seq_dict = {}
+    for line in myFile:
+        if line.startswith(">"):
+            if not " " in line :
+                geneName = line[1:-1] ## Ignore the leading ">", and the trailing letter, which is a return character
+            else:
+                geneName = line[1:line.index(" ")]
+            seq_dict[geneName] = "";
+        else:
+            seq_dict[geneName]+=line[:-1].upper()
+    myFile.close()
+    print("Number of sequences\t", len(seq_dict.keys()))
+    return seq_dict
+	</pre>
+
+	<p>Notez que la fonction commence par une description dans le
+	  format de commentaire <a target="_blank"
+	href="http://google-styleguide.googlecode.com/svn/trunk/pyguide.html">docstring</a>.
+	</p>
+
+	<p>Il est très important de documenter le code pour au moins deux raisons : 
+	  <ol>
+	    <li>Ceci permet à d'autres programmeurs d'utiliser vos
+	      fonctions python pour les intégrer dans leurs propres
+	      programmes.</li>
+	    <li>Quand on ne travaille plus activement sur un projet de
+	      recherche, après quelques semaines ou mois on oublie la
+	      majorité des détails d'implémentation. Il est donc très
+	      vraisemblable que vous soyez vous-mÃªme le premier
+	      utilisateur de votre documentation.</li>
+	  </ol>
+	</p>
+
+	<p>La fonction python que nous venons d'implémenter ci-dessus
+	  est documentée selon le standard Docstring. Dès que nous
+	  l'avons soumise à l'interpréteur python, nous pouvons donc
+	  obtenir l'aide. </p>
+	<pre class="brush:python;">
+help(read_fasta_file_1)
+	</pre>
+
+	<p>Nous pouvons maintenant tester cette seconde méthode de
+	  lecture.</p>
+
+<!--	<pre class="brush:python;">
+plasmoCodingGenes = read_fasta_file_2("PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa")
+ecoliCodingGenes = read_fasta_file_2("Escherichia_coli_str_K-12_substr_MG1655.PATRIC.fa")
+	</pre>
+-->
+
+	<h4>Solution 2: recours aux méthodes de str</h4>
+
+	<p>En utilisant les methodes lstrip et rstrip de la classe
+	  str</p>
+
+	<pre class="brush:python;">
+def read_fasta_file_2(file_name):
+    """
+    This function reads a sequence file in fasta format, and returns a
+    dictionnary with one entry per sequence (key=ID, value = sequence).
+
+    Args:
+        file_name: name of the input file. This file is supposed to be formated in fasta.
+
+    Return: 
+        seq_dict: a list of strings, each corresponding to one sequence of the input file.
+
+    Examples:
+        plasmoCodingGenes = read_fasta_file_2("PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa")
+    """
+    print("Reading sequences from file\n", "\t", file_name)
+    my_file = open(file_name,"r") ## Open the sequence file in read mode
+    seq_dict = dict()         ## create the dictionnary that will contain the result
+    for line in my_file:          ## Iterate over the lines of the sequence file
+        if  line.startswith(">") :    ## Detect sequence headers (lines starting with ">")
+          line = line.lstrip(">") ## Remove the leading ">"
+          line = line.lstrip(" ") ## Remove everything that follows the first space (comments)
+          tab = line.split("|")   ## Split the sequence descriptor
+          gene_id = tab[0]        ## The first element of the splitted list contains the gene ID
+          line = line.rstrip(" ")
+          seq_dict[gene_id] = ""   ## Initialize the nucleotidic sequence
+        else:                         ## Treatment for lines that do not correspond to a header
+          line = line.rstrip("\n")  ## Remove the carriage return at the end of the line
+          seq_dict[gene_id] += line.upper() ## Convert the sequence to uppercase, and append it to current sequence
+            
+    ## Close the input file
+    my_file.close()
+    
+    print("Number of sequences\t" , len(seq_dict.keys()))
+    return seq_dict
+	</pre>
+
+	<p>Nous pouvons maintenant tester cette seconde méthode de lecture.</p>
+
+<!--	<pre class="brush:python;">
+plasmoCodingGenes = read_fasta_file_2("PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa")
+ecoliCodingGenes = read_fasta_file_2("Escherichia_coli_str_K-12_substr_MG1655.PATRIC.fa")
+	</pre>
+-->
+
+	<h4>Solution 3: avec une expression regulière</h4>
+
+
+	<pre class="brush:python;">
+import re ## Import the regular expression (re) library
+
+def read_fasta_file(file_name):
+    """
+    This function reads a sequence file in fasta format, and returns a
+    dictionnary with one entry per sequence (key=ID, value = sequence).
+
+    Args:
+        file_name: name of the input file. This file is supposed to be formated in fasta.
+
+    Return: 
+        seq_dict: a list of strings, each corresponding to one sequence of the input file.
+
+    Examples:
+        plasmoCodingGenes = read_fasta_file("PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa")
+    """
+    print("Reading sequences from file\n", "\t", file_name)
+    my_file = open(file_name,"r") ## Open the fasta sequence file in read mode
+    seq_dict = dict()         ## Initialize the dictionary which will contain the sequences
+
+    for line in my_file:
+        # The following regular expression searches strings 
+        # - starting ("^") by the character ">", 
+        # - potentially followed by a space " "
+        # - followed by at least one non-space characters ("[^ ]+")
+        # The parentheses allow to capture the relevant part of the motif.
+        re_result = re.search("^> *([^ \|]+)", line) # This regExp can still be improved
+        if   re_result:                       ## We identified a new sequence header
+              gene_name = re_result.group(1)  ## Extract the gene name
+              seq_dict[gene_name] = ""    ## Initialize the dictionary entry for this gene name
+        else:
+              line = line.rstrip("\n")        ## Strip the trailing newline character
+              seq_dict[gene_name] += line.upper()  ## Append the sequence to the previous one
+    my_file.close()
+
+    print("Number of sequences\t" , len(seq_dict.keys()))
+    return seq_dict
+	</pre>
+      </div>
+
+      <p>Vérifiez que la commande a bien été enregistrée dans votre
+      interpréteur Python, en appelant son aide en ligne.</p>
+      
+      <pre class="brush:python;">
+help(read_fasta_file)
+      </pre>
+      
+      <h3>Lecture des fichiers de séquences génomiques</h3>
+
+      <p>Maintenant que nous avons défini ces méthodes, nous pouvons
+	les utiliser pour lire les séquences génomiques
+	de <span class="organism">E.coli</span>
+	et <span class="organism">P.falciparum</span>, qui seront
+	stockées dans des variables.</p>
+
+      <p>Pour cela, il nous faut pouvoir retrouver le dossier dans
+	lequel les données ont été téléchargées. Une faÃ§on rapide d'y
+	accéder serait de recourir au chemin que nous venons des
+	créer <a name="telechargement">ci-dessus</a> dans le terminal
+	Unix: <span class="file">${HOME}/jgb53d-bd-prog/data/sequences</span>. Une
+	faÃ§on plus robuste sera d'utiliser les commandes Pyton qui
+	permettent de définir des chemins sur votre ordinateur, en
+	tenant compte des spécificités du système opérateur (Unix,
+	Windows, Mac OSX).</p>
+
+      <p>Copiez-collez les lignes de code suivantes dans
+	l'<span class="program">interpréteur python</span>. Nous
+	indiquons à chaque étape en quoi consistent les commandes. Ces
+	commandes sont l'équivalent Python des instructions unix de
+	base (<span class="command">pwd, cd, ...</span>) vues lors des
+	premiers TP Unix.</p>
+
+      <pre class="brush:python;">
+## Before doing the analysis, we will check our current working directory
+## The result should differ for each person, depending on the configuration of your computer.
+
+import os
+
+## Print the current working directory
+print("Current working directory = " + os.getcwd())
+
+## Get home directory
+home_dir = os.path.expanduser('~')
+print("Home directory = " + home_dir)
+
+## Specify the data directory
+course_dir = os.path.join(home_dir, "jgb53d-bd-prog")
+seq_dir = os.path.join(course_dir, "data", "sequences")
+print("Sequence directory = " + seq_dir)
+
+## List all files in the data directory
+seq_files = os.listdir(seq_dir)
+print(seq_files)
+
+## Specify the full path of the organism-specific sequence files
+ecoli_seq_file = os.path.join(seq_dir, "Escherichia_coli_str_K-12_substr_MG1655.PATRIC.fa")
+print("E.coli CDS file : " +ecoli_seq_file)
+plasmodium_seq_file = os.path.join(seq_dir, "PlasmoDB-12.0_Pfalciparum3D7_AnnotatedCDSs.fa")
+print("P.falciparum CDS file: " + plasmodium_seq_file)
+
+
+## Read all sequences from the Escherichia coli file
+print("\nReading all CDS for Escherichia coli")
+coli_cds = read_fasta_file(ecoli_seq_file)
+
+print("\nReading all CDS for Plasmodium falciparum\n")
+plasmodium_cds = read_fasta_file(plasmodium_seq_file)
+      </pre>
+
+      <a name="revCompl"></a>
+      <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+      <h2>Calcul de la séquence réverse complémentaire</h2>
+
+      <p class="exo">Implémentez une fonction qui retourne
+	le <span class="concept">réverse-complément</span> d'une
+	séquence de nucléotides, c'est à dire la séquence
+	complémentaire de la séquence renversée (les derniers seront
+	les premiers... et vice versa). Vérifiez, après application de
+	votre fonction, que la séquence d'origine n'a pas été
+	intrinsèquement modifiée.
+      </p>
+
+      <a href="javascript:sizeTbl2('block','sol_1x')" class="sol" >View solution</a>| 
+      <a href="javascript:sizeTbl2('none','sol_1x')" >Hide solution</a>
+      <div id=sol_1x  style="overflow:hidden;display:none">
+	<h4>Solution</h4>
+	<pre class="brush:python;">
+def reverseComplement(seq):
+    """Compute the reverse complement of a nucleotiduc sequence.
+    The current version only supports non-degenerated nucleotidic sequence. 
+    This function could easily be extended to support IUPAC code.
+
+    Args:
+        seq -- input sequence (string)
+    Returns:
+        rc -- a string containing the reverse complementary sequence
+    """
+
+    # The simplest way to reverse a sequence: read it with an iteration of -1
+    rev = seq[::-1]
+    
+    # Compute a "translation table" in the python sense.
+    # Note: "translation" has a more general meaning here than in biology.
+    transtab = str.maketrans("aAcCgGtT","tTgGcCaA")   
+    rev_cpl = rev.translate(transtab)
+    return rev_cpl
+      </pre></div>
+
+
+      <p>Nous allons tester la fonction en calculant le réverse
+	complément d'une petite séquence facilement
+	reconnaissable. Notez que cette séquence comporte des
+	minuscules et majuscules, qui seront conservées après la
+	conversion.</p>
+
+      <pre class="brush:python;">
+# Create a test sequence. 
+# Note the presence of lower-and upper-cases
+testSeq = "aaaaTTttGCGCgcg"
+print("Original sequence           ", "\t", testSeq)
+
+## Compute the reverse complement
+rc = reverseComplement(testSeq) ## Compute the reverse complement
+print("Forward sequence (unchanged)", "\t", testSeq) ## Check that the function has no side effect on the input sequence
+print("Reverse complementary seq.  ", "\t", rc)      ## Check the result
+
+## Yet another control: compute the reverse 
+## complement of the reverse complement.
+rc_and_back = reverseComplement(rc)
+print("Forward sequence (unchanged)", "\t", testSeq) ## Check that the function has no side effect on the input sequence
+print("Rev.compl. of rev.compl.  ", "\t", rc_and_back)      ## Check the result
+
+# We can check formally that the reverse complement of the reverse
+# complement equals the original sequence
+print ("rc(rc(seq)) == seq ?\t", rc_and_back == testSeq)
+      </pre>
+
+      <a name="traduction"></a>
+      <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+      <h2>Des nucléotides aux acides aminés</h2>
+
+      <div class="exo">
+	<p>Ecrivez une fonction qui traduit (au sens biologique) les
+	  séquences nucléotidiques en séquences protéiques à l'aide du
+	  dictionnaire de traduction des codons en acides aminés
+	  ci-dessous.  Utilisez cette fonction pour générer un fichier
+	  FASTA des protéines des organismes étudiés.<p>
+      </div>
+
+      <pre class="brush:python;">
+
+	####################################
+	##  Table de traduction NT -> AA  ##
+	####################################
+
+	codon2AA = {}
+	codon2AA["ATT"]="I";codon2AA["ATC"]="I";codon2AA["ATA"]="I"
+	codon2AA["CTT"]="L";codon2AA["CTC"]="L";codon2AA["CTA"]="L";codon2AA["CTG"]="L";codon2AA["TTA"]="L";codon2AA["TTG"]="L"
+	codon2AA["GTT"]="V";codon2AA["GTC"]="V";codon2AA["GTA"]="V";codon2AA["GTG"]="V"
+	codon2AA["TTT"]="F";codon2AA["TTC"]="F"
+	codon2AA["ATG"]="M"
+	codon2AA["TGT"]="C";codon2AA["TGC"]="C"
+	codon2AA["GCT"]="A";codon2AA["GCC"]="A";codon2AA["GCA"]="A";codon2AA["GCG"]="A"
+	codon2AA["GGT"]="G";codon2AA["GGC"]="G";codon2AA["GGA"]="G";codon2AA["GGG"]="G"
+	codon2AA["CCT"]="P";codon2AA["CCC"]="P";codon2AA["CCA"]="P";codon2AA["CCG"]="P"
+	codon2AA["ACT"]="T";codon2AA["ACC"]="T";codon2AA["ACA"]="T";codon2AA["ACG"]="T"
+	codon2AA["TCT"]="S";codon2AA["TCC"]="S";codon2AA["TCA"]="S";codon2AA["TCG"]="S";codon2AA["AGT"]="S";codon2AA["AGC"]="S"
+	codon2AA["TAT"]="Y";codon2AA["TAC"]="Y"
+	codon2AA["TGG"]="W"
+	codon2AA["CAA"]="Q";codon2AA["CAG"]="Q"
+	codon2AA["AAT"]="N";codon2AA["AAC"]="N"
+	codon2AA["CAT"]="H";codon2AA["CAC"]="H"
+	codon2AA["GAA"]="E";codon2AA["GAG"]="E"
+	codon2AA["GAT"]="D";codon2AA["GAC"]="D"
+	codon2AA["AAA"]="K";codon2AA["AAG"]="K"
+	codon2AA["CGT"]="R";codon2AA["CGC"]="R";codon2AA["CGA"]="R";codon2AA["CGG"]="R";codon2AA["AGA"]="R";codon2AA["AGG"]="R"
+	codon2AA["TAA"]="";codon2AA["TAG"]="";codon2AA["TGA"]=""
+
+      </pre>
+
+
+      <a href="javascript:sizeTbl2('block','sol_2x')" class="sol" >View solution</a>| 
+      <a href="javascript:sizeTbl2('none','sol_2x')" >Hide solution</a>
+      <div id=sol_2x  style="overflow:hidden;display:none">
+	<h4>Solution</h4>
+	
+	<p>Let us first define a function that takes as input a single
+	  sequence (as a string), and returns a string with the
+	  translated sequence. For the sake of simplicity, the code is
+	  included in the function itself.
+	</p>
+	
+	<pre class="brush:python;">
+def translate_seq(nt_seq):
+    """
+    Translate one nucleic sequence into the corresponding 
+    peptidic sequence, using the canonical code of living organisms.
+    
+    Args: 
+        nt_seq -- a nucleic sequence (string)
+    Returns:
+        aa_seq -- a peptidic sequence (string)
+    """
+    ####################################
+    ##  Translation dictionary from codons (triplets of nucleotides) to aminoacids
+    ####################################
+    codon2AA = {}
+    codon2AA["ATT"]="I";codon2AA["ATC"]="I";codon2AA["ATA"]="I"
+    codon2AA["CTT"]="L";codon2AA["CTC"]="L";codon2AA["CTA"]="L";codon2AA["CTG"]="L";codon2AA["TTA"]="L";codon2AA["TTG"]="L"
+    codon2AA["GTT"]="V";codon2AA["GTC"]="V";codon2AA["GTA"]="V";codon2AA["GTG"]="V"
+    codon2AA["TTT"]="F";codon2AA["TTC"]="F"
+    codon2AA["ATG"]="M"
+    codon2AA["TGT"]="C";codon2AA["TGC"]="C"
+    codon2AA["GCT"]="A";codon2AA["GCC"]="A";codon2AA["GCA"]="A";codon2AA["GCG"]="A"
+    codon2AA["GGT"]="G";codon2AA["GGC"]="G";codon2AA["GGA"]="G";codon2AA["GGG"]="G"
+    codon2AA["CCT"]="P";codon2AA["CCC"]="P";codon2AA["CCA"]="P";codon2AA["CCG"]="P"
+    codon2AA["ACT"]="T";codon2AA["ACC"]="T";codon2AA["ACA"]="T";codon2AA["ACG"]="T"
+    codon2AA["TCT"]="S";codon2AA["TCC"]="S";codon2AA["TCA"]="S";codon2AA["TCG"]="S";codon2AA["AGT"]="S";codon2AA["AGC"]="S"
+    codon2AA["TAT"]="Y";codon2AA["TAC"]="Y"
+    codon2AA["TGG"]="W"
+    codon2AA["CAA"]="Q";codon2AA["CAG"]="Q"
+    codon2AA["AAT"]="N";codon2AA["AAC"]="N"
+    codon2AA["CAT"]="H";codon2AA["CAC"]="H"
+    codon2AA["GAA"]="E";codon2AA["GAG"]="E"
+    codon2AA["GAT"]="D";codon2AA["GAC"]="D"
+    codon2AA["AAA"]="K";codon2AA["AAG"]="K"
+    codon2AA["CGT"]="R";codon2AA["CGC"]="R";codon2AA["CGA"]="R";codon2AA["CGG"]="R";codon2AA["AGA"]="R";codon2AA["AGG"]="R"
+    codon2AA["TAA"]="";codon2AA["TAG"]="";codon2AA["TGA"]=""
+
+    aa_seq = ""
+    for i in range(0,len(nt_seq),3):
+        aa_seq += codon2AA[ nt_seq[i:i+3] ]
+    return aa_seq
+	</pre>
+	
+	<p>For the exercise, we want to translate each coding sequence
+	  of the organisms of interest. For this, we write a second
+	  function, which iterates over the coding sequences, and
+	  translates each one in turn. The input nucleic sequences
+	  will be provided as a python dictionary (as we read it
+	  above), and the output peptidic sequences returned as
+	  another dictionary.</p>
+
+    <pre class="brush:python;">
+def translate_seq_dict (nt_seq_dict):
+    """
+    Translate a set of nucleic into the corresponding peptidic sequences, 
+    using the canonical code of living organisms.
+    
+    Args: 
+        nt_seq_dict -- a dictionary of nucleic sequences (key=name or ID, value=sequence)
+    Returns:
+        aa_seq_dict -- a dictionary of peptidic sequence obtained by translating each individual sequence
+    """
+    aa_seq_dict = dict()
+    for name,nt_seq in nt_seq_dict.items():
+        aa_seq_dict[name] = translate_seq(nt_seq)
+    return(aa_seq_dict)
+    </pre>
+
+	<p>The last step of the exercise is to implement a function that
+	  writes a set of sequences (provided as python dictionary) into a
+	  fasta-formatted file.</p>
+	
+	<pre class="brush:python;">
+def write_seq(seq_dict, file_name):
+    """
+    Write a set of sequences in a fasta-formatted file.
+    
+    Args:
+        seq_dict -- a dictionary of sequences (key: ID or name, value=sequence)
+        file_name -- name of the output file
+
+    Returns:
+        no value
+    """
+    print ("Writing ",len(seq_dict)," sequences in file", file_name) 
+    outfile = open(file_name,"w") ## Open output file in write mode
+    for name,sequence in seq_dict.items():
+        outfile.write(">" + name +"\n")
+        outfile.write(sequence+"\n")
+    outfile.close()
+
+	</pre>
+      </div>
+
+      
+      <a name="compoNT"></a>
+      <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+      <h2>Composition en bases et séquences aléatoires</h2>
+
+      <div class="exo">
+	<p>Calculer les fréquences absolues et relatives de chacune
+	  des quatres bases (A,C,G,T) sur l'ensemble des séquences
+	  codantes d'un organisme.  Vérifiez au passage que la somme
+	  des comptes pour chacune des bases correspond bien au total
+	  des longueurs des séquences.
+	</p>
+      </div>
+
+      <a href="javascript:sizeTbl2('block','sol_3x')" class="sol" >View solution</a>| 
+      <a href="javascript:sizeTbl2('none','sol_3x')" >Hide solution</a>
+      <div id=sol_3x  style="overflow:hidden;display:none">
+	<h4>Solution</h4>
+	<pre class="brush:python;">
+# -*- coding: utf8 -*-
+def nt_composition(codingGenes):
+    nbA, nbT, nbG, nbC, seq_len = 0, 0, 0, 0, 0 ## Initialize the counters
+    for gene,sequence in codingGenes.items():
+        nbA += sequence.count("A") ## Increment the counter for A
+        nbT += sequence.count("G") ## Increment the counter for C
+        nbG += sequence.count("G") ## Increment the counter for G
+        nbC += sequence.count("T") ## Increment the counter for T
+        seq_len += len(sequence)
+        
+    tot = nbA + nbT + nbG + nbC
+
+    if( tot == seq_len ):
+        print("le compte est bon!")
+    else:
+        print("Problème! Le total (",tot,") ne correspond pas à la somme des longueurs de la sequence (",seq_len,")")
+    return {"nbA" : nbA, "nbT" : nbT, "nbG" : nbG, "nbC" : nbC}
+
+plasmoCompoNT = nt_composition(plasmodium_cds)
+print("Plasmo compo ", plasmoCompoNT)
+
+ecoliCompoNT = nt_composition(coli_cds)
+print("E.coli compo ", ecoliCompoNT)
+	</pre>
+      </div>
+      
+      <div class="exo">
+	<p>
+	  Ecrivez ensuite une fonction qui génère des séquences
+	  aléatoires suivant la distribution donnée en nucléotides.  La
+	  longueur de la séquence sera également passée en argument de la
+	  fonction.
+	</p>
+      </div>
+
+      <p class="tips"><b>Note</b>: pour produire des séquences aléatoires, vous aurez
+	besoin d'importer le module <b><i>random</i></b>.
+      </p>
+
+      <a href="javascript:sizeTbl2('block','sol_4x')" class="sol" >View solution</a>| 
+      <a href="javascript:sizeTbl2('none','sol_4x')" >Hide solution</a>
+      <div id=sol_4x  style="overflow:hidden;display:none">
+	<h4>Solution</h4>
+	<pre class="brush:python;">
+import random
+basesNT = ("A", "T", "G", "C")
+def seqAlea(compoNT, length):
+    retSeq = ""
+	  for i in range(length):
+	  r = random.random()
+	  for base in basesNT:
+	  if r < compoNT[base] :
+		 retSeq += base
+		 break;
+		 else:
+		 r -= compoNT[base]
+		 return retSeq
+
+		 </pre></div>
+
+      <div class="exo">
+	<p>Créez un fichier fasta avec des séquences aléatoires de la
+	  mÃªme taille que les CDS d'un organisme donné, et vérifiez
+	  que sa composition moyenne en nucléotides correspond à celle
+	  des séquences réelles.</p>
+      </div>
+
+
+      <a href="javascript:sizeTbl2('block','sol_5x')" class="sol" >View solution</a>| 
+      <a href="javascript:sizeTbl2('none','sol_5x')" >Hide solution</a>
+      <div id=sol_5x  style="overflow:hidden;display:none">
+	<h4>Solution</h4>
+	<pre class="brush:python;">
+
+	  def randomFile(codingGenes, fileName):
+	  randomCompoNT = compoNT(codingGenes)
+	  print("randomCompoNT compo ", randomCompoNT)
+	  outfile = open(fileName,"w")
+	  for gene,sequence in codingGenes.items():
+	  outfile.write(">"+gene+"-like\n"+seqAlea(randomCompoNT,len(sequence))+"\n")
+	  outfile.close()
+	  
+
+	  randomFile(plasmoCodingGenes,"plasmoRandom.fasta")
+	  randomFile(ecoliCodingGenes,"ecoliRandom.fasta")
+
+	  plasmoRandomCodingGenes = readFastaFile("plasmoRandom.fasta")
+	  plasmoRandomCompoNT = compoNT(plasmoRandomCodingGenes)
+	  print("Plasmo-random compo ", plasmoRandomCompoNT)
+
+	  ecoliRandomCodingGenes = readFastaFile("ecoliRandom.fasta")
+	  ecoliRandomCompoNT = compoNT(ecoliRandomCodingGenes)
+	  print("E.coli-random compo ", ecoliRandomCompoNT)
+      </pre></div>
+
+      
+      <a name="avance"></a>
+      <br><a href='#contenu'><font size='-2'><hr>[Retour à la table des matières]</font></a>
+      <h2>Pour les plus avancés...</h2>
+      <div class='exo'>
+	<p>Ecrivez un fonction:</p>
+	<ol>
+	  <li>Qui prend en paramètre l'une des quatres bases
+	    nucléotidiques, et renvoie le gène ayant la plus haute
+	    fréquence pour cette base parmi tous les gènes
+	    de l'organisme.</li>
+	  <li>Permettant de calculer séparément la fréquence en
+	    nucléotides pour chacune des trois positions des
+	    codons.</li>
+	  <li>Calculant la composition moyenne en acides aminés des
+	    protéines.</li>
+	  <li>Retournant l'usage des codons, c'est-à-dire la fréquence
+	    d'utilisation de chaque codon pour chaque acide
+	    aminé.</li>
+	  <li>Qui calcule la composition d'un jeu de séquences pour
+	    tous les <span class="concepts">k-mères</span>,
+	    c'est-à-dire les oligonucléotides d'une taille <i>k</i>
+	    donnée. Utilisez-la pour calculer les fréquences de
+	    3-mères (trinucléotides) dans les CDS de <span class="organism">E.coli</span> et
+	    F.falciparum, respectivement, et générez des
+	    représentations graphiques pour illustrer les
+	    différences.</li>
+	</ol>
+      </div>
+
+
+      <!-- Dé-commenter après le TD -->
+      <!-- 
+	   <a href="javascript:sizeTbl2('block','sol_0x')" class="sol" >View solution</a>| 
+	   <a href="javascript:sizeTbl2('none','sol_0x')" >Hide solution</a>
+	   <div id=sol_0x  style="overflow:hidden;display:none">
+	     <h4>Solution</h4>
+	     <pre class="brush:python;">
+	       def compoNtperGene(codingGenes)
+	       compoNT = {}
+	       for gene,sequence in codingGenes.items():
+	       compoNT[gene] = {}
+	       for base in basesNT:
+	       compoNT[gene][base] = sequence.count(base)
+	       return compoNT
+
+
+	       defMaxOfBase(compoGenes, base):
+	       max = 0
+	       memGene = ""
+	       for gene,compoNT in compoGenes.items():
+	       if( compoNT[base] > max ):
+	       max = compoNT[base]
+	       memGene = gene
+	       print("Maximum proportion of " + base + " for gene " + memGene + " (" + max + "%)"
+
+
+	       for base in basesNT:
+	       defMaxOfBase(plasmoCompoNT,base)
+	       defMaxOfBase(ecoliCompoNT,base)
+
+	       <!-- -->
+
+
+	       <br>
+	       <hr>
+  </body>
+</html>

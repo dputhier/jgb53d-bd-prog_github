@@ -1,0 +1,382 @@
+<html>
+
+
+  <script language="JavaScript" type="text/javascript">
+    <!--
+	function sizeTbl2(h,i) {
+	var tbl = document.getElementById(i);
+	tbl.style.display = h;
+	}
+	// -->
+  </script> 
+
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Python. Structures de donnÃ©es</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushPython.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+  
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+
+    <h1 class='title'>Statistiques et représentations graphiques</h1>
+
+    <hr>
+    <a name='contenu'></a>
+    <h2>Contenu</h2>
+    <ol>
+      <li><a href="#objectifs">Objectifs du TD</a></li>
+      <li><a href="#datasets">Jeux de données</a></li>
+      <li><a href="#configuration">Configuration des dossiers locaux</a></li>
+      <li><a href="#exercises">Enoncés des exercices</a></li>
+      <li><a href="#read_coordinates">Chargement de coordonnées à partir d'un fichier tabulaire</a></li>
+    </ol>
+
+    <a name='objectifs'></a>
+    <br><a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Objectifs</h2>
+
+    <p>Le but de ce TP est d'apprendre à calculer quelques
+      statistiques descriptives sur un jeu de données, et à générer
+      des représentations graphiques (plots, histogrammes).
+    </p>
+
+    <a name='datasets'></a>
+    <br><a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Jeux de données</h2>
+
+    <p>Nous chargerons un jeu de données à partir de fichiers
+      tabulaire (fichier texte dont les colonnes sont délimitées par
+      des tabulations). Il s'agit d'un format très courant en
+      bioinformatique, et il est donc important d'apprendre à en
+      extraire le contenu.</p>
+
+    <p>Nous avons préparé deux fichiers tabulaires, contenant les
+      positions et descriptions des séquences codantes (CDS) pour deux
+      organismes: l'entérobactérie <span class="organism">Escherichia
+      coli</span> et le vecteur de la
+      malaria, <span class="organism">Plasmodium
+      falciparum</span>.</p>
+
+    <table>
+      <tr>
+	<td><a target='_blank' href='../../data/gene_tables/Escherichia_coli_K_12_substr__MG1655_uid57779_cds.tab'>Escherichia_coli_K_12_substr__MG1655_uid57779_cds.tab</a></td>
+      </tr>
+      <tr>
+	<td><a target='_blank' href='../../data/gene_tables/Plasmodium_falciparum_cds.tab'>Plasmodium_falciparum_cds.tab</a></td>
+      </tr>
+    </table>
+
+    <p>La première ligne indique le contenu des différentes
+      colonnes.</p>
+
+    <h4>Téléchargement d'une copie locale des fichiers tabulaires</h4>
+
+    <p>Nous allons commencer par définir un dossier relatif à la
+      racine du compte de chaque étudiant, afin de permettre à chacun
+      de retrouver ensuite les fichiers au même endroit.</p>
+
+    <p class="attention">Les lignes de commande suivantes doivent être
+      exécutées dans un terminal Unix avant d'entamer la partie Python
+      de ce TP.</p>
+
+      <pre class="brush:bash;">
+## Copy-paste the following instructions in a terminal
+cd $HOME ## Go to the root of your account in linux
+pwd      ## Check the current working directory
+
+## Create a directory to store sequence files
+mkdir -p jgb53d-bd-prog/data/gene_tables
+cd  jgb53d-bd-prog/data/gene_tables
+
+## Get the sequence files from the Web site
+wget -nc http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/gene_tables/Escherichia_coli_K_12_substr__MG1655_uid57779_cds.tab
+wget -nc http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/gene_tables/Plasmodium_falciparum_cds.tab
+
+## List the sequences and check that the two sequence files are there
+ls -1
+      </pre>
+
+
+    <a name='configuration'></a>
+    <br><a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Configuration des dossiers locaux</h2>
+
+
+    <p class="attention">Les commandes suivantes doivent être
+      exécutées dans votre interpréteur python3.</p>
+
+    <p>Nous allons définir le chemin d'accès aux fichiers tabulaires
+      que nous avons téléchargés ci-dessus, et définir des variables
+      qui contiennent leur chemin complet. </p>
+
+    <div class="protocol">
+      <p>Copiez-collez l'ensemble des lignes suivantes dans
+	l'interpréteur python.
+      <div class="tips">A ce stade du TP, il n'est pas nécessaire de
+	maîtriser tous les détails de ce code, il s'agit d'un
+	bricolage permettant de retrouver les fichiers à l'endroit
+	précis où nous les avons téléchargés. Les exercices qui font
+	l'objet de ce TP commenceront à la prochaine section.</div>
+      </p>
+    </div>
+
+    <pre class="brush:python;">
+import os ## Operating system library
+
+## Get home directory
+home_dir = os.path.expanduser('~')
+print("Home directory = " + home_dir)
+
+## Specify the data directory
+course_dir = os.path.join(home_dir, "jgb53d-bd-prog")
+cds_dir = os.path.join(course_dir, "data", "gene_tables")
+print("Data directory = " + cds_dir)
+
+## List all files in the data directory
+data_files = os.listdir(cds_dir)
+print(data_files)
+
+## Specify the full path of the organism-specific CDS files
+ecoli_cds_file = os.path.join(cds_dir,  "Escherichia_coli_K_12_substr__MG1655_uid57779_cds.tab")
+print("E.coli CDS file : " + ecoli_cds_file)
+plasmodium_cds_file = os.path.join(cds_dir,  "Plasmodium_falciparum_cds.tab")
+print("P.falciparum CDS file: " + plasmodium_cds_file)
+      </pre>
+
+
+
+    <a name='exercises'></a>
+    <br><a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Enoncés des exercices</h2>
+    <div class="exo">
+      <ol>
+	<li><p>Ecrivez une méthode qui prend en entrée un nom de
+	    fichier et un numéro de colonne, lit le contenu de ce
+	    fichier et retourne une liste contenant les valeurs
+	    (supposées entières) de la colonne indiquée. Utilisez
+	    ensuite cette méthode pour extraire les positions de début
+	    et de fin des CDS d'<span class="organism">Escherichia
+	    coli</span>, que vous stockerez dans des listes
+	    dénommées <span class="option">start_positions</span>
+	    et <span class="option">end_positions</span>,
+	    respectivement.</p>
+	    <p class="tips">La première ligne du fichier ne contient
+	      pas de données, il s'agit d'une ligne d'en-tête
+	      (<span class="concept">header</span>) qui indique le
+	      contenu de chaque colonne. Vous pouvez simplement passer
+	      cette ligne.</p>
+
+	</li>
+
+	<li>Calculez la longueur de chaque gène, et enregistrez le
+	  résultat dans une liste
+	  dénommée <span class="option">cds_lengths</span>. Calculez
+	  la longueur moyenne, maximale et minimale des CDS.</li>
+	<li>Dessinez un histogramme des longueurs de gènes</li>
+      </ol>
+    </div>
+
+
+    <a name='read_coordinates'></a>
+    <br><a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Chargement de coordonnées à partir d'un fichier tabulaire</h2>
+
+    <h3>Ingrédients</h3>
+
+    <div class="solution">
+      <ol>
+	<li><p>Pour résoudre cette question, nous utilisons
+	  l'ouverture classique de fichier en lecture
+	    (<span class="code">open</span>), puis nous lisons le
+	  fichier au moyen d'une boucle <span class="code">for</span>
+	    qui parcourt tour à tour chaque ligne du fichier.</p></li>
+	
+	<li><p>Nous utilisons la
+	    méthode <span class="code">split()</span>, définie pour les
+	    chaînes de caractères (<span class="code">str</span>), afin
+	    de séparer les champs de chaque ligne. Nous préciserons que
+	    le séparateur de champs est la tabulation
+	    (option <span class="code">split(sep="\t")</span>).
+	</p></li>
+      </ol>
+    </div>
+
+    <h3>Un exemple de solution</h3>
+    
+    <p>La solution ci-dessous est un peu plus élaborée que la stricte
+      réponse à l'énoncé. 
+      <ol>
+	<li>Nous commençons par vérifier si les arguments fournis sont
+	  apparemment corrects (le numéro de colonne doit être un entier
+	  >1, le nom de fichier ne peut être vide).</li>
+	<li>Nous imprimons à l'écran des informations concernant les
+	  données extraites (en-tête de la colonne, nombre de
+	  valeurs).</li>
+      </ol>
+    </p>
+
+    <p>Ces éléments de sécurité et de confort allongent le code, mais
+      n'introduise aucune difficulté ou nouveauté par rapport aux TP
+      précédents.</p>
+
+    <pre class="brush:python;">
+def read_column(file_name, column):
+    """
+    Extract the content of a specified column from a tab-delimited file.
+    
+    Attributes:
+        file_name -- name of a tab-delimited text file
+        column -- number of the column (first column is 1)
+        
+    Returns:
+        values -- a list of integer values parsed from the specified column of the input file
+    """
+    ## Check that the column attribute is an integer (column number)
+    if (type(column) != int):
+        raise Exception("read_column() error: invalid column number: should be an integer")
+
+    ## Check that the column attribute is at least 1
+    if (column < 1):
+        raise Exception("read_column() error: invalid column number: should be >= 1")
+
+    ## Check that file name is not an empty string
+    if (file_name == ""):
+        raise Exception ("read_column() error: file name cannot be empty")
+
+    ## Open the file in read mode
+    file = open(file_name, "r")
+    
+    l = 0 ## Initialize a line counter
+    values = [] ## Create a list to store the values
+    column_header = "" ## Header of the selected column
+    for line in file:
+        l += 1
+        fields = line.split(sep="\t") ## Split the line by tab
+        if (l == 1): 
+            ## Report the column content from the header line (for information)
+            column_header = fields[column-1] 
+        else: ## parse all subsequent lines
+            value = int(fields[column-1])
+            values.append(value)
+    print("Extracted " + str(len(values)) + " values from column " + str(column) + "\t" + column_header)        
+    return(values)
+</pre>
+
+    <p>Nous pouvons maintenant utiliser simplement cette méthode pour
+      lire les coordonnées de début (start_positions) et fin
+      (end_positions) de chaque séquence codante (CDS)
+      d'<span class="organism">Escherichia coli</span>.</p>
+
+    <pre class="brush:python;">
+start_positions = read_column(ecoli_cds_file, 2)
+end_positions = read_column(ecoli_cds_file, 3)
+    </pre>
+
+    <a name='stats'></a>
+    <br><a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Statistiques sur les longueurs de gènes</h2>
+
+    <p>Nous commençons par calculer nous-mêmes les longueurs minimale,
+      maximale et moyenne de tous les CDS.</p>
+    <pre class="brush:python;">
+cds_lengths = [] ## Initialize and empty list to store gene lengths
+for i in range(len(start_positions)):
+    cds_lengths.append(end_positions[i] - start_positions[i] +1)
+
+## Check the 5 first gene length values
+print (cds_lengths[:5])
+
+## Compute the min and max values step by step
+n = len(cds_lengths)
+min_len = cds_lengths[0] ## Initialize the minimal length with the first gene
+max_len = cds_lengths[0]
+sum_len = 0
+mean_len = 0
+for len in cds_lengths:
+    if len > max_len:
+        max_len = len
+    if len < min_len:
+        min_len = len
+    sum_len += len
+mean_len = sum_len / n
+
+## Print the result        
+print ("Number of CDS\t" + str(n))
+print ("Min length\t" + str(min_len))
+print ("Max length\t" + str(max_len))
+print ("Mean length\t" + str(mean_len))
+</pre>
+
+    <h3>Calcul de statistiques au moyen de la bibliothèque de
+      fonctions python <span class="program">statistics</span></h3>
+
+    <p>Une façon plus simple de calculer les statistiques est de
+      recourir à une bilbliothèque de fonctions spécialisée. Python
+      inclut un module <span class="command"><a target="_blank"
+      href="https://docs.python.org/3/library/statistics.html">statistics</a></span>
+      qui fournit les solutions de calcul pour les statistiques de cet
+      exercice, et bien plus.</p>
+
+    <!--
+
+    <div class="exo">
+      <ol>
+	<li>
+	  <p>En vous basant sur le TP précédent, 
+	    <ol type="a">
+	      <li>lisez les fichiers fasta contenant l'ensemble des séquences codantes de *Escherichia coli* et *Plasmodium falciparum*, respectivement.</li>
+	      <li>Traduisez ces séquences nucléotidiques pour obtenir les séquences peptidiques de leurs produits.</li>
+	    </ol>
+	  </p>
+	</li>
+
+
+	<li>
+	  <p>Ecrivez une méthode qui prend en entrée un dictionnaire
+	    de séquences (clé=nom, valeur=séquences), et calcule les
+	    statistiques suivantes.
+	    <ol type="a">	
+	      <li>Nombre de séquences,</li>
+	      <li>Tailles moyenne, minimale, maximale,</li>
+	      <li>Taille médiane, premier et troisième quartile.</li>
+	    </ol>
+	  </p>
+	  <p>Calculez ces statistiques sur l'ensemble des séquences
+	    peptidiques pour E.coli et P.falciparum,
+	    respectivement.
+	  </p>
+	</li>
+
+	<li>Ecrivez une méthode qui prend en entrée un dictionnaire de
+	  séquences, et calcule la distribution des tailles de
+	  séquences.</li>
+
+	<li>Dessinez l'histogramme de la distribution de tailles de
+	  séquences pour E.coli et P.falciparum, respectivement.</li>
+
+	<li>Comparez au moyen d'un dot plot (plot XY) la composition
+	  en hexanucléotides des séquences codantes de E.coli et
+	  P.falciparum.</li>
+	
+	<li>Dessinez une carte de température ("heatmap") pour
+	  comparer les fréquences de nucléotides dans les CDS de E.coli
+	  et P.falciparum.</li>
+      </ol>
+    </div>
+
+-->
+    <hr>
+  </body>
+</html>

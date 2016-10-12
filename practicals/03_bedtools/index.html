@@ -1,0 +1,515 @@
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Discovering the human genome with UNIX - Handling genomic coordinates with bedtools.</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+  <body>
+    
+    <script language="JavaScript" type="text/javascript">
+      <!--
+		  function sizeTbl2(h,i) {
+		  var tbl = document.getElementById(i);
+		  tbl.style.display = h;
+		  }
+		  // -->
+    </script> 
+    
+    <h1>Discovering the human genome with UNIX - Handling genomic coordinates with bedtools</h1>
+
+    
+    <a name='contents'></a>
+    <h2>Contents</h2>
+    <ul>
+
+	  <li><a href='#contents'>Contents</a></li>
+	  <li><a href='#intro'>Introduction</a></li>
+	  <li><a href='#session'>Opening a session</a></li>
+	  <li><a href='#wdir'>Creating a result directory for this practical</a></li>
+	  <li><a href='#bedtools'>The Bedtools suite: "a swiss army knife for genome arithmetic"</a></li>
+	  <li><a href='#exons'>Which fraction of the human genome is covered by exons ?</a></li>
+	  <li><a href='#snps'>Genomic locations of SNPs associated with prostate cancer</a></li>
+
+    </ul> 
+    
+    <hr>		  
+    <a name='intro'></a>
+    <h2>Introduction</h2>
+
+    <h3>Genomic coordinates</h3>
+
+
+    <p>Working with genomic data frequently implies to deal with
+      biological sequences. As these sequences (genes, exons, ...) are
+      related to genomes, handling <b>genomic coordinates</b> is
+      typically required. A basic task in genomic data analysis is
+      to <b>compare different sets of genomic features</b>
+      (transcripts, promoter regions, polymorphisms, conserved
+      elements,...). One question could be for instance "which SNPs
+      (Single Nucleotide Polymorphisms) are associated with a disease
+      of interest and fall into exonic regions". Such questions
+      require dedicated tools to ease data analysis.</p>
+    
+    <p><span class="program">Bedtools</span> has been developed to
+      compare sets of genomic features and is now becoming a standard
+      Linux tool for people working in the field. Bedtools largely
+      relies on
+      the <a href='https://genome.ucsc.edu/FAQ/FAQformat.html#format1'>BED</a>
+      file format (although it may also operate
+      with <a href='https://genome.ucsc.edu/FAQ/FAQformat.html#format3'>GFF/GTF</a>, 
+      <a href='https://genome.ucsc.edu/FAQ/FAQformat.html#format10.1'>VCF</a>,
+      and <a href='https://genome.ucsc.edu/FAQ/FAQformat.html#format5.1'>SAM/BAM</a>
+      files). 
+    </p>
+	
+    <p>The Bed file format is a very simple way to store information
+      related to genomic features. A typical file in BED format will
+      contain the following columns (the 3 first columns are
+      mandatory):
+      <ol>
+	<li><b>chrom</b> - The name of the chromosome (e.g. chr3, chrY, chr2...).</li>
+	<li><b>chromStart</b> - The starting position of the feature in the chromosome.</li>
+	<li><b>chromEnd</b> - The ending position of the feature in the chromosome. </li>
+	  <li><b>name</b> - A name for the feature (<i>e.g.</i> gene name...). </li>
+	<li><b>score</b> - A score between 0 and 1000. </li>
+	<li><b>strand - </b>  - Defines the strand - either '+' or '-'. </li>
+      </ol>
+    </p>
+
+    <h3>Bed format</h3>
+	<p>Several conventions exist to describe genome
+	  coordinates. The BED file format is said to be <b>"zero-based,
+	    half-open"</b>.</p>
+	
+	<img style="width:250px; display: block; margin-left: auto; margin-right: auto;" src="zb.jpg">
+	
+    <p>
+      <ul>
+	<li><span class="concept">Zero-based</span> means that the
+	  coordinate of the first nucleotide of a chromosome is defined as
+	  0 . </li>
+	<li><span class="concept">half-open</span> means that the
+	  "End" coordinate is not part of the feature. In the example
+	  above, corresponding to a "chromosome" (Z) containing 12
+	  nucleotides, the coordinates of the ATG (in red) sequence
+	  would be [4,7[.  The corresponding entry would be described
+	  by the following row in a bed file :
+	  <pre>
+ChrZ    4       7
+	  </pre>
+	  
+	  <p>This convention is somewhat confusing, since the ATG
+	    trinucleotide actually spans the region from the
+	    5<sup>th</sup> to the 8<sup>th</sup> nucleotides of the
+	    sequence. However, this is the convention adopted by many
+	    genome centers, and we have to learn using it.</p>
+	</li>
+      </ul>
+    </p>
+    
+    <hr>		  
+    <a name='session'></a>
+    <h2>Opening a session</h2>
+
+    <h3>Starting a Unix terminal</h3>
+    
+
+    <div class='protocol'>
+      <ol>
+	<li>Connect to the computer using your login and password.</li> 
+	<li>Open a terminal. You should find a terminal (terminal,
+	  konsole, terminator,...) in the <b>Application Menu</b>.</li>
+      </ol>
+    </div>
+	
+    <hr>		  
+    <a name='wdir'></a>
+    <h2>Creating a result directory for this practical</h2>
+    
+    <div class='protocol'>
+      <ol>
+	<li>Using the <span class="command">mkdir</span> command
+	  (<b>m</b>a<b>k</b>e <b>dir</b>ectory), create a working
+	  directory named <span class="file">TD02_Bioinfo</span> in
+	  your HOME directory.</li>
+	<li>Use the <span class="command">cd</span>
+	  (<b>c</b>hange <b>d</b>irectory) command to enter
+	  the <span class="file">TD02_Bioinfo</span> directory, and
+	  check that you are located in this directory.</li>
+      </ol>
+    </div>
+
+    <a href="javascript:sizeTbl2('block','sol_mk')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_mk')">Hide solution</a>
+    <div id=sol_mk  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">	
+cd ~                            # or cd. Go to home directory
+pwd                             # check the current working directory
+mkdir TD02_Bioinfo              # Create a new directory
+cd TD02_Bioinfo                 # (or cd ~/TD02_Bioinfo) enter the TD02_Bioinfo directory
+pwd                             # Check that your working directory is now set to TD°2_Bioinfo
+      </pre>
+    </div>
+    
+    <hr>
+    <a name='bedtools'>	</a>	
+    <h2>The Bedtools suite: "a swiss army knife for genome arithmetic"</h2>
+    
+    
+    <h4>Installing the bedtools suite</h4>
+    <p>We will install the
+      latest <a href="http://bedtools.readthedocs.org/en/latest/">
+      Bedtools suite</a>. To this aim, we will retrieve a small script
+      that contains simple BASH commands that will automatically
+      perform for us the installation steps:</p>
+
+    <ol>
+      The script will automaticaly
+      <li>Use <span class="command">wget</span>
+	to retrieve the source code of
+	the <span class="program">BedTools</span> program.</li>
+      <li>Uncompress the zip file
+	(<span class="command">unzip</span>). This will create a
+	folder named <b>bedtools2-master</b>.</li>
+      <li>Run the command <span class="command">mkdir</span> to create
+	a new folder in your home directory
+	(<span class="file">~/soft</span>), where the BedTools
+	software will be stored (and which may be used later to store
+	other software tools). </li>
+      <li>Move (<span class="command">mv</span>) the
+	directory <span class="file">bedtools2-master</span> to the
+	directory <span class="file">~/soft</span>.</li>
+      <li>Change the shell working directory
+	to <span class="file">~/soft/bedtools2-master</span>
+	(<b>cd</b>).</li>
+      <li>Compile Bedtools from sources (<span class="command">make</span>).</li>
+      <li>Add a line to your <span class="file">~/.bashrc</span> file
+	so that the folder <b>~/soft/bedtools2-master/bin</b> will be
+	added to the <b>PATH</b> variable (PATH is an environment
+	variable specifying a set of directories where executable
+	programs are located).</li>
+    </ul>
+    
+    <div class="tips">
+      <p>The installation script can be
+      downloaded <b><a href="../../installBedtools.sh">here</a></b>
+      (right-click on the link and select "Copy link adress" to get
+      the URL.).</p>
+    </div>
+    
+    <div class="exo">
+      <ol>
+	<li>Go to the <b>/tmp</b> directory (<b>cd</b>).</li>
+	<li>Using the <b>wget</b> command, download the installation script.</li>
+	<li>Use the <b>ls</b> command with <b>-l</b> arguments to check that the file is present. Have a look at access permissions.</li>   
+	<li>check the content of <b>installBedtools.sh script</b> with <b>less</b>.</li>  
+	<li>Use the <b>chmod</b> command to give yourself (the <b>U</b>ser) e<b>X</b>ecute permission on file <b>installBedtools.sh</b>.</li>
+	<li>Using the <b>ls</b> command with <b>-l</b> arguments check access permissions.</li> 
+	<li>Execute the <b>installBedtools.sh script</b>.</li>
+	<li>Instruct the terminal to reload the <b>~/.bashrc</b> file (<b>source</b>)</li>
+	<li>Go back to the ~/TD02_Bioinfo directory (<b>cd</b>).</li>
+	<li>Type <b>bedtools -h</b></li>
+      </ol>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_ins')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_ins')">Hide solution</a>
+    <div id=sol_ins  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">	
+# We will store the install script in the Linux temporary directory /tmp
+#
+# BEWARE: the Linux system deletes the files in this directory when
+# they are not required anymore.
+cd /tmp
+
+# Download the script
+wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/installBedtools.sh
+
+# List the files in the tmp directory by chronologic order, and
+# check the status of the script file installBedtools.sh
+ls -l
+
+# Inspect the file content
+less installBedtools.sh
+## Tip: after having looked at the content, type "q" to quit the programm "less"
+
+# Change permissions of the script, to make it executable
+chmod u+x installBedtools.sh
+
+# The script has now read (r), write (w) and execute (x) rights
+ls -l
+
+# Execute the script
+./installBedtools.sh
+
+# Check the installation
+cd ~         # Go back to your home directory
+ls -l        # There should be a new directory named "soft"
+ls -l soft   # this "soft" directory contains a sub-directory "bedtools2-master"
+
+# reload your ~/.bashrc file to include the bedtools binary directory in your path
+source ~/.bashrc
+cd ~/TD02_Bioinfo directory	# go back to previous directory
+bedtools -h                     # check that installation was effective
+      </pre>
+    </div>
+    
+
+    <hr>  
+    <a name='exons'></a>
+    <h2>Which fraction of the human genome is covered by exons ?</h2>
+    
+    <p>In the section below we will try to answer the following
+      question: "Which fraction of the genome is covered by exons&nbsp?".</p>
+    
+	
+    <h3>Downloading genomic coordinates of exons.</h3>	
+	
+	<p>First, we will retrieve feature coordinates (exons) from the UCSC server.</p>
+	
+	<div class='protocol'>
+	  <ol>
+		<li>Using your <b>Web browser</b>, go to
+		  the <a target='_blank'
+			 href="https://genome.ucsc.edu">UCSC</a> web site.</li>
+		<li>Select <a target='_blank' href="http://genome.ucsc.edu/cgi-bin/hgTables?command=start"><b>Tables</b></a> in the top menu.</li>	
+		<li>Select the following parameters: 
+		  <ul>
+		    <li><b>Clade:</b> Mammal, </li>
+		    <li><b>Genome</b>: Human, </li>
+		    <li><b>assembly:</b> "Dec. 2013 (hg38, GRCh38)", </li>
+		    <li><b>group</b>: Genes and Gene Prediction tracks, </li>
+		    <li><b>track</b>: RefSeq Genes, </li>
+		    <li><b>table</b>: refGenes, </li>
+		    <li><b>region</b>: genome, </li>
+		    <li><b>Output format</b>: BED. </li>
+		   </ul>
+		 <li>Set <b>output file</b> to "RefGene_hg38_exons.bed" and click on <b>Get output</b>.</li>
+		<li>In the next window, select <b>Exons</b> (plus 0
+		  bases at each end). Leave all other options
+		  unchanged, click the button <span class="option">get
+		  BED</span>.
+		  <ul class="tips">Note that with the same protocol we could
+		    also select the coordinates of all transcripts or
+		    intronic regions).</ul>
+		</li>
+	  </ol>
+	</div>
+
+
+	<div class='exo'>
+	  <ol>
+	    <li>Use the <span class="command">mv</span> command to
+	      move the file <span class="file">RefGene_hg38_exons.bed</span> from
+	      <span class="file">~/Téléchargements</span>
+	      (or <span class="file">~/Downloads</span>) to the your
+	      result
+	      directory <span class="file">TD02_Bioinfo</span>.</li>
+	    <li>Look at the 6 first lines of the file. Does it look
+	      like a bed format ? </li>
+	    <li>Is it a tabulated file ? </li>
+	  </ol>
+	</div>
+
+    <a href="javascript:sizeTbl2('block','sol_ef')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_ef')">Hide solution</a>
+    <div id=sol_ef  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">	
+## Note: the download folder may vary depending on your operating system. 
+## We indicate here the download fodler for the French version of Firefox.
+ls ~/Téléchargements 
+
+# mv RefGene_hg38_exons.bed to the result directory
+mv ~/Téléchargements/RefGene_hg38_exons.bed  ~/TD02_Bioinfo
+
+cd ~/TD02_Bioinfo                  # Set the working directory to the result firectory for this practical
+ls -l                              # Check that the exon table has been moved here
+
+head -n 6 RefGene_hg38_exons.bed   # Look at the first 6 lines
+
+# Select the first line and convert each letter to a code, to show
+# that the file is tabulated (contains "\t" characters) 
+head -1 RefGene_hg38_exons.bed | od -c
+      </pre>
+    </div>
+
+    <h3>Merging overlapping regions</h3>
+    
+    <p>To answer our simple question, we must first keep in mind that
+      several exons may overlap, due to various phenomena (alternative
+      splicing, multiple promoters or terminators, mutually
+      overlapping genes). To avoid counting several times the same
+      region, our first task will thus be to merge these overlapping
+      regions. The <span class="command">mergeBed</span> command from
+      the <span class="command">Bedtools</span> suite combines
+      overlapping features in an interval file into a single feature
+      which spans all of the combined features. The image below
+      illustrate this. </p>
+
+    <p class="attention"><b>Beware:</b> MergeBed requires the genomic
+      coordinates to be <b>sorted</b> (see below).</p>
+
+
+    <img style="width:300px; display: block; margin-left: auto; margin-right: auto;" src="img/mg.jpg">
+    
+    <p>We will first discard genes located on "non-regular"
+      chromosomes. For this, we consider as "regular" the chromosome
+      names starging with "chr" followed by one or more numbers (chr1,
+      chr17,...) or the specific letters "X" or "Y" (chrX, chrY). We
+      will first select the features from the bed files that match
+      these regular names, and then count among them (i) the total
+      number of exons and (ii) the number of exons per chromosome.</p>
+    
+	<pre class="brush:bash;">	
+grep -P "^chr[0-9XY]+\t" RefGene_hg38_exons.bed >  RefGene_hg38_exons_reg.bed    # delete non 'regular' chromosomes.
+wc -l RefGene_hg38_exons_reg.bed                                                 # Total number of exons
+cut -f1 RefGene_hg38_exons_reg.bed | sort | uniq -c | sort -rn                   # Check the number of exon per chromosome
+    </pre>
+    
+	<div class='exo'>
+	  <ol>	
+		<li>Get some help about the <b>sortBed</b> command using the <b>-h</b> (<b>h</b>elp) argument.</li>
+		<li>Use the <b>sortBed</b> command to sort exons by coordinates and store the results in <b>RefGene_hg38_exons_reg_sort.bed</b>.</li>
+		<li>Get some help about the <b>mergeBed</b> command using the <b>-h</b> (<b>h</b>elp) argument.</li>
+		<li>Use <b>mergeBed</b> with <b>RefGene_hg38_exons_reg_sort.bed as input</b> to combine overlapping exons into single features and store the results into a file named <b>mergedExons.bed</b>.</li>
+		<li>Have a look at the first lines with the <b>head</b> command. </li>
+		<li>Count the number of lines in all <b>*.bed</b> files using <b>wc.</b>. Is the result as expected?</li>
+		<li>The length of one genomic feature can simply be obtained by computing <b>column_3-column_2</b>. Use a <b>awk</b> command to compute the sum of the length of all features.</li>
+		<li>Compute the total length of the genome using the file ~/TD01_Bioinfo/hg38_transcripts/chromInfo.txt (see TD01). As an alternative, download the file <b><a href="http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/chromInfo.txt.gz">here</a></b> using <b>wget</b>.</li>
+		<li>Now, what is the fraction of the genome that is covered by exons or genes ?</li>
+	  </ol>
+	</div>
+
+    <a href="javascript:sizeTbl2('block','sol_ex')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_ex')">Hide solution</a>
+    <div id=sol_ex  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">	
+		sortBed -h																	# Get some help
+		sortBed  -i RefGene_hg38_exons_reg.bed > RefGene_hg38_exons_reg_sort.bed	# sort the file by Genomic coordinates
+		mergeBed -h																	# Get some help
+		mergeBed -i RefGene_hg38_exons_reg_sort.bed > mergedExons.bed				# merge Features
+		wc -l *bed							# number of line in mergedExons.bed is lower than in RefGene_hg38_exons_reg_sort.bed
+		awk 'BEGIN{FS="\t"; s=0}{s+=$3-$2}END{print s}' RefGene_hg38_exons_reg.bed # compute the total nucleotide coverage
+		awk 'BEGIN{FS="\t"; s=0}{s=s+$2}END{print s}' ~/TD01_Bioinfo/hg38_transcripts/chromInfo.txt # the total length of the genome
+	  </pre>																
+    </div>
+	
+
+    <hr>		  
+    <a name='snps'></a>
+    <h2>Genomic locations of SNPs associated with prostate cancer</h2>
+
+	<p>Genome-Wide Association Studies (GWAS) are used in epidemiology to search for common genetics variants associated with a given disease. GWAS typically focus on associations between single-nucleotide polymorphisms (SNPs) and traits like diseases. Prostate cancer (PrCa) is the most frequently diagnosed cancer in males in developed countries. To identify common PrCa susceptibility alleles, Eeles RA <i>et al</i>, conducted a GWAS whose results are available through <a href="http://www.gwascentral.org">GWAS Central</a> (study HGVST512). The top 50 associations (dataset: HGVRS986) were retrieved from GWAS Central and converted to a BED format (build hg38).</p>
+	
+	<h3>Which of these SNPs fall into exonic regions ? </h3>
+	<p></p>The <a href="http://bedtools.readthedocs.org/en/latest/content/tools/intersect.html">intersectBed</a> program can be used to answer such questions (click for more informations).</p>
+
+<div class='exo'>
+  <ol>	
+	<li>Get some help about the intersectBed program (argument<b>-h</b>).</li>
+	<li>Download SNPs list in BED format <a href="../../data/SNPs_HGVM1446539_50_top_hg38.bed.gz">here</a>.</li>
+	<li>Use the intersectBed command with <b>-a, -b, -wa and -wb</b> arguments to find SNPs falling into exonic regions.</li>
+  </ol>
+</div>
+
+<a href="javascript:sizeTbl2('block','sol_exsnp')">View solution</a>| 
+<a href="javascript:sizeTbl2('none','sol_exsnp')">Hide solution</a>
+<div id=sol_exsnp  style="overflow:hidden;display:none">
+  <h4>Solution</h4>
+  
+  <pre class="brush:bash;">	
+	wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/SNPs_HGVM1446539_50_top_hg38.bed.gz
+	gunzip SNPs_HGVM1446539_50_top_hg38.bed.gz
+	intersectBed -wa -wb -a SNPs_HGVM1446539_50_top_hg38.bed -b RefGene_hg38_exons_reg.bed
+  </pre>																
+</div>
+
+<h3>Which of these SNPs fall into intronic regions ? </h3>
+<ol>	
+  <li>Download intronic regions as bed format <a href="../../data/RefGene_hg38_introns_reg.bed.gz">here</a>.</li>
+  <li>Use the intersectBed command with <b>-a, -b, -wa and -wb</b> arguments to find SNPs falling into intronic regions.</li>
+</ol>
+</div>
+
+<a href="javascript:sizeTbl2('block','sol_insnp')">View solution</a>| 
+<a href="javascript:sizeTbl2('none','sol_insnp')">Hide solution</a>
+<div id=sol_insnp  style="overflow:hidden;display:none">
+  <h4>Solution</h4>
+  
+  <pre class="brush:bash;">	
+	wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/RefGene_hg38_introns_reg.bed.gz
+	gunzip RefGene_hg38_introns_reg.bed.gz
+	intersectBed -wa -wb -a SNPs_HGVM1446539_50_top_hg38.bed -b RefGene_hg38_introns_reg.bed
+  </pre>																
+</div>
+
+
+<h3>Which of these SNPs fall into promoter regions ? </h3>
+<p>As you can see, lots of these SNPs are located in intergenic regions (<i>i.e.</i> outside known genes). One additional question could be whether some of them are falling into promoter regions. As the promoter regions is difficult to define without additional informations (<i>e.g.</i> epigenetic marks) we will define it, here as the regions ransging from the the transcriptional start site (TSS) to -500bp upstream of the TSS. To answer this question, we need to extract those regions. </p>
+
+<div class='protocol'>
+  <ol>	
+	<li>Download the coordinates of the whole transcripts <a href="../../data/RefGene_hg38_wg_reg.bed.gz">here</a> (note that you can get it also from the table browser).</li>
+	<li>Use the following <b>awk onliner</b> to extract promoter region coordiantes:</li>
+	<pre class="brush:bash;">	
+	  wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/data/RefGene_hg38_wg_reg.bed.gz
+	  gunzip RefGene_hg38_wg_reg.bed.gz
+	  cut -f6 RefGene_hg38_wg_reg.bed | sort | uniq -c   # ensure that all transcript strands are defined
+	  awk 'BEGIN{FS=OFS="\t"}{if($5=="+"){print $1,$2-500,$2,$4,$5,$6}else{print $1,$3,$3+500,$4,$5,$6}}'  RefGene_hg38_wg_reg.bed > RefGene_hg38_prom_reg.bed # get the promoter regions. 
+	</pre>
+  </ol>
+</div>
+
+<p>One of the remaining problem is that or promoter regions from transcript <i>t</i> may overlap with exonic regions from another transcript. We can not strictly declare them as regulatory regions. We thus can discard these overlapping regions. This can be done with the <a href="http://bedtools.readthedocs.org/en/latest/content/tools/subtract.html">subtractBed</a> (click for more informations) command from the Bedtools suite. </p>
+
+<div class='exo'>
+  <ol>	
+	<li>Use the <b>subtractBed</b> to delete any promoter region overlapping exons (create a file named <b>RefGene_hg38_prom_reg_noExons.bed</b>).</li>
+	<div class='protocol'>
+	  <ul>
+		<li>To ensure that this step was effective go to <a target='_blank' href="https://genome.ucsc.edu">UCSC</a>. </li>
+		<ol>
+		  <li>From the top Menu select <b>Genomes</b></li>
+		  <li>Select <b>group:</b> Mammal, <b>genome</b>: Human, <b>assembly:</b> "Dec. 2013 (hg38, GRCh38)".</li>
+		  <li>Click on <b>manage custom tracks</b> > <b>add custom track</b> > <b>Choose File</b> (browse to RefGene_hg38_prom_reg_noExons.bed) and click <b>Submit</b>.</li>
+		  <li>click on <b>go to genome browser</b>. Enter position <b>chr1:201504430-201512040</b> (for instance) to check the result.</b></li>
+		</ol>
+	 </ul>
+	</div>
+	<li>Use <b>intersectBed</b> to find SNPs overlapping promoter regions.</li>
+	<li>Get information relative to NM_138634 and its associated gene <a href="https://genome-euro.ucsc.edu/cgi-bin/hgc?g=refGene&i=NM_138634">here</a>. Is there any link with PrCa?</li>
+ </ol>
+</div>
+
+
+<a href="javascript:sizeTbl2('block','sol_pne')">View solution</a>| 
+<a href="javascript:sizeTbl2('none','sol_pne')">Hide solution</a>
+<div id=sol_pne  style="overflow:hidden;display:none">
+  <h4>Solution</h4>
+  
+  <pre class="brush:bash;">	
+	subtractBed -a RefGene_hg38_prom_reg.bed -b mergedExons.bed > RefGene_hg38_prom_reg_noExons.bed
+	intersectBed -wa -wb -a SNPs_HGVM1446539_50_top_hg38.bed -b  RefGene_hg38_prom_reg_noExons.bed
+  </pre>																
+</div>
+
+<hr>
+</body>
+</html>

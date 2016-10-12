@@ -1,0 +1,1065 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{TD08\_solutions}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+
+    \section{TD08 - Exercises around fasta-formatted sequences files}
+
+
+
+    \subsection{Reading a fasta file}
+
+
+    \textbf{Exercise} Write a function that takes as input the name of a
+fasta file, reads its content, display the number of genes anr returns a
+discionary associating each gene ID to its sequence.
+
+
+    \subsubsection{Defining a function to read a sequence file}
+
+
+    Fasta files are structured as follows:
+
+\begin{itemize}
+\item
+  Rows starting with a `\textgreater{}' symbol are called ``header''
+  rows. The header includes the identifier of the next sequence (defined
+  as all the text following the `\textgreater{}' until the first spacing
+  or the newline character `\textbackslash{}n'), and may optionally
+  contain additional comments (any text located after the first space of
+  the header is considered as comment text). There can be only one
+  sequence header per sequence.
+\item
+  The other rows correspond to the sequences themselves. A same sequence
+  can come on several successive rows.
+\end{itemize}
+
+A fasta file can contain one or several sequences: each time a new
+header line is found, we will thus need to initialize a new sequence. We
+will then concatenate all the following rows to get the sequence, until
+we encounter a new header line or the end of the file.
+
+A slight difficulty will be to extract sequence identifiers from the
+header rows. We will need to strip out the leading symbol
+(`\textgreater{}'), the newline character at the end of the row
+(`\textbackslash{}n'), and to ignore the comments. Thus, we need to
+select all the text from the leading `\textgreater{}' up to the first
+spacing character.
+
+
+    \subsubsection{Solution 1: fiddling around to select the ID}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{read\PYZus{}fasta\PYZus{}file\PYZus{}1}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This function reads a sequence file in fasta format, and returns a}
+         \PY{l+s+sd}{    dictionnary with one entry per sequence (key=ID, value = sequence).}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        file\PYZus{}name: name of the input file. This file is supposed to be formated in fasta.}
+         
+         \PY{l+s+sd}{    Return: }
+         \PY{l+s+sd}{        seq\PYZus{}dict: a dictionary with sequence IDs as keys, and sequences as values}
+         
+         \PY{l+s+sd}{    Examples:}
+         \PY{l+s+sd}{        plasmoCodingGenes = read\PYZus{}fasta\PYZus{}file\PYZus{}1(\PYZdq{}PlasmoDB\PYZhy{}12.0\PYZus{}Pfalciparum3D7\PYZus{}AnnotatedCDSs.fa\PYZdq{})}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{myFile} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Reading sequences from file}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{file\PYZus{}name}\PY{p}{)}
+             \PY{n}{geneName} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}} \PY{c}{\PYZsh{}\PYZsh{} initialize an embty geneName variable}
+             \PY{n}{seq\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} \PY{c}{\PYZsh{}\PYZsh{} initialize an empty dictionary to store all sequences}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{myFile}\PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} Successively read each line of the input file}
+                 \PY{k}{if} \PY{n}{line}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZgt{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} Test if the current line is a fasta header line}
+                     \PY{k}{if} \PY{o+ow}{not} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{line} \PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} If there is no space in the header line, everything that follows the \PYZdq{}\PYZgt{}\PYZdq{} is considered as identifier}
+                         \PY{n}{geneName} \PY{o}{=} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{c}{\PYZsh{}\PYZsh{} Ignore the leading \PYZdq{}\PYZgt{}\PYZdq{}, and the trailing letter, which is a return character}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{geneName} \PY{o}{=} \PY{n}{line}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{line}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{c}{\PYZsh{} Ignore all text following the space (fasta comments)}
+                     \PY{n}{seq\PYZus{}dict}\PY{p}{[}\PY{n}{geneName}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{;} \PY{c}{\PYZsh{}\PYZsh{} Create an empty entry in the dictionary for the current sequence}
+                 \PY{k}{else}\PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} Treat other lines than the fasta header lines, i.e. sequences}
+                     \PY{n}{seq\PYZus{}dict}\PY{p}{[}\PY{n}{geneName}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{n}{line}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} convert sequence to uppercases, and append it to current sequence}
+             \PY{n}{myFile}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Close the input file after having read all lines}
+             \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of sequences}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{seq\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Report the number of sequences read}
+             \PY{k}{return} \PY{n}{seq\PYZus{}dict} \PY{c}{\PYZsh{}\PYZsh{} Return the result (dictionary of sequences)}
+\end{Verbatim}
+
+    Note that the function starts with some comments explaining what it
+does, and describing the arguments and return type. This documentation
+is quite simple to formulate, and is extremely useful to help users.
+
+As soon as the function is documented in this way, it is equipped with
+an on-line help message, as shown below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{help}\PY{p}{(}\PY{n}{read\PYZus{}fasta\PYZus{}file\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Help on function read\_fasta\_file\_1 in module \_\_main\_\_:
+
+read\_fasta\_file\_1(file\_name)
+    This function reads a sequence file in fasta format, and returns a
+    dictionnary with one entry per sequence (key=ID, value = sequence).
+    
+    Args:
+        file\_name: name of the input file. This file is supposed to be formated in fasta.
+    
+    Return: 
+        seq\_dict: a dictionary with sequence IDs as keys, and sequences as values
+    
+    Examples:
+        plasmoCodingGenes = read\_fasta\_file("PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa")
+    \end{Verbatim}
+
+
+    \subsubsection{Handling directories and listing files}
+
+
+    Before testing our method to read a sequence file, we must know where
+this file is stored on our computer. The code below shows some useful
+functions fro the \emph{os} library (\emph{os} stands for
+\emph{operating system}), which will allow us to specify directories,
+and list the files they contain. The result should vary from user to
+user, according to yourlocal configuration.
+
+For this exercise, we will assume that you already created in the root
+of your accound: - a directory named ``jgb53d-bd-prog'', for the content
+of this course - a sub-directory ``jgb53d-bd-prog/data'' for all the
+data - a sub-directory ``jgb53d-bd-prog/data/sequences'' do store
+sequences
+
+You should also have downloaded the two sequence files used in this
+tutorial, containing all the nucleotidic coding sequences for the two
+following organisms: - the enterobacteria \emph{Escherichia coli} (fasta
+file Escherichia\_coli\_str\_K-12\_substr\_MG1655.PATRIC.fa) - the
+vector of malaria, \emph{Plasmodium falciparum} (fasta file
+PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c}{\PYZsh{}\PYZsh{} Before doing the analysis, we will check our current working directory}
+         \PY{c}{\PYZsh{}\PYZsh{} The result should differ for each person, depending on the configuration of your computer.}
+         
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Print the current working directory}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Current working directory = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Get home directory}
+         \PY{n}{home\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{expanduser}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZti{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Home directory = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{home\PYZus{}dir}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Specify the data directory}
+         \PY{n}{course\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{home\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{jgb53d\PYZhy{}bd\PYZhy{}prog}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{seq\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{course\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{data}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{sequences}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Sequence directory = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{seq\PYZus{}dir}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} List all files in the data directory}
+         \PY{n}{seq\PYZus{}files} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{seq\PYZus{}dir}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq\PYZus{}files}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Specify the full path of the organism\PYZhy{}specific sequence files}
+         \PY{n}{ecoli\PYZus{}seq\PYZus{}file} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{seq\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Escherichia\PYZus{}coli\PYZus{}str\PYZus{}K\PYZhy{}12\PYZus{}substr\PYZus{}MG1655.PATRIC.fa}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{E.coli CDS file : }\PY{l+s}{\PYZdq{}} \PY{o}{+}\PY{n}{ecoli\PYZus{}seq\PYZus{}file}\PY{p}{)}
+         \PY{n}{plasmodium\PYZus{}seq\PYZus{}file} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{seq\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{PlasmoDB\PYZhy{}12.0\PYZus{}Pfalciparum3D7\PYZus{}AnnotatedCDSs.fa}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P.falciparum CDS file: }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{plasmodium\PYZus{}seq\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Current working directory = /Users/jvanheld/Documents/enseignement/bioinformatics\_courses/jgb53d-bd-prog/practicals/08\_python
+Home directory = /Users/jvanheld
+Sequence directory = /Users/jvanheld/jgb53d-bd-prog/data/sequences
+['Escherichia\_coli\_aa.fa', 'Escherichia\_coli\_str\_K-12\_substr\_MG1655.PATRIC.fa', 'PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa', 'Plasmodium\_falciparum\_aa.fa']
+E.coli CDS file : /Users/jvanheld/jgb53d-bd-prog/data/sequences/Escherichia\_coli\_str\_K-12\_substr\_MG1655.PATRIC.fa
+P.falciparum CDS file: /Users/jvanheld/jgb53d-bd-prog/data/sequences/PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa
+    \end{Verbatim}
+
+
+    \subsubsection{Test: reading CDS files}
+
+
+    We can now use the function \textbf{read\_fasta\_file\_1()} defined
+above to read all coding sequences from \emph{Escherichia coli}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c}{\PYZsh{}\PYZsh{} Read all sequences from the Escherichia coli file}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{Reading all CDS for Escherichia coli}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{coli\PYZus{}cds} \PY{o}{=} \PY{n}{read\PYZus{}fasta\PYZus{}file\PYZus{}1}\PY{p}{(}\PY{n}{ecoli\PYZus{}seq\PYZus{}file}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{Reading all CDS for Plasmodium falciparum}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plasmodium\PYZus{}cds} \PY{o}{=} \PY{n}{read\PYZus{}fasta\PYZus{}file\PYZus{}1}\PY{p}{(}\PY{n}{plasmodium\PYZus{}seq\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Reading all CDS for Escherichia coli
+Reading sequences from file
+ 	 /Users/jvanheld/jgb53d-bd-prog/data/sequences/Escherichia\_coli\_str\_K-12\_substr\_MG1655.PATRIC.fa
+Number of sequences	 4549
+
+Reading all CDS for Plasmodium falciparum
+
+Reading sequences from file
+ 	 /Users/jvanheld/jgb53d-bd-prog/data/sequences/PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa
+Number of sequences	 5542
+    \end{Verbatim}
+
+
+    \subsubsection{Second solution: using string methods to extrat sequence IDs}
+
+
+    We will now develop a cleaner solution , where we use the string methods
+lstrip(), rstrip(), split() to extract the gene ID from the sequence
+header.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{read\PYZus{}fasta\PYZus{}file\PYZus{}2}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This function reads a sequence file in fasta format, and returns a}
+         \PY{l+s+sd}{    dictionnary with one entry per sequence (key=ID, value = sequence).}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        file\PYZus{}name: name of the input file. This file is supposed to be formated in fasta.}
+         
+         \PY{l+s+sd}{    Return: }
+         \PY{l+s+sd}{        seq\PYZus{}dict: a dictionary with sequence IDs as keys, and sequences as values}
+         
+         \PY{l+s+sd}{    Examples:}
+         \PY{l+s+sd}{        plasmoCodingGenes = read\PYZus{}fasta\PYZus{}file\PYZus{}2(\PYZdq{}PlasmoDB\PYZhy{}12.0\PYZus{}Pfalciparum3D7\PYZus{}AnnotatedCDSs.fa\PYZdq{})}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Reading sequences from file}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{file\PYZus{}name}\PY{p}{)}
+             \PY{n}{my\PYZus{}file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Open the sequence file in read mode}
+             \PY{n}{seq\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}         \PY{c}{\PYZsh{}\PYZsh{} create the dictionnary that will contain the result}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{my\PYZus{}file}\PY{p}{:}          \PY{c}{\PYZsh{}\PYZsh{} Iterate over the lines of the sequence file}
+                 \PY{k}{if}  \PY{n}{line}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZgt{}}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{p}{:}    \PY{c}{\PYZsh{}\PYZsh{} Detect sequence headers (lines starting with \PYZdq{}\PYZgt{}\PYZdq{})}
+                   \PY{n}{line} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{lstrip}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZgt{}}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Remove the leading \PYZdq{}\PYZgt{}\PYZdq{}}
+                   \PY{n}{line} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{lstrip}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Remove everything that follows the first space (comments)}
+                   \PY{n}{tab} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{|}\PY{l+s}{\PYZdq{}}\PY{p}{)}   \PY{c}{\PYZsh{}\PYZsh{} Split the sequence descriptor}
+                   \PY{n}{gene\PYZus{}id} \PY{o}{=} \PY{n}{tab}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}        \PY{c}{\PYZsh{}\PYZsh{} The first element of the splitted list contains the gene ID}
+                   \PY{n}{line} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{p}{)}
+                   \PY{n}{seq\PYZus{}dict}\PY{p}{[}\PY{n}{gene\PYZus{}id}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}   \PY{c}{\PYZsh{}\PYZsh{} Initialize the nucleotidic sequence}
+                 \PY{k}{else}\PY{p}{:}                         \PY{c}{\PYZsh{}\PYZsh{} Treatment for lines that do not correspond to a header}
+                   \PY{n}{line} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}  \PY{c}{\PYZsh{}\PYZsh{} Remove the carriage return at the end of the line}
+                   \PY{n}{seq\PYZus{}dict}\PY{p}{[}\PY{n}{gene\PYZus{}id}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Convert the sequence to uppercase, and append it to current sequence}
+                     
+             \PY{c}{\PYZsh{}\PYZsh{} Close the input file}
+             \PY{n}{my\PYZus{}file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of sequences}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{seq\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{seq\PYZus{}dict}
+\end{Verbatim}
+
+    We can check that this second solution gives the same result as the
+previous one.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c}{\PYZsh{}\PYZsh{} Read all sequences from the Escherichia coli file}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{Reading all CDS for Escherichia coli}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{coli\PYZus{}cds} \PY{o}{=} \PY{n}{read\PYZus{}fasta\PYZus{}file\PYZus{}2}\PY{p}{(}\PY{n}{ecoli\PYZus{}seq\PYZus{}file}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{Reading all CDS for Plasmodium falciparum}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plasmodium\PYZus{}cds} \PY{o}{=} \PY{n}{read\PYZus{}fasta\PYZus{}file\PYZus{}2}\PY{p}{(}\PY{n}{plasmodium\PYZus{}seq\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Reading all CDS for Escherichia coli
+Reading sequences from file
+ 	 /Users/jvanheld/jgb53d-bd-prog/data/sequences/Escherichia\_coli\_str\_K-12\_substr\_MG1655.PATRIC.fa
+Number of sequences	 4549
+
+Reading all CDS for Plasmodium falciparum
+
+Reading sequences from file
+ 	 /Users/jvanheld/jgb53d-bd-prog/data/sequences/PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa
+Number of sequences	 5542
+    \end{Verbatim}
+
+
+    \subsubsection{Solution 3: Reading a fasta file with regular expression}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{import} \PY{n+nn}{re} \PY{c}{\PYZsh{}\PYZsh{} Import the regular expression (re) library}
+         
+         \PY{k}{def} \PY{n+nf}{read\PYZus{}fasta\PYZus{}file}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    This function reads a sequence file in fasta format, and returns a}
+         \PY{l+s+sd}{    dictionnary with one entry per sequence (key=ID, value = sequence).}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        file\PYZus{}name: name of the input file. This file is supposed to be formated in fasta.}
+         
+         \PY{l+s+sd}{    Return: }
+         \PY{l+s+sd}{        seq\PYZus{}dict: a dictionary with sequence IDs as keys, and sequences as values}
+         
+         \PY{l+s+sd}{    Examples:}
+         \PY{l+s+sd}{        plasmoCodingGenes = read\PYZus{}fasta\PYZus{}file(\PYZdq{}PlasmoDB\PYZhy{}12.0\PYZus{}Pfalciparum3D7\PYZus{}AnnotatedCDSs.fa\PYZdq{})}
+         
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Reading sequences from file}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{file\PYZus{}name}\PY{p}{)}
+             \PY{n}{my\PYZus{}file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Open the fasta sequence file in read mode}
+             \PY{n}{seq\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}         \PY{c}{\PYZsh{}\PYZsh{} Initialize the dictionary which will contain the sequences}
+         
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{my\PYZus{}file}\PY{p}{:}
+                 \PY{c}{\PYZsh{} The following regular expression searches strings }
+                 \PY{c}{\PYZsh{} \PYZhy{} starting (\PYZdq{}\PYZca{}\PYZdq{}) by the character \PYZdq{}\PYZgt{}\PYZdq{}, }
+                 \PY{c}{\PYZsh{} \PYZhy{} potentially followed by a space \PYZdq{} \PYZdq{}}
+                 \PY{c}{\PYZsh{} \PYZhy{} followed by at least one non\PYZhy{}space characters (\PYZdq{}[\PYZca{} ]+\PYZdq{})}
+                 \PY{c}{\PYZsh{} The parentheses allow to capture the relevant part of the motif.}
+                 \PY{n}{re\PYZus{}result} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZca{}\PYZgt{} *([\PYZca{} }\PY{l+s}{\PYZbs{}}\PY{l+s}{|]+)}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{line}\PY{p}{)} \PY{c}{\PYZsh{} This regExp can still be improved}
+                 \PY{k}{if}   \PY{n}{re\PYZus{}result}\PY{p}{:}                       \PY{c}{\PYZsh{}\PYZsh{} We identified a new sequence header}
+                       \PY{n}{gene\PYZus{}name} \PY{o}{=} \PY{n}{re\PYZus{}result}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c}{\PYZsh{}\PYZsh{} Extract the gene name}
+                       \PY{n}{seq\PYZus{}dict}\PY{p}{[}\PY{n}{gene\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}    \PY{c}{\PYZsh{}\PYZsh{} Initialize the dictionary entry for this gene name}
+                 \PY{k}{else}\PY{p}{:}
+                       \PY{n}{line} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{rstrip}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}        \PY{c}{\PYZsh{}\PYZsh{} Strip the trailing newline character}
+                       \PY{n}{seq\PYZus{}dict}\PY{p}{[}\PY{n}{gene\PYZus{}name}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}  \PY{c}{\PYZsh{}\PYZsh{} Append the sequence to the previous one}
+             \PY{n}{my\PYZus{}file}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+         
+             \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of sequences}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{seq\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{seq\PYZus{}dict}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c}{\PYZsh{}\PYZsh{} Read all sequences from the Escherichia coli file}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{Reading all CDS for Escherichia coli}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{coli\PYZus{}cds} \PY{o}{=} \PY{n}{read\PYZus{}fasta\PYZus{}file}\PY{p}{(}\PY{n}{ecoli\PYZus{}seq\PYZus{}file}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{Reading all CDS for Plasmodium falciparum}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plasmodium\PYZus{}cds} \PY{o}{=} \PY{n}{read\PYZus{}fasta\PYZus{}file}\PY{p}{(}\PY{n}{plasmodium\PYZus{}seq\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Reading all CDS for Escherichia coli
+Reading sequences from file
+ 	 /Users/jvanheld/jgb53d-bd-prog/data/sequences/Escherichia\_coli\_str\_K-12\_substr\_MG1655.PATRIC.fa
+Number of sequences	 4549
+
+Reading all CDS for Plasmodium falciparum
+
+Reading sequences from file
+ 	 /Users/jvanheld/jgb53d-bd-prog/data/sequences/PlasmoDB-12.0\_Pfalciparum3D7\_AnnotatedCDSs.fa
+Number of sequences	 5542
+    \end{Verbatim}
+
+
+    \subsection{Reverse complementary sequence}
+
+
+    Write a function that computes the reverse complement of a sequence.
+Check that, after applying it to some sequence, the original sequence
+has not been modified (we don't want to loose the forward sequence).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{reverseComplement}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compute the reverse complement of a nucleotiduc sequence.}
+         \PY{l+s+sd}{    The current version only supports non\PYZhy{}degenerated nucleotidic sequence. }
+         \PY{l+s+sd}{    This function could easily be extended to support IUPAC code.}
+         
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        seq \PYZhy{}\PYZhy{} input sequence (string)}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        rc \PYZhy{}\PYZhy{} a string containing the reverse complementary sequence}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c}{\PYZsh{} The simplest way to reverse a sequence: read it with an iteration of \PYZhy{}1}
+             \PY{n}{rev} \PY{o}{=} \PY{n}{seq}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{c}{\PYZsh{} Compute a \PYZdq{}translation table\PYZdq{} in the python sense.}
+             \PY{c}{\PYZsh{} Note: \PYZdq{}translation\PYZdq{} has a more general meaning here than in biology.}
+             \PY{n}{transtab} \PY{o}{=} \PY{n+nb}{str}\PY{o}{.}\PY{n}{maketrans}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{aAcCgGtT}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{tTgGcCaA}\PY{l+s}{\PYZdq{}}\PY{p}{)}   
+             \PY{n}{rev\PYZus{}cpl} \PY{o}{=} \PY{n}{rev}\PY{o}{.}\PY{n}{translate}\PY{p}{(}\PY{n}{transtab}\PY{p}{)}
+             \PY{k}{return} \PY{n}{rev\PYZus{}cpl}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c}{\PYZsh{} Create a test sequence. }
+         \PY{c}{\PYZsh{} Note the presence of lower\PYZhy{}and upper\PYZhy{}cases}
+         \PY{n}{testSeq} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{aaaaTTttGCGCgcg}\PY{l+s}{\PYZdq{}}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Original sequence           }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{testSeq}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Compute the reverse complement}
+         \PY{n}{rc} \PY{o}{=} \PY{n}{reverseComplement}\PY{p}{(}\PY{n}{testSeq}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Compute the reverse complement}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Forward sequence (unchanged)}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{testSeq}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Check that the function has no side effect on the input sequence}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Reverse complementary seq.  }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{rc}\PY{p}{)}      \PY{c}{\PYZsh{}\PYZsh{} Check the result}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Yet another control: compute the reverse }
+         \PY{c}{\PYZsh{}\PYZsh{} complement of the reverse complement.}
+         \PY{n}{rc\PYZus{}and\PYZus{}back} \PY{o}{=} \PY{n}{reverseComplement}\PY{p}{(}\PY{n}{rc}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Forward sequence (unchanged)}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{testSeq}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Check that the function has no side effect on the input sequence}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rev.compl. of rev.compl.  }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{rc\PYZus{}and\PYZus{}back}\PY{p}{)}      \PY{c}{\PYZsh{}\PYZsh{} Check the result}
+         
+         \PY{c}{\PYZsh{} We can check formally that the reverse complement of the reverse}
+         \PY{c}{\PYZsh{} complement equals the original sequence}
+         \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{rc(rc(seq)) == seq ?}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{rc\PYZus{}and\PYZus{}back} \PY{o}{==} \PY{n}{testSeq}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Original sequence            	 aaaaTTttGCGCgcg
+Forward sequence (unchanged) 	 aaaaTTttGCGCgcg
+Reverse complementary seq.   	 cgcGCGCaaAAtttt
+Forward sequence (unchanged) 	 aaaaTTttGCGCgcg
+Rev.compl. of rev.compl.   	 aaaaTTttGCGCgcg
+rc(rc(seq)) == seq ?	 True
+    \end{Verbatim}
+
+
+    \subsection{Translating nucleotidic into peptidic sequences}
+
+
+    \subsubsection{Exercise}\label{exercise}
+
+Write a function that translates nucleotidic sequences into peptidic
+sequences, using the codon dictionary (from codons to aminoacids)
+defined below. Use then your function to generate a fasta file with all
+the proteins of the studied organisms.
+
+    \subsubsection{Approach}\label{approach}
+
+We will create a dictionary containing the genetic code (i.e.~the
+correspondence between codons and aminoacids). Once this dictionary is
+defined, translation can be done simply by iterating over the sequence
+bysteps of 3, and getting the aminoacid (value of the dictionary)
+associated to each trinucleotide (key of the dictionary).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{translate\PYZus{}seq}\PY{p}{(}\PY{n}{nt\PYZus{}seq}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Translates one nucleic sequence into the corresponding peptidic }
+         \PY{l+s+sd}{    sequence, using the canonical code of living organisms.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Args: }
+         \PY{l+s+sd}{        nt\PYZus{}seq \PYZhy{}\PYZhy{} a nucleic sequence (string)}
+         
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        aa\PYZus{}seq \PYZhy{}\PYZhy{} a peptidic sequence (string)}
+         
+         \PY{l+s+sd}{    Example: }
+         \PY{l+s+sd}{        pep\PYZus{}seq = translate\PYZus{}seq(\PYZdq{}ATGTTTTATGTACATTAA\PYZdq{})}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             
+             \PY{c}{\PYZsh{}\PYZsh{} Before anything else, check that the input sequence has a correct length (must be a multiple of 3)}
+             \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nt\PYZus{}seq}\PY{p}{)} \PY{o}{\PYZpc{}}\PY{k}{3}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{translate\PYZus{}seq() : the length of input seq must be a multiple of 3.}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+             \PY{c}{\PYZsh{}\PYZsh{}  Translation dictionary from codons (triplets of nucleotides) to aminoacids}
+             \PY{c}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+             \PY{n}{codon2AA} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ATT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{I}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ATC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{I}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ATA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{I}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CTT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CTC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CTA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CTG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TTA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TTG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GTT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{V}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GTC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{V}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GTA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{V}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GTG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{V}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TTT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{F}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TTC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{F}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ATG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{M}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TGT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TGC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GCT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GCC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GCA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GCG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GGT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GGC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GGA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GGG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CCT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CCC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CCA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CCG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{P}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ACT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ACC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ACA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{ACG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TCT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TCC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TCA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TCG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AGT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AGC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{S}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TAT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TAC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TGG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{W}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CAA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Q}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CAG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Q}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AAT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{N}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AAC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{N}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CAT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{H}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CAC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{H}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GAA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GAG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GAT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{GAC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{D}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AAA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{K}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AAG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{K}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CGT}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CGC}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CGA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{CGG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AGA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{AGG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{R}\PY{l+s}{\PYZdq{}}
+             \PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TAA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TAG}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{;}\PY{n}{codon2AA}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TGA}\PY{l+s}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+         
+             \PY{n}{aa\PYZus{}seq} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{nt\PYZus{}seq}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{aa\PYZus{}seq} \PY{o}{+}\PY{o}{=} \PY{n}{codon2AA}\PY{p}{[} \PY{n}{nt\PYZus{}seq}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{3}\PY{p}{]} \PY{p}{]}
+             \PY{k}{return} \PY{n}{aa\PYZus{}seq}
+\end{Verbatim}
+
+    We can do a quick test of the method \emph{translate\_seq(nt\_seq)} with
+a small sequence.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{translate\PYZus{}seq}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ATGTTTTATGTACATTAA}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 'MFYVH'
+\end{Verbatim}
+        
+    We can now implement another method that will translate all the
+sequences of the sequence dictionary returned by our method
+\emph{read\_fasta\_file()}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{def} \PY{n+nf}{translate\PYZus{}seq\PYZus{}dict} \PY{p}{(}\PY{n}{nt\PYZus{}seq\PYZus{}dict}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Translate a set of nucleic into the corresponding peptidic sequences, }
+         \PY{l+s+sd}{    using the canonical code of living organisms.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Args: }
+         \PY{l+s+sd}{        nt\PYZus{}seq\PYZus{}dict \PYZhy{}\PYZhy{} a dictionary of nucleic sequences (key=name or ID, value=sequence)}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        aa\PYZus{}seq\PYZus{}dict \PYZhy{}\PYZhy{} a dictionary of peptidic sequence obtained by translating each individual sequence}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{aa\PYZus{}seq\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,}\PY{n}{nt\PYZus{}seq} \PY{o+ow}{in} \PY{n}{nt\PYZus{}seq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{aa\PYZus{}seq\PYZus{}dict}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{translate\PYZus{}seq}\PY{p}{(}\PY{n}{nt\PYZus{}seq}\PY{p}{)}
+             \PY{k}{return}\PY{p}{(}\PY{n}{aa\PYZus{}seq\PYZus{}dict}\PY{p}{)}
+\end{Verbatim}
+
+    We can now test the method on a subset of the CDS of \emph{Escherichia
+coli}. For this, we create a small dictionary with the 2 first items of
+the sequence dictionary defined above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{coli\PYZus{}cds\PYZus{}subset} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{coli\PYZus{}cds}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{coli\PYZus{}cds\PYZus{}subset}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{coli\PYZus{}cds}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+         
+         \PY{n}{translate\PYZus{}seq\PYZus{}dict}\PY{p}{(}\PY{n}{coli\PYZus{}cds\PYZus{}subset}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} \{'32115101': 'MVKVYAPASSANMSVGFDVLGAAVTPVDGALLGDVVTVEAAETFSLNNLGRFADKLPSEPRENIVYQCWERFCQELGKQIPVAMTLEKNMPIGSGLGSSACSVVAALMAMNEHCGKPLNDTRLLALMGELEGRISGSIHYDNVAPCFLGGMQLMIEENDIISQQVPGFDEWLWVLAYPGIKVSTAEARAILPAQYRRQDCIAHGRHLAGFIHACYSRQPELAAKLMKDVIAEPYRERLLPGFRQARQAVAEIGAVASGISGSGPTLFALCDKPETAQRVADWLGKNYLQNQEGFVHICRLDTAGARVLEN',
+          '32115099': 'VLKFGGTSVANAERFLRVADILESNARQGQVATVLSAPAKITNHLVAMIEKTISGQDALPNISDAERIFAELLTGLAAAQPGFPLAQLKTFVDQEFAQIKHVLHGISLLGQCPDSINAALICRGEKMSIAIMAGVLEARGHNVTVIDPVEKLLAVGHYLESTVDIAESTRRIAASRIPADHMVLMAGFTAGNEKGELVVLGRNGSDYSAAVLAACLRADCCEIWTDVDGVYTCDPRQVPDARLLKSMSYQEAMELSYFGAKVLHPRTITPIAQFQIPCLIKNTGNPQAPGTLIGASRDEDELPVKGISNLNNMAMFSVSGPGMKGMVGMAARVFAAMSRARISVVLITQSSSEYSISFCVPQSDCVRAERAMQEEFYLELKEGLLEPLAVTERLAIISVVGDGMRTLRGISAKFFAALARANINIVAIAQGSSERSISVVVNNDDATTGVRVTHQMLFNTDQVIEVFVIGVGGVGGALLEQLKRQQSWLKNKHIDLRVCGVANSKALLTNVHGLNLENWQEELAQAKEPFNLGRLIRLVKEYHLLNPVIVDCTSSQAVADQYADFLREGFHVVTPNKKANTSSMDYYHQLRYAAEKSRRKFLYDTNVGAGLPVIENLQNLLNAGDELMKFSGILSGSLSYIFGKLDEGMSFSEATTLAREMGYTEPDPRDDLSGMDVARKLLILARETGRELELADIEIEPVLPAEFNAEGDVAAFMANLSQLDDLFAARVAKARDEGKVLRYVGNIDEDGVCRVKIAEVDGNDPLFKVKNGENALAFYSHYYQPLPLVLRGYGAGNDVTAAGVFADLLRTLSWKLGV'\}
+\end{Verbatim}
+        
+    We will now implement a method that writes a sequence dictionary into a
+fasta file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{def} \PY{n+nf}{write\PYZus{}seq}\PY{p}{(}\PY{n}{seq\PYZus{}dict}\PY{p}{,} \PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Write a set of sequences in a fasta\PYZhy{}formatted file.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        seq\PYZus{}dict \PYZhy{}\PYZhy{} a dictionary of sequences (key: ID or name, value=sequence)}
+         \PY{l+s+sd}{        file\PYZus{}name \PYZhy{}\PYZhy{} name of the output file}
+         
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        no value}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Writing }\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seq\PYZus{}dict}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{ sequences in file}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{file\PYZus{}name}\PY{p}{)} 
+             \PY{n}{outfile} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{w}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Open output file in write mode}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,}\PY{n}{sequence} \PY{o+ow}{in} \PY{n}{seq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{outfile}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZgt{}}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{name} \PY{o}{+}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{outfile}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{sequence}\PY{o}{+}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{outfile}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{coli\PYZus{}peptides} \PY{o}{=} \PY{n}{translate\PYZus{}seq\PYZus{}dict}\PY{p}{(}\PY{n}{coli\PYZus{}cds}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of peptidic sequences}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{coli\PYZus{}peptides}\PY{p}{)}\PY{p}{)}
+         \PY{n}{write\PYZus{}seq}\PY{p}{(}\PY{n}{coli\PYZus{}peptides}\PY{p}{,} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{seq\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Escherichia\PYZus{}coli\PYZus{}aa.fa}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of peptidic sequences	 4544
+Writing  4544  sequences in file /Users/jvanheld/jgb53d-bd-prog/data/sequences/Escherichia\_coli\_aa.fa
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{plasmodium\PYZus{}peptides} \PY{o}{=} \PY{n}{translate\PYZus{}seq\PYZus{}dict}\PY{p}{(}\PY{n}{plasmodium\PYZus{}cds}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of peptidic sequences}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{plasmodium\PYZus{}peptides}\PY{p}{)}\PY{p}{)}
+         \PY{n}{write\PYZus{}seq}\PY{p}{(}\PY{n}{plasmodium\PYZus{}peptides}\PY{p}{,} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{seq\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Plasmodium\PYZus{}falciparum\PYZus{}aa.fa}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of peptidic sequences	 5542
+Writing  5542  sequences in file /Users/jvanheld/jgb53d-bd-prog/data/sequences/Plasmodium\_falciparum\_aa.fa
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{def} \PY{n+nf}{seq\PYZus{}stats}\PY{p}{(}\PY{n}{seq\PYZus{}dict}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Compute summary statistics on a set of sequences (can be nucleic or peptidic).}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Args:}
+         \PY{l+s+sd}{        seq\PYZus{}dict \PYZhy{}\PYZhy{} a dictionary of sequences (key=ID or name, value=sequence)}
+         \PY{l+s+sd}{    Returns:}
+         \PY{l+s+sd}{        stats \PYZhy{}\PYZhy{} a dictionary with statistics computed on the sequences}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{stats} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+             \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{nb}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{len\PYZus{}sum}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{len\PYZus{}mean}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,}\PY{n}{sequence} \PY{o+ow}{in} \PY{n}{seq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{nb}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{len\PYZus{}sum}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sequence}\PY{p}{)}
+             \PY{k}{if} \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{nb}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{len\PYZus{}mean}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{len\PYZus{}sum}\PY{l+s}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{n}{stats}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{nb}\PY{l+s}{\PYZdq{}}\PY{p}{]}
+             \PY{k}{return} \PY{n}{stats}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k}{print}\PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{E.coli CDS stats}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq\PYZus{}stats}\PY{p}{(}\PY{n}{coli\PYZus{}cds}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{E.coli Protein stats}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq\PYZus{}stats}\PY{p}{(}\PY{n}{coli\PYZus{}peptides}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{P.falciparum CDS stats}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq\PYZus{}stats}\PY{p}{(}\PY{n}{plasmodium\PYZus{}cds}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{print}\PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{P.falcimarum Protein stats}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq\PYZus{}stats}\PY{p}{(}\PY{n}{plasmodium\PYZus{}peptides}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+E.coli CDS stats
+\{'len\_sum': 4075029, 'len\_mean': 895.8076500329743, 'nb': 4549\}
+E.coli Protein stats
+\{'len\_sum': 1353791, 'len\_mean': 297.6018905253902, 'nb': 4549\}
+P.falciparum CDS stats
+\{'len\_sum': 12583182, 'len\_mean': 2270.512811259473, 'nb': 5542\}
+P.falcimarum Protein stats
+\{'len\_sum': 4188154, 'len\_mean': 755.7116564417178, 'nb': 5542\}
+    \end{Verbatim}
+
+
+    \subsection{Computation of nucleotide frequencies}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c}{\PYZsh{} \PYZhy{}*\PYZhy{} coding: utf8 \PYZhy{}*\PYZhy{}}
+         \PY{k}{def} \PY{n+nf}{nt\PYZus{}composition}\PY{p}{(}\PY{n}{codingGenes}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nbA}\PY{p}{,} \PY{n}{nbT}\PY{p}{,} \PY{n}{nbG}\PY{p}{,} \PY{n}{nbC}\PY{p}{,} \PY{n}{seq\PYZus{}len} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{c}{\PYZsh{}\PYZsh{} Initialize the counters}
+             \PY{k}{for} \PY{n}{gene}\PY{p}{,}\PY{n}{sequence} \PY{o+ow}{in} \PY{n}{codingGenes}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{nbA} \PY{o}{+}\PY{o}{=} \PY{n}{sequence}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Increment the counter for A}
+                 \PY{n}{nbT} \PY{o}{+}\PY{o}{=} \PY{n}{sequence}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Increment the counter for C}
+                 \PY{n}{nbG} \PY{o}{+}\PY{o}{=} \PY{n}{sequence}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Increment the counter for G}
+                 \PY{n}{nbC} \PY{o}{+}\PY{o}{=} \PY{n}{sequence}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Increment the counter for T}
+                 \PY{n}{seq\PYZus{}len} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sequence}\PY{p}{)}
+                 
+             \PY{n}{tot} \PY{o}{=} \PY{n}{nbA} \PY{o}{+} \PY{n}{nbT} \PY{o}{+} \PY{n}{nbG} \PY{o}{+} \PY{n}{nbC}
+         
+             \PY{k}{if}\PY{p}{(} \PY{n}{tot} \PY{o}{==} \PY{n}{seq\PYZus{}len} \PY{p}{)}\PY{p}{:}
+                 \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{le compte est bon!}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Problème! Le total (}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{tot}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{) ne correspond pas à la somme des longueurs de la sequence (}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{seq\PYZus{}len}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}} \PY{p}{:} \PY{n}{nbA}\PY{o}{/}\PY{n}{tot}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}} \PY{p}{:} \PY{n}{nbT}\PY{o}{/}\PY{n}{tot}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}} \PY{p}{:} \PY{n}{nbG}\PY{o}{/}\PY{n}{tot}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}} \PY{p}{:} \PY{n}{nbC}\PY{o}{/}\PY{n}{tot}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{plasmoCompoNT} \PY{o}{=} \PY{n}{nt\PYZus{}composition}\PY{p}{(}\PY{n}{plasmodium\PYZus{}cds}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Plasmo compo }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{plasmoCompoNT}\PY{p}{)}
+         
+         \PY{n}{ecoliCompoNT} \PY{o}{=} \PY{n}{nt\PYZus{}composition}\PY{p}{(}\PY{n}{coli\PYZus{}cds}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{E.coli compo }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ecoliCompoNT}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Problème! Le total ( 13110179 ) ne correspond pas à la somme des longueurs de la sequence ( 12583182 )
+Plasmo compo  \{'T': 0.13419107397389463, 'A': 0.43315487912102496, 'C': 0.29846297293118573, 'G': 0.13419107397389463\}
+Problème! Le total (
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4182337 ) ne correspond pas à la somme des longueurs de la sequence ( 4067802 )
+E.coli compo  \{'T': 0.2658800570111878, 'A': 0.2341853370495969, 'C': 0.23405454892802757, 'G': 0.2658800570111878\}
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{n}{basesNT} \PY{o}{=} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{seqAlea}\PY{p}{(}\PY{n}{compoNT}\PY{p}{,} \PY{n}{length}\PY{p}{)}\PY{p}{:}
+             \PY{n}{retSeq} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{length}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{r} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{base} \PY{o+ow}{in} \PY{n}{basesNT}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{r} \PY{o}{\PYZlt{}} \PY{n}{compoNT}\PY{p}{[}\PY{n}{base}\PY{p}{]} \PY{p}{:}
+                         \PY{n}{retSeq} \PY{o}{+}\PY{o}{=} \PY{n}{base}
+                         \PY{k}{break}\PY{p}{;}
+                     \PY{k}{else}\PY{p}{:}
+                          \PY{n}{r} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{compoNT}\PY{p}{[}\PY{n}{base}\PY{p}{]}
+             \PY{k}{return} \PY{n}{retSeq}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Target composition}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{plasmoCompoNT}\PY{p}{)}
+         
+         \PY{n}{rand\PYZus{}seq} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Instantiate a dictionary to compute random sequences}
+         \PY{n}{rand\PYZus{}seq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{seqAlea}\PY{p}{(}\PY{n}{plasmoCompoNT}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{rand\PYZus{}seq}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} Check that the nucleotide composition of the random seq fits our expectation}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Random seq compos}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{nt\PYZus{}composition}\PY{p}{(}\PY{n}{rand\PYZus{}seq}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Target composition \{'T': 0.13419107397389463, 'A': 0.43315487912102496, 'C': 0.29846297293118573, 'G': 0.13419107397389463\}
+\{1: 'TACCTCCCCAGCGAACAAAACTACGAAGGAACATGAACGGAACTCAACAAATACACGCAACCCACCAAAATATTCAGCTACTCCAGACATGGGGACAAATTCAACCAGGACTTCAAACATCTGGGGACCAACCCCAACAAAAATAAACTGATCCGCCACTAAAGAGAACTTTCATACACAAAAAATAGCCAATCTCCCACACCACGCAAACACCCTTCTTAAAGATTGAACCCGGGCCTAATCCCACACAAACGGACGAAAAAATAAATACAAAAGAAAAAAAGAAGACAGATTACCAATAAGCCAACTTAGACCAGAACACAGGATACAAGTGATACGCCCGAAATAATTCTCAAACATTAGCCCAAGCACAGCTAACCAGAGATAAAACGCAACCTCCCACATAAAACGGCTAGACTTATCTGACAACCAAAAAATAGTATAACCGGGTAAAAACAATCCATCCCAAGAAACACTACTTGCAGAAAACCTCAGCCGCACTCCAATGACTAACCAGCCAAACCTCCATCAAGACGGAAGCCAGGATTCCGATACACTCCACTACAACTCCCAAAGAAAACCAAAGCACTACAAAAGCCACAAACCAATTCATAAACAATTCGATCTCACTCAAACACCCTTTAAAACAACAACACCTCCGAACAGCGAGGTACACCTACAAAAAATCAATAAACATACACCGCAACCCACGCTAAACCATAGTCCGGTTCAGAGCGTCAAAACCCTACAAGAACACTCAAAACGGTCCTCTCCAAAAGCAAAAACCCGAAGATAACACGATACGCAATAAAGACAACAAATGGAATAACAACCGGGCCTACGTTTCCACTATAAAATAACGATGCCCGCGATGCCGAAACCAAGCAATGCGAACTCCCATCGAGCAAATCCAAAGCACCCACTAGGCCACCCTCAAAATTAACACATCCAGTACCACATGTACCAAGCCGCATGACAAACATCTTAGGAAGGAAACCCC'\}
+Problème! Le total ( 828 ) ne correspond pas à la somme des longueurs de la sequence ( 1000 )
+Random seq compos \{'T': 0.15821256038647344, 'A': 0.5120772946859904, 'C': 0.17149758454106281, 'G': 0.15821256038647344\}
+    \end{Verbatim}
+
+
+    \section{Tests réalisés en séance avec le groupe 2}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{seq} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ATTGCGGG}\PY{l+s}{\PYZdq{}}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATTGCGGG
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c}{\PYZsh{}\PYZsh{} Instantiate an empty sequence for the reverse}
+         \PY{n}{rev} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Original sequence = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{seq}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rev} \PY{o}{=} \PY{n}{rev} \PY{o}{+} \PY{n}{seq}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{]}
+             \PY{k}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{seq}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{rev}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Reverse sequence = }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{rev}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Original sequence =  ATTGCGGG
+0 G G
+1 G GG
+2 G GGG
+3 C GGGC
+4 G GGGCG
+5 T GGGCGT
+6 T GGGCGTT
+7 A GGGCGTTA
+Reverse sequence =  GGGCGTTA
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c}{\PYZsh{}\PYZsh{} Reminder about slice handling}
+         \PY{c}{\PYZsh{}\PYZsh{} Rappel: manipulation de tranches dans des chaînes de caractères}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATTGCGGG
+GC
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATC
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATCG
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATCG
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{seq}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} 'GGGCGTTA'
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{seq}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:} 'ATTGCGGG'
+\end{Verbatim}
+        
+
+    \subsection{Une méthode particulièrement lourde pour calculer le complément}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{cpl} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}} \PY{c}{\PYZsh{}\PYZsh{} initialiser la variable qui contiendra la séq complémentaire}
+         
+         \PY{n}{cpl\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{\PYZcb{}}
+         \PY{k}{print}\PY{p}{(}\PY{n}{cpl\PYZus{}dict}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{seq}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nt} \PY{o}{=} \PY{n}{seq}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{cpl\PYZus{}nt} \PY{o}{=} \PY{n}{cpl\PYZus{}dict}\PY{p}{[}\PY{n}{nt}\PY{p}{]}
+             \PY{n}{cpl} \PY{o}{=} \PY{n}{cpl} \PY{o}{+} \PY{n}{cpl\PYZus{}nt}
+             \PY{k}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{nt}\PY{p}{,} \PY{n}{cpl}\PY{p}{,} \PY{n}{cpl\PYZus{}nt}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'T': 'A', 'A': 'T', 'C': 'G', 'G': 'C'\}
+0 A T T
+1 T TA A
+2 T TAA A
+3 G TAAC C
+4 C TAACG G
+5 G TAACGC C
+6 G TAACGCC C
+7 G TAACGCCC C
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{seq} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ATTGCGGG}\PY{l+s}{\PYZdq{}}
+         \PY{k}{print}\PY{p}{(}\PY{n}{seq}\PY{p}{)}
+         
+         \PY{n}{cpl} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}} \PY{c}{\PYZsh{}\PYZsh{} initialiser la variable qui contiendra la séq complémentaire}
+         
+         \PY{n}{cpl\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{T}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{A}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{C}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{G}\PY{l+s}{\PYZdq{}}\PY{p}{\PYZcb{}}
+         \PY{k}{print}\PY{p}{(}\PY{n}{cpl\PYZus{}dict}\PY{p}{)}
+         
+         \PY{c}{\PYZsh{}\PYZsh{} In Python, strings can directly be iterated}
+         \PY{k}{for} \PY{n}{nt} \PY{o+ow}{in} \PY{n}{seq}\PY{p}{:}    
+             \PY{n}{cpl} \PY{o}{+}\PY{o}{=} \PY{n}{cpl\PYZus{}dict}\PY{p}{[}\PY{n}{nt}\PY{p}{]}
+             \PY{k}{print}\PY{p}{(}\PY{n}{nt}\PY{p}{,} \PY{n}{cpl}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Original sequence: }\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{seq}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Complementary seq: }\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{cpl}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ATTGCGGG
+\{'T': 'A', 'A': 'T', 'C': 'G', 'G': 'C'\}
+A T
+T TA
+T TAA
+G TAAC
+C TAACG
+G TAACGC
+G TAACGCC
+G TAACGCCC
+Original sequence:  ATTGCGGG
+Complementary seq:  TAACGCCC
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

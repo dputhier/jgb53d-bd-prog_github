@@ -1,0 +1,874 @@
+<html>
+
+  <script language="JavaScript" type="text/javascript">
+    <!--
+	function sizeTbl2(h,i) {
+	var tbl = document.getElementById(i);
+	tbl.style.display = h;
+	}
+		// -->
+  </script> 
+  
+  
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Python. Structures de données</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushPython.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+  
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+    
+    <h1 class='title'>Introduction à Python. Structures de données</h1>
+    
+    <hr>
+    <a name='contenu'></a>
+    <h2>Contenu</h2>
+    <ol>
+      <li><a href='#python'>Python</a></li>
+      <li><a href='#objectifs'>Objectifs du TD</a></li>
+      <li><a href='#session'>Ouvrir une session</a></li>
+      <li><a href='#firstpgrm'>Hello world</a></li>
+      <li><a href='#variables'>Création de variables</a></li>
+      <li><a href='#basicobjects'>En Python, les variables sont associées à des méthodes</a></li>
+      <li><a href='#lists'>Listes et tuples</a></li>
+      <li><a href='#dict'>Dictionnaires</a></li>
+      <li><a href='#plus'>Pour aller plus loin</a></li>
+      <li><a href='#'></a></li>
+    </ol>
+    
+    <a name='python'></a>
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Python ?</h2>
+    
+    <p>Le langage de programmation Python a été développé par Guido
+      van Rossum. Sa première version date de 1991. Python fonctionne
+      sous Windows, Linux/Unix et Mac OS X. Le langage Python est sous
+      licence open-source ce qui le rend utilisable gratuitement et
+      distribuable même pour des applications commerciales. Python a
+      été developpé afin de procurer un langage très lisible à la
+      communauté. L'idée est de proposer un langage très proche du
+      langage naturel et éloigné de certains langages dont le code
+      peut rapidement devenir obscur ("obfuscating code"). Par
+      ailleurs le but de python est de proposer un langage simple,
+      standardisé dont l'une des devise est: <i>"There should be one —
+      and preferably only one — obvious way to do it"</i>. </p>
+
+    <p>Python est un langage puissant, assez facile d'apprentissage et
+      qui propose une palette d'outils très large. Il peut être
+      notamment utilisé pour:</p>
+    <ul>
+      <li>Le développement de scripts (e.g convertisseurs de formats
+	pour des fichiers de données).</li>
+      <li>Le développement d'applications en lignes de commandes.</li>
+      <li>Le développement d'applications web.</li>
+      <li>Le développement de d'interfaces graphiques ("Graphical User
+	Interfaces", GUIs).</li>
+      <li>Communiquer avec des bases de données.</li>
+      <li>L'analyse de données numériques (issues des domaines de la
+	bioinformatique, physique,...).</li>
+      <li>...</li>
+    </ul>
+    
+    <a name='objectifs'></a>
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Objectifs du TD</h2>
+    <p>Au fil de ce TD, nous allons présenter un certain nombre de
+      structures de données. Ces structures (variables, listes,
+      dictionnaires,...) permettent d'organiser l'information en
+      mémoire et nous permettront, lors les TDs suivants, de réaliser
+      des programmes s'appuyant sur celles-ci.</p>
+    <ul>
+      <li><a href='#session'>Ouvrir une session</a></li>
+      <li><a href='#firstpgrm'>Hello world</a></li>
+      <li><a href='#variables'>Manupilation de variables</a></li>
+      <li><a href='#lists'>Listes et tuples</a></li>
+      <li><a href='#dico'>Dictionnaires</a></li>
+      <li><a href='#plus'>Pour aller plus loin</li>
+    </ul> 
+    
+    <!--###################################################################################################-->
+    <!--###################################################################################################-->
+    
+    <a name='session'></a>
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Ouvrir une session</h2>
+
+    <h3>Démarrez un terminal</h3>
+    
+    <div class='protocol'>
+      <ol>
+	<li>Connectez vous à l'ordinateur avec votre nom d'utilisateur
+	  et mot de passe.</li>
+	<li>Ouvrez un terminal (<i>cf</i> TD01).</li>
+      </ol>
+    </div>
+    
+    <p>Dans le terminal, tapez la commande suivante qui devrait vous
+      permettre de démarrer un interpréteur Python (ici pour la
+      version 3 du langage python).</p>
+    
+    <pre class="brush:bash;">	
+      ipython3 # Démarrage de l'interpréteur python.  
+    </pre>
+    
+    <p>Le programme <span class="program">IPython</span> est un
+      <span class="concept">interpréteur</span> python, ce qui
+      signifie qu'il comprendra les instructions Python que vous lui
+      soumettez et qu'il les exécutera l'une après l'autre. Ceci
+      permet de tester de simples commandes, sans nécessiter de les
+      sauvegarder dans un fichier.</p>
+    
+    <a name='firstpgrm'></a>    
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Hello world</h2>
+    
+    <p>Comme premier contact avec un langage de programmation, la
+      coutume est de créer un programme qui imprime à l'écran le
+      message <i>"Hello world"</i>. Nous ne dérogerons pas à
+      l'usage. </p>
+    
+    <div class='protocol'>
+      <p>Copiez l'instruction suivante dans l'interpréteur.</p>
+      
+      <link type="text/css" rel="stylesheet" href="../../../SYNTAX_HIGHLIGHTER/shThemeDefault.css"/>
+      <pre class="brush:python;">	
+	# On demande à python de dire  "Hello world"
+	print("Hello world")
+      </pre>
+    </div>@
+    
+    <a name='variables'></a>	
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Manipulation de variables</h2>
+    
+    <p>En informatique, les variables associent un nom (l'identifiant)
+      à une valeur. Créer une variable est très simple, il suffira
+      d'utiliser l'opérateur d'affectation '=' (aussi appelé opérateur
+      d'assignation).</p>
+
+    <p>En Python, les variables
+      sont <span class="concept">typées</span>, c'est-à-dire qu'une
+      variable présentera des comportements différents en fonction des
+      types d'information qu'elle contient (nombres entiers, nombres
+      décimaux, chaînes de caractères, ...).</p>
+
+    <h3>Variables numériques</h3>
+
+    <p>Copiez-collez les instructions suivantes dans iPython, ligne
+      par ligne. Analysez les résulats et tentez de comprendre la
+      façon dont l'interpréteur traite ces commandes. Certains
+      résultats seront parfois un peu déroutants pour les débutants,
+      mais leur logique sera discutée durant les TD, et l'usage du
+      langage s'éclairera au fil de la progression du cours.</p>
+
+    <pre class="brush:py;">
+      # Note: tout ce qui se trouve à droite du caractère '#' 
+      # est un commentaire (non interprété par python)
+
+      # On affecte la valeur '2' à une variable qu'on appelle 'a'
+      a = 2
+
+      # Quel est la valeur contenue dans a ?
+      a
+
+      # Quel est le type de cette variable ?
+      type(a) # Réponse: int (integer). La variable contient un nombre entier.
+
+      # On affecte la valeur 2.0 à a
+      a = 2.0
+
+      # Quel est le type de cette variable ?
+      type(a) # float (float). Un nombre à virgule flottante (i.e un réel).
+
+      # On affecte la valeur 4 à b
+      b = 4
+
+      # Quel est la valeur de b ?
+      b
+
+      # c contient la somme des valeurs courantes de  a et b 
+      c = a + b
+
+      # Quelle est la valeur de  c ? Quel est le type de c ?
+      c
+      type(c)
+
+      # Remémorons-nous les valeurs des variables (a, b, c)
+      print (a,b,c)
+
+    </pre>
+
+    <p>Dans l'exemple précédent, nous avons assigné des valeurs aux
+      variables <span class="variable">a</span> (<code>a=2.0</code>)
+      et <span class="variable">b</span> (<code>b=4</code>), puis
+      assigné à la variable <span class="variable">c</span> le
+      résultat d'un calcul (<code>c=a+b</code>). Conformément à nos
+      attentes, la variable <span class="variable">c</span> contient
+      le résultat de la somme de <span class="variable">a</span> et
+      <span class="variable">b</span>.
+    </p>
+
+    <p>Que ce passe-t-il si on change la valeur de <span class="variable">b</span> ?</p>
+
+    <pre class="brush:py;">
+      b = 10 
+      print(a,b,c) # expliquez
+    </pre>
+
+    <p>Le fait de changer la valeur de <span class="variable">b</span> n'a pas affecté le contenu de
+      la variable <span class="variable">c</span>. En mathématique, quand on écrit une équation (par
+      exemple <i>c = a + b</i>, la relation ainsi définie prend valeur
+      de vérité pour l'ensemble des développements ultérieurs. Il en
+      va autrement en programmation:
+      l'<span class='concept'>assignation</span> <code>c=a+b</code> a
+      pour effet de créer ou modifier le contenu d'un espace de
+      mémoire. Si l'on change ensuite le contenu d'une des variables
+      impliquées dans la relation (<code>b=10</code>), la variable <span class="variable">c</span>
+      n'a pas de raison de changer tant qu'on ne l'a pas
+      ré-assignée.</p>
+
+    <pre class="brush:py;">
+      # Re-calculer la somme des valeurs de a et b, 
+      # et mettre à jour le contenu de la variable c
+      c = a + b
+      
+      # la valeur de c correspond maintenant à la somme de a et b
+      print(a,b,c)
+    </pre>
+
+    <p>Ce type de notation permet notamment
+      d'<span class="concept">incrémenter</span> le contenu d'une
+      variable, en ajoutant une valeur (par exemple la constante 1) à
+      son propre contenu.</p>
+
+    <pre class="brush:py;">
+      d = 0
+      print(d)
+
+      d = d+1
+      print(d)
+
+      d = d+1
+      print(d)
+
+      d = d+1
+      print(d)
+    </pre>
+
+    <p>On constate, ici encore, la différence entre la formulation
+      mathématique d'une équation et l'assignation d'une variable en
+      programmation. En mathématiques, l'équation <i>d=d+1</i> est
+      fausse, puisqu'il est impossible qu'un nombre soit égal à la somme
+      de sa valeur et du nombre 1. En informatique,
+      l'instruction <code>d=d+1</code> est parfaitement valide, elle
+      indique qu'il faut incrémenter d'une unité le contenu de la
+      variable d.</p>
+
+    <h4>Calcul sur des variables</h4>
+
+    <p>Les opérateurs mathématiques classiques peuvent être
+      utilisés sur des entiers et flottants.</p>
+
+    <pre class="brush:py;">
+      a = 4.0
+      type(a) # vérifions le type de la variable 'a'. Elle contient un nombre décimal
+      a/3
+      type(a*3)
+      
+      # On peut donc utiliser IPython comme une calculatrice
+      3*(2+4)
+    </pre>
+
+
+
+<div class='exo'>
+      <p>Effectuez les exercices suivants:</p>
+      <ul>
+    <li>Créez une variable <span class="variable">i</span> et assignez lui la valeur 100.</li>
+    <li>Quel est le type de <span class="variable">i</span>.</li>
+    <li>Créez une variable <span class="variable">j</span> et assignez lui la valeur 5.0. </li>
+    <li>Quel est le type de <span class="variable">j</span> ?</li>
+    <li>Créez la variable k qui contient la somme de <span class="variable">i</span> et <span class="variable">j</span>.</li>
+    <li>Quel est le type de <span class="variable">k</span> ?</li>    
+      </ul>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_0b')" class="sol" >View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_0b')">Hide solution</a>
+    <div id=sol_0b  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+    i = 100     # on assigne 100 à i
+    type(i)     # Le type de i (int)
+    j = 5.0     # j vaut 5.0    
+    type(j)     # j est un float.
+    k = i + j   # k prend la somme
+    type(k)     # k est un float
+      </pre>
+    </div>
+    
+    
+
+
+    <h3>Variables de type 'chaînes de caractères'</h3>
+
+    <h4>Assignation d'une variable à une chaîne de caractères</h4>
+    
+    <p>Copiez-collez les instructions suivantes dans IPython, ligne
+      par ligne, et tentez d'interpréter le résultat.</p>
+
+    <pre class="brush:py;">
+      # On peut affecter une chaîne de caractères à une variable
+      # Cette variable est alors de type "chaîne de caractères". 
+      nom_de_fichier = "refGene"
+      type(nom_de_fichier) # str (string). Une chaîne de charactères.
+      
+      # Que contient la variable nom_de_fichier ? 
+      nom_de_fichier
+    </pre>
+
+
+    <p>Notez qu'en tapant simplement le nom de la variable comme
+      ci-dessus, Python affiche son contenu entre guillemets simple ('apostrophes'), pour
+      indiquer qu'il s'agit d'une chaîne de caractères.</p>
+
+    <p>On peut afficher le contenu de la variable en utilisant la
+      fonction Python print(). Notez que cette fonction affiche le
+      contenu sans l'entourer de guillemets.</p>
+
+    <pre class="brush:py;">
+      # Imprimer le contenu de la variable nom_de_fichier
+      print(nom_de_fichier)
+      
+      # Notez que la commande suivante produit une erreur.
+      nom_de_fichier = refGene  
+      # Comment expliquez-vous cette erreur ?
+    </pre>	
+
+    <p>Dans le cas ci-dessus, nous avons demandé à Python de copier
+      le contenu d'une variable appelée refGene dans une autre
+      variable appelée nom_de_fichier. Cependant il n'existe pas de
+      variable nommée refGene (puisque nous n'en avons pas défini).</p>
+    
+    <p>Ceci illustre un aspect important de la syntaxe: pour
+      spécifier le contenu d'une chaîne de caractères, il faut
+      entourer ce contenu de délimitateurs (guillemets simples ou doubles). Un mot sans délimitateurs sera interprété comme
+      nom de variable, et non comme chaîne de caractère.</p>
+
+
+    <h4>Concaténation</h4>
+    
+    <p>En Python, la concaténation de chaînes de caractères se fait
+      très simplement au moyen de l'opérateur "+". </p>
+
+    <pre class="brush:py;">
+      # On affecte la valeur ".txt" à une variable nommée 'extension'
+      extension = ".txt"
+      
+      # Quel est le contenu de la variable extension ? 
+      print(extension)
+
+      # Quel est son type ?
+      type(extension)
+      
+      # On peut 'concaténer' des chaînes de caractères avec l'opérateur +
+      nom_complet = nom_de_fichier + extension
+      
+      # Attention on ne peut concaténer que des chaînes entre elle:
+      a = 2.0
+      type(a)
+      type(nom_de_fichier)
+      nom_de_fichier + a # Quelle erreur est renvoyée ?
+      
+      # Pour concaténer nom_de_fichier et la variable a, il faut
+      # convertir cette dernière en chaîne de caractère:
+      nom_de_fichier + str(a) # maintenant ça fonctionne
+      
+      # La fonction str() utilisée ci-dessus a pour effet de
+      # convertir une variable en une chaîne de caractère.
+      str(27)
+    </pre>
+
+    <p>Notez que Python affiche '27', avec des guillements, pour
+      indiquer qu'il s'agit d'une chaîne de caractères.</p>
+
+    <p>On peut répéter des chaines en les multipliant par un
+      entier.</p>
+
+    <pre class="brush:py;">
+      nom_de_fichier * 10
+
+      a = 3.0
+      type(a) # Et pourquoi pas un entier ? Expliquez. 
+      nom_de_fichier * a # ne fonctionne pas car a n'est pas un entier.
+      nom_de_fichier * int(a) # en convertissant a en entier ça fonctionne	
+    </pre>
+
+    <p>On peut aussi utiliser la fonction print pour afficher le
+      contenu d'une ou plusieurs variables.</p>
+
+    <pre class="brush:py;">
+      print(c)
+      print(nom_complet) 
+
+      # La commande print() peut traiter une liste de variables
+      x = 'alfred'
+      y = 'sarah'
+      z = 'mélanie'
+      print(x,y,z)
+
+      # La liste peut contenir des variables de types différents
+      print(c, nom_de_fichier, c, 2, 2.0)
+    </pre>
+
+    <p>Pour les textes sur plusieurs lignes, on utilisera une
+      'docstring', en marquant le début et la fin par des triplets
+      de guillemets</p>
+
+    <pre class="brus:py;">
+      phrase = """Ceci
+      est une phrase
+      sur plusieurs lignes
+      """
+
+      print(phrase)
+    </pre>
+
+
+<div class='exo'>
+      <p>Effectuez les exercices suivants:</p>
+      <ul>
+    <li>Créez une variable <span class="variable">repetition</span> qui contiendra un motif composé d'un triplet du sous-motif TTG suivis d'une occurrence de AAA. Ce motif sera répété 100 fois. (TTGTTGTTGAAATTGTTGTTGAAATTGTTGTTGAAA...)</li>
+      </ul>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_0a')" class="sol" >View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_0a')">Hide solution</a>
+    <div id=sol_0a  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+    ("TTG" * 3 + "AAA" ) * 100
+      </pre>
+    </div>
+    
+
+    <h3>Note à propos des conversions ("coercition", "cast" en anglais)</h3>
+
+    <p>Python permet d'effectuer un certain nombre de conversions
+      entre types de variables (comme vu précédemment
+      avec <b>str())</b>. Un certain nombre d'exemples sont montrés
+      ci-dessous qui illustrent les comportements des fonctions de
+      conversion en fonction des types qui sont entrés en
+      paramètres.</p>
+
+    <p>Copiez collez les instructions suivantes une ligne après
+    l'autre dans l'interpréteur.</p>
+	
+    <pre class="brush:py;">
+      ####################################
+      ### Coercition à partir d'un entier
+      ####################################
+      a = 2
+      float(a) 	# Vaut 2.0
+      str(a)   	# Vaut '2' . Les guillemets indiquent que c'est une chaîne de caractères.
+
+      ####################################
+      ### Coercition à partir d'un réel
+      ####################################
+      a=2.9
+      int(a)    	# Vaut 2. Seule la partie entière est préservée
+      str(a)		# Vaut '2.9'. Les guillemets indiquent que c'est une chaîne de caractères.
+
+      #####################################################
+      ### Coercition partir d'une chaîne de caractères
+      #####################################################
+      int("2")	      # Vaut 2. Fonctionne
+      float("2.9")    # Vaut 2.9. Fonctionne
+      float("1.3e-3") # Vaut 0.0013. Fonctionne
+
+      # La coercition vers des nombres suppose une chaîne de caractères compatibble avec des nombres.
+      int("A")     # Erreur. Cette transformation est impossible.
+      float("A")   # Erreur. Cette transformation est impossible.
+      # Les deux instructions précédentes retournent des erreurs, car
+      # la chaîne de caractère "A" ne peut pas être interprétée comme
+      # un nombre.
+
+      int("2.9")   # Erreur : cette chaîne de caractère ne peut pas être convertie en entier
+      float("2.9") # Ici, ça marche
+      int(float("2.9")) # Ca fonctionne. 
+    </pre>
+
+    <p>Le dernier exemple peut sembler étonnant: la conversion de
+      "2.9" en entier ne fonctionne pas, mais la double coercition
+      fonctionne parce que le résultat de la première conversion
+      fournir une variable de type float, de de valeur 2.9, qui peut
+      être convertie en variable entière (la coercicion de fload à
+	int a pour effet de tronquer les décimales).</p>
+    
+
+    <h3>Variables booléennes</h3>
+
+    <p>Une variable booléenne est une variable à deux états: vrai ou
+      faux. En python une variable booléenne pourra prendre la
+      valeur <b>True</b> ou <b>False</b>. Nous reviendrons sur ces
+      variables dans les TD suivant lors de la présentation des
+      structures conditionnelles.</p>
+    
+    <p>Copiez collez les instructions suivantes une ligne après
+      l'autre dans l'interpréteur.</p>
+    
+    <pre class="brush:py;">
+      d = True
+      c = False
+      
+      # ON peut ensuite effectuer des opérations logiques entre variables Booleennes
+      d
+      not d
+      not c
+      d and c
+      d or c
+	  d and (not c)
+    </pre>
+
+    <h3>Noms réservés</h3>
+    
+    <p class="attention"><b>Attention: </b> certains noms sont
+      réservés en Python. Cela signifie que vous ne pouvez pas les
+      utiliser comme noms de variables. La liste des noms réservés
+      peut être
+      trouvée <a target="_blank" href="http://docs.python.org/release/2.5.4/ref/keywords.html">ici</a>. </p>
+    
+    
+    <pre class="brush:py;">
+      # Les commandes suivantes ne fonctionnent pas, car elles
+      # les mots réservés (and, if, ...) ont un sens particulier en
+      # Python, on n'a donc pas le droit de les utiliser comme noms de
+      # variables.
+      and = "et"
+      if = "si"
+    </pre>
+    
+    <a name='basicobjects'></a>    
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>En Python, les variables sont associées à des méthodes</h2>
+    
+    <p>Les variables dans python sont en fait des objets associés à
+      des méthodes (nous reverrons cela en détail plus tard). Cela
+      signifie que, suivant la classe de l'objet (<i>e.g</i> un
+      entier, une chaîne de caractères, ...) un certain nombre de
+      procédures spécifiques peuvent êtres appliquées en appelant la
+      méthode correspondante.</p>
+    
+    <p>Tapez le code suivant dans l'interpréteur python</p>
+
+    <pre class="brush:python;">
+      dna="ATACTAGAATTCGATAGGTGGTAAAACCCG"
+      
+      # De quoi s'agit-il ? 
+      type(dna)
+      
+      # Cherchons de l'aide sur la classe str (string)
+      help(str)
+
+
+      # Notez la variété de méthodes disponibles.
+
+      ## Pour sortir de l'aide, tapez la touche 'q'
+
+      # Notez que les méthodes entourées de tirets soulignés
+      # ("__method__") doivent être utilisées comme indiqué.
+      #
+      # x.__len__() <==> len(x) signifie que l'on écrira 
+      len(dna)
+      # et non pas 
+      dna.__len__()
+	
+
+      # Toutes les autres méthodes (sans tirets soulignés) sont à
+      # utiliser en suffixant la variable d'un "." suivi du nom de la
+      # méthode.
+
+      # Exemple: convertir la séquence d'ADN en minuscules
+      dna.lower()
+	
+      # Tapez q pour quitter l'aide.
+    </pre>
+    
+    <div class='exo'>
+      <p>Consultez l'aide sur la classe <b>str</b>. En utilisant les
+	méthodes disponibles, répondez au question suivantes:</p>
+      <ul>
+	<li>Quelle est la taille de la chaîne de caractères stockée dans la variable <span class="variable">dna</span> ?</li>
+	<li>Est-ce que la chaîne de caractère dna se termine par CCG ? (utilisez une méthode qui répond directement à cette question)</li>
+	<li>Est-ce que la chaîne contient un site de reconnaissance pour EcoR1 "GAATTC". A quelle position ?</li>
+	<li>Transformez le site ecoR1 en site BglII ("AGATCT").</li>
+	<li>Transformez le site BglII par une succession (n = 3) de site ecoR1 et BglII ("AGATCT").</li>
+	<li>Transformez la chaîne en  minuscules.</li>
+      </ul>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_02')" class="sol" >View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_02')">Hide solution</a>
+    <div id=sol_02  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+	len(dna)
+	dna.endswith("CCG")
+	dna.find("GAATTC") # On commence à compter à 1 ou à 0 ?
+	dna = dna.replace("GAATTC", "AGATCT") # Attention il faut 'écraser' la variable dna.
+	dna = dna.replace("AGATCT", ("GAATTC" + "AGATCT") * 3) # succession de ecoR1 et BglII
+	dna.lower()
+      </pre>
+    </div>
+    
+    
+    <a name='lists'></a>    
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Listes et tuples</h2>
+    
+    <h3>Listes</h3>
+    
+    <p>Une liste peut être vue comme un tableau qui permet de stocker
+      des objets.</p>
+    
+    <pre class="brush:python;">	
+      ############################
+      ### Créer une liste vide ###
+      ############################
+      ma_liste = list() # or ma_liste = []
+      len(ma_liste) # contient 0 éléments
+      ma_liste
+
+
+      ################################################################################################
+      ### Créer une liste contenant un ensemble d'éléments pré-définis (ici des symboles de gènes) ###
+      ################################################################################################
+      liste_de_genes = ["CD3E", "CD4", "CD8", "CD5", "ZAP70", "ITK", "LAT","VAV1","CD3G","TCRA"]
+      liste_de_genes
+      
+      ##########################################################
+      ### Extraire un sous ensemble par index.
+      ##########################################################
+
+      # Notez qu'on commence à la position 0
+      liste_de_genes[0]
+      liste_de_genes[1]
+      
+      # Indexer depuis la fin
+      liste_de_genes[-1]
+      liste_de_genes[-2]
+      
+      # Prendre une 'tranche' (slice) de cette liste 
+      # liste_de_genes[début:fin] # de  début à fin-1
+      liste_de_genes[0:2]
+      liste_de_genes[0:3]
+      liste_de_genes[0:4]
+      liste_de_genes[0:5]
+      
+      # Extraire les derniers éléments d'une liste
+      # liste_de_genes[début:] # de début jusqu'à la fin
+      liste_de_genes[1:]
+      liste_de_genes[5:]
+
+
+      # Extraire les premiers éléments d'une liste
+      # liste_de_genes[:fin] # De la première position jusqu'à fin-1  
+      liste_de_genes[:4]
+
+      # Spécifier l'incrément (le "pas") d'un parcours de liste.
+      # liste_de_genes[début:fin:p] # de début à fin-1 par incrément de p
+      liste_de_genes[0:10:2] 
+      liste_de_genes[0::2] == liste_de_genes[0:10:2]
+      liste_de_genes[::2]  == liste_de_genes[0::2] 
+      liste_de_genes[::-1] # La liste à l'envers
+
+      ########################################
+      ### Changer les éléments d'une liste ###
+      ########################################
+      liste_de_genes[5:] = ['CD52','SATB1']
+      liste_de_genes
+      len(liste_de_genes)
+      # Note: nous venons de changer la longueur de la liste, en
+      # remplaçant les 5 derniers éléments d'une liste de 10 éléments
+      # par une nouvelle liste de 2 éléments
+      
+      ####################################################
+      ### Notez qu'une chaîne de caractère peut être   ###
+      ### considérée comme une liste dont les élements ###
+      ### ne peuvent être modifiés.                    ###
+      ####################################################
+      dna[3:]
+      dna[::-1] # Qu'obtenez-vous en utilisant un incrément de -1?
+      dna[25:]= 'TTTTT' # que dit le message d'erreur ?
+    </pre>
+    
+    <p>Comme tout objet, les listes ont un ensemble de méthodes associées.</p>
+    
+    <p>Copiez collez les instructions suivantes dans l'interpréteur IPython.</p>
+    <pre class="brush:python;">
+      ########################################
+      #### Get help about the class 'list' ###
+      ########################################
+      help(list)
+      # q pour quitter
+      
+      ########################################
+      ### Quelques méthodes classiques    ####
+      ######################################## 
+      len(liste_de_genes)		    		# Nombre d'éléments
+      liste_de_genes + liste_de_genes   		# Concaténer deux listes
+      'LAT' in liste_de_genes 			# Est-ce que cet élément est contenu dans ma liste
+      del liste_de_genes[5] 				# Déléter le 6ème élément ('ITK')
+      liste_de_genes*3				# Concaténer 3 fois la liste
+      liste_de_genes.append('BCL2')  		# Ajouter BCL2 à la fin de la liste 
+      liste_de_genes
+      liste_de_genes.count('CD3E')		# Compter le nombre d'occurrences de 'CD3E'
+      gene = liste_de_genes.pop(2)		# Déléter et renvoyer le 3ème élément de la liste (CD8)
+      gene 
+      liste_de_genes.sort()				# Trier la liste
+      liste_de_genes.sort(reverse=True)
+      liste_de_genes.insert(2,'P53')		# Insérer un élément avant une position donnée
+      liste_de_genes.remove('P53')		# Delete a given object from the list 
+    </pre>
+
+    <div class='exo'>
+      <p>Consultez l'aide sur la classe <b>str</b>. En utilisant les
+    méthodes disponibles, répondez au question suivantes:</p>
+      <ul>
+    <li>Créez une liste contenant les chaînes de caractères "GAATTC", "AGATCT" et "GGTGG".  </li>
+    <li>Quelle est la taille de cette liste.</li>
+    <li>Utilisez l'opérateur de multiplication pour créez une liste contenant 10 répétitions de la liste initiale.</li> 
+    <li>Utilisez la méthode sort pour trier cette liste.</li>
+    <li>Transformez cette liste en chaine de caractères à l'aide de la méthode 'join'.</li>
+      </ul>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_02bb')" class="sol" >View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_02bb')">Hide solution</a>
+    <div id=sol_02bb  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:python;">
+        ma_list = ["GAATTC", "AGATCT", "GGTGG"]
+        ma_list = ma_list * 10
+        ma_list.sort()          # pas besoin d'assigner !
+        ma_chaine = "".join(ma_list)
+        print(ma_chaine)
+      </pre>
+    </div>
+    
+
+    <h3>Tuples</h3>
+
+    <p>Les tuples sont très proches des listes. Cependant une fois
+      créés, ces objets ne peuvent pas être modifiés. Dans la syntaxe
+      python, les listes sont déclarées en encadrant leurs éléments de
+      crochets <tt>[ ]</tt>, tandis que les tuples sont encadrés par
+      des parenthèses <tt>( )</tt>. 
+    </p>
+    
+    <p>Copiez collez les instructions suivantes dans l'interpréteur IPython.</p>
+    <pre class="brush:python;">	
+      myTuple=('a','b')
+      myTuple[0]
+      myTuple[0]='c' # error.
+    </pre>
+
+
+    <a name='dict'></a>
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Les dictionnaires</h2>
+
+    <h3>Un dictionnaire ?</h3>
+
+    <p>Un <b>dictionnaire</b> est un tableau permettant de stocker des
+      informations sous la forme clef -> valeur. Cet objet est
+      extrêmement utile au même titre que la liste. Dans d'autres
+      langages de programmation, le dictionnaire est aussi connnu sous
+      le nom de <b>hash</b>, <b>table de hachage</b> ou
+      encore <b>tableau associatif</b>. </p>
+
+
+    <p>Copiez collez les instructions suivantes dans l'interpréteur
+      IPython.</p>
+    <pre class="brush:python;">	
+      #############################################
+      ### Créer un dictionnaire vide liste vide ###
+      #############################################
+      codon2AA = {}
+      
+      ############################################################
+      ### Créer un dictionnaire contenant des clefs et valeurs ###
+      ############################################################
+      # Une partie du code génétique...
+      codon2AA =  {"UUU":"PHE", "UCU":"SER", "CUU":"LEU","AAA":"LYS"}
+      
+      
+      ############################################################
+      ### Récupérer une valeur avec une clef					 ###
+      ############################################################
+      codon2AA['CUU']
+
+      ## Si la clé n'a pas été définie, Python émet un message d'erreur
+      codon2AA['ABSENT']
+      
+      ##########################################
+      ### Ajouter une paire clef -> valeur   ###
+      ##########################################
+      codon2AA['ACA'] = "THR"
+      codon2AA['AUG'] = "START"
+      codon2AA
+
+	##########################################
+	### Déléter un éléments                ###
+	##########################################
+	## del délète une paire clef valeur
+	del codon2AA["AUG"]
+	codon2AA
+
+
+	##########################################
+	### Tester si une clef existe          ###
+	##########################################
+	'ACA' in codon2AA
+      </pre>
+    
+    
+    <a name='plus'></a>
+    <a href='#contenu'><font size='-2'>[Retour à la table des matières]</font></a><hr>
+    <h2>Pour aller plus loin</h2>
+    
+    <p>Pour en savoir plus sur les structures de données en Python,
+      vous pouvez consulter la <a target="_blank"
+				  href="https://docs.python.org/3/tutorial/datastructures.html">documentation
+	Python</a> correspondante. Vous noterez notamment l'existence
+      de <b>Sets</b> qui n'ont pas été traité ici et qui correspondent
+      à des liste ordonnées non-redondante. Nous vous laissons les
+      découvrir seuls à titre d'exercice.
+    </p>
+
+    <hr>
+  </body>
+</html>
+
+
+<!-- ########################################################
+     ### Créer un dictionnaire à deux dimensions          ###
+     ########################################################
+     ## Par exemple pour indiquer que deux protéines interagissent
+     from collections import defaultdict # Nous reverrons la signification de cette instruction plus tard
+     interaction = defaultdict(dict)
+     interaction["geneA"]["geneB"] = 1 # On indique juste que A et B interagissent 
+     interaction["geneA"]["geneB"] = "yeast two hybrid" # On indique ici que l'interaction à été vue par la méthode du double hybride.
+  -->
+

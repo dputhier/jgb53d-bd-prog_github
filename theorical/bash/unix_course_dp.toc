@@ -1,0 +1,47 @@
+\beamer@endinputifotherversion {3.24pt}
+\select@language {french}
+\beamer@sectionintoc {1}{Pourquoi UNIX/Linux ?}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Architecture d'un ordinateur}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Qu'est ce qu'un syst\IeC {\`e}me d'exploitation ?}{5}{0}{1}
+\beamer@subsectionintoc {1}{3}{UNIX/Linux: historique}{6}{0}{1}
+\beamer@subsectionintoc {1}{4}{Pourquoi utiliser Linux en biologie ?}{8}{0}{1}
+\beamer@subsectionintoc {1}{5}{Pourquoi utiliser Linux en biologie ?}{9}{0}{1}
+\beamer@subsectionintoc {1}{6}{Si vous souhaitez installer Linux}{10}{0}{1}
+\beamer@sectionintoc {2}{Notions de base pour l'utilisation du shell}{11}{0}{2}
+\beamer@subsectionintoc {2}{1}{Quelques bonnes habitudes}{12}{0}{2}
+\beamer@subsectionintoc {2}{2}{Quelques bonnes habitudes}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{Le terminal: Arghhh !!!}{14}{0}{2}
+\beamer@subsectionintoc {2}{4}{Aide sur les commandes}{15}{0}{2}
+\beamer@sectionintoc {3}{Fichiers et r\IeC {\'e}pertoires}{19}{0}{3}
+\beamer@subsectionintoc {3}{1}{Organisation des fichiers sous Linux}{20}{0}{3}
+\beamer@subsectionintoc {3}{2}{Chemins relatifs et absolus}{25}{0}{3}
+\beamer@subsectionintoc {3}{3}{Op\IeC {\'e}rations sur les dossiers}{29}{0}{3}
+\beamer@subsectionintoc {3}{4}{Op\IeC {\'e}rations sur les fichiers}{36}{0}{3}
+\beamer@sectionintoc {4}{Redirection}{46}{0}{4}
+\beamer@subsectionintoc {4}{1}{Entr\IeC {\'e}es-Sorties (E$\delimiter "026E30F $S) d'un processus.}{47}{0}{4}
+\beamer@subsectionintoc {4}{2}{Les op\IeC {\'e}rateurs de redirection}{48}{0}{4}
+\beamer@subsectionintoc {4}{3}{Les tubes (pipes).}{50}{0}{4}
+\beamer@sectionintoc {5}{Expressions r\IeC {\'e}guli\IeC {\`e}res}{53}{0}{5}
+\beamer@subsectionintoc {5}{1}{D\IeC {\'e}finition}{54}{0}{5}
+\beamer@sectionintoc {6}{Les filtres}{56}{0}{6}
+\beamer@subsectionintoc {6}{1}{D\IeC {\'e}finition}{57}{0}{6}
+\beamer@subsectionintoc {6}{2}{La commande grep}{58}{0}{6}
+\beamer@subsectionintoc {6}{3}{La commande sort}{60}{0}{6}
+\beamer@subsectionintoc {6}{4}{La commande tr}{61}{0}{6}
+\beamer@subsectionintoc {6}{5}{La commande sed}{62}{0}{6}
+\beamer@sectionintoc {7}{La commande AWK}{63}{0}{7}
+\beamer@sectionintoc {8}{Contr\IeC {\^o}le des processus}{67}{0}{8}
+\beamer@subsectionintoc {8}{1}{D\IeC {\'e}finition}{67}{0}{8}
+\beamer@subsectionintoc {8}{2}{top}{68}{0}{8}
+\beamer@subsectionintoc {8}{3}{Premier plan et arri\IeC {\`e}re plan}{69}{0}{8}
+\beamer@subsectionintoc {8}{4}{La commande nohup}{70}{0}{8}
+\beamer@sectionintoc {9}{R\IeC {\'e}seau}{71}{0}{9}
+\beamer@subsectionintoc {9}{1}{Un point fort}{71}{0}{9}
+\beamer@sectionintoc {10}{Bioinformatique et reproductibilit\IeC {\'e}....}{72}{0}{10}
+\beamer@subsectionintoc {10}{1}{Tout reproduire, m\IeC {\^e}me les erreurs...}{73}{0}{10}
+\beamer@subsectionintoc {10}{2}{makefile}{74}{0}{10}
+\beamer@sectionintoc {11}{Quelques \IeC {\'e}l\IeC {\'e}ments pour la programmation (Bash Scripting).}{79}{0}{11}
+\beamer@subsectionintoc {11}{1}{variables}{79}{0}{11}
+\beamer@subsectionintoc {11}{2}{Les boucles}{80}{0}{11}
+\beamer@subsectionintoc {11}{3}{Backquoting}{81}{0}{11}
+\beamer@subsectionintoc {11}{4}{Bash scripting}{82}{0}{11}

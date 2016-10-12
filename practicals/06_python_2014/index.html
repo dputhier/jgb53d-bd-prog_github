@@ -1,0 +1,194 @@
+<html>
+  <script language="JavaScript" type="text/javascript">
+    <!--
+		function sizeTbl2(h,i) {
+		var tbl = document.getElementById(i);
+		tbl.style.display = h;
+		}
+		// -->
+  </script> 
+
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Python. Écriture et lecture de fichers.</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushPython.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+
+    <h1 class='title'>Introduction à Python. Écriture et lecture de fichers.</h1>
+
+
+
+
+	<a name='contents'></a>
+
+	<h2>Contenu</h2>
+
+	En programmation, il est souvent nécessaire de lire le contenu de fichiers. Les informations lues peuvent alors être stockées dans des variables (<i>cf</i> <a href="../04_python/index.html">TD4</a>) et analysées par l'utilisation de structures conditionelles et de boucles itératives (<i>cf</i> <a href="../05_python/index.html">TD5</a>). Finalement, on sauvegarde généralement les résultats de ces analyses en les écrivant directement <i>via</i> Python dans un fichiers.
+
+		<ul>
+		<li><a href='#objet'>Object fichier</a></li>
+		<li><a href='#lire'>Lire ou écrire dans un fichier</a></li>
+		</ul> 
+
+
+      <hr>  
+    <a name='objet'></a>
+    <h2>Objet fichier</h2>
+	Jusqu'à présent, nous avons vu comment écrire sur la <i>sortie standard</i> (fonction <b>print</b>) et comment lire depuis l'<i>entrée standard</i> (fonction <b>input</b>). Ces échanges de flux de données peuvent aussi s'appliquer aux fichiers stockés en mémoire sur l'ordinateur.
+	<h3>Fonction <i>open</i></h3>
+	Avant de pouvoir lire et écrire dans un fichier, vous devez créer l'objet Python qui servira de lien avec le fichier résidant sur votre machine. Pour cela, on utilise la fonction Python <i>open</i>, qui prend en argument la localisation (relative ou absolue) du fichier ainsi que le mode d'ouverture. La fonction open renvoie alors un objet de type fichier. Une fois que créé l'objet fichier, vous pourrez appeler ses méthodes pour lire ou écrire. Finalement, la fonction <i>close</i> permet de terminer la connexion avec le fichier.
+
+<pre class="brush:python;">
+##############################################################
+##  Exemple d'ouverture/fermeture d'un fichier en écriture  ##
+##############################################################
+
+myFile = open('results.txt', 'w')
+
+if( not myFile.closed ):
+	print(myFile.name)
+
+# On réalisera plus tard des opérations sur le fichier
+
+myFile.close()
+
+</pre>
+	<h3>Modes d'ouverture</h3>
+	Le deuxième paramètre de la fonction open - attendu sous forme d'une chaine de charactère - lui indique le mode de traitement du fichier. Les trois principaux modes sont 'r' pour <i>read</i> et 'w' pour <i>write</i>, et 'a' pour <i>append</i>. Il est également possible d'utiliser des modes plus complexes (binaires et lecture+écriture), décrits dans le tableau ci-dessous.
+
+<table>
+<tr>
+<th>Operateur</th><th >Description</th>
+</tr>
+<tr>
+<td>r</td><td>Ouvre un fichier en lecture uniquement. Le pointeur est placé au début du fichier. C'est la valeur par défault.</td>
+</tr>
+<tr>
+<td>w</td><td>Ouvre un fichier en écriture uniquement. Écrase le contenu du fichier s'il existe déjà, crée un nouveau fichier sinon. Le pointeur est placé au début du fichier.</td>
+</tr>
+<tr>
+<td>a</td><td>Ouvre un fichier en écriture uniquement. Le pointeur est placé à la fin du fichier s'il existe, sinon un nouveau fichier est créé.</td>
+</tr>
+<tr>
+<td>rb ou wb ou ab </td><td>Ouvre le fichier en mode binaire (lecture des octets au lieu des caractères).</td>
+</tr>
+<td>r+ ou w+ ou a+</td><td>Ouvre le fichier en lecture et en écriture.</td>
+</tr>
+</tr>
+<td>rb+ ou wb+ ou ab+</td><td>Combinaison des deux précédents.</td>
+</tr>
+</table>
+
+	<h3>Questions</h3>
+	<div class='exo'>
+	<ol>
+		<li>Quel est le type de l'objet fichier?</li>
+		<li>Quelle méthode permet de déplacer le pointeur dans le fichier?</li>
+		<li>Que se passe-t-il quand vous ouvrez en lecture un fichier qui n'existe pas encore?</li>
+	</ol>
+	</div>
+<br>
+<hr>
+    <a name='lire'></a>
+    <h2>Lire ou écrire dans un fichier</h2>
+	Pour illustrer cette partie, placez-vous dans le dossier contenant le fichier <b>refGene_hg38.txt</b> (<i>cf</i> <a href="../01-02_human_genome/human_genome.html">TD01</a>) et créez un nouveau script Python dans Geany. Créez également un fichier contenant les 5 première lignes du fichier refGene_hg38.txt pour vos tests (Conseil: en ligne de commande avec la commande head et l'opérateur de redirection ">").
+	<h3>Lire un fichier</h3>
+	Après avoir ouvert un fichier en mode lecture, plusieurs fonctions vous permettent d'en stocker le contenu. Testez les principales, listées ci-dessous.
+
+<pre class="brush:python;">
+###################################################################
+##  Copie l'intégralité du fichier dans un chaine de caractères  ##
+###################################################################
+fileContent = myFile.read()
+
+
+##############################################################################
+##  Copie l'intégralité du fichier dans une liste (un élément = une ligne)  ##
+##############################################################################
+fileContent = myFile.readlines()
+
+
+###################################################################################
+##  Copie uniquement la ligne suivante du fichier dans une chaine de caractères  ##
+###################################################################################
+fileContent = myFile.readline()
+
+
+####################################################################################
+##  Copie un nombre donné de caractères du fichier dans une chaine de caractères  ##
+####################################################################################
+fileContent = myFile.read(6)
+
+</pre>
+
+
+	<div class='exo'>
+	<ol>
+		<li>Comment afficher uniquement la quatrième ligne du fichier?</li>
+		<li>Quel est l'effet d'appels succéssifs à la méthode read(int)?</li>
+	</ol>
+	</div>
+<br>
+Il est également possible de boucler directement sur l'objet fichier avec un <b>for</b>, ou d'utiliser un <b>while</b> (même effet).
+<pre class="brush:python;">
+###########################################
+##  Boucles sur les lignes d'un fichier  ##
+###########################################
+
+for line in myFile:
+	print(line)
+
+# ou 
+
+line = myFile.readline()
+while line:
+	print(line)
+	line = myFile.readline()
+
+</pre>
+<br>
+	<h3>Écrire dans un fichier</h3>
+	Après avoir ouvert un fichier en mode écriture, plusieurs fonctions vous permettent d'écrire du contenu. Deux exemples sont donnés ci-dessous. Vous pouvez vérifiez que l'écriture est effective soit (i) en ouvrant dans un éditeur de texte ce fichier; (i) en utilisant Python pour lire dans ce fichier. Dans le cas de l'utilisation de Python, pensez à deplacer le pointeur de lecture en début de fichier en ouvrant un nouveau flux de lecture, ou en utilisant la fonction <b>seek</b> si vous avez ouvert le fichier en mode écriture et lecture.
+
+<pre class="brush:python;">
+#######################################
+##  Écrire une chaine de caractères  ##
+#######################################
+myFile.write("test")
+
+
+########################
+##  Écrire une liste  ##
+########################
+myList = ['aa\n', '3', 'end']
+# Attention: 1) uniquement des chaines de caractères; 2) si les éléments de la liste ne se terminent pas par '\n' il n'y aura pas de nouvelle ligne.
+myFile.writelines(myList)
+
+</pre>
+
+	<div class='exo'>
+	<ol>
+		<li>Proposez une solution pour vous assurez d'écrire le contenu de la liste avec chaque élément sur une ligne différente.</li>
+	</ol>
+	</div>
+
+<br>
+<hr>
+ 
+<br>
+ </body>
+</html>

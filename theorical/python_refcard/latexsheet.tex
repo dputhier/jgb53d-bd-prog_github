@@ -1,0 +1,489 @@
+\documentclass[10pt,landscape]{article}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{listingsutf8}
+
+
+
+\makeatletter
+\ifcase \@ptsize \relax% 10pt
+\newcommand{\mini}{\@setfontsize\miniscule{4}{5}}% \tiny: 5/6
+\fi
+\makeatother
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+	{ \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+
+% Turn off header and footer
+\pagestyle{empty}
+ 
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+
+% -----------------------------------------------------------------------
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+	
+	% Python for inline
+	\newcommand\pythoninline[1]{{\tiny\pythonstyle\lstinline!#1!}}
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\textbf{Python3 Cheat sheet}} \\
+\end{center}
+
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{0,0,113}
+\definecolor{red}{RGB}{160,0,0}
+\definecolor{green}{RGB}{0,150,0}
+
+%\lstset{extendedchars}
+%\lstset{inputencoding=utf8x}
+
+
+
+\lstset{language=Python, 
+  basicstyle=\ttfamily\scriptsize, 
+  keywordstyle=\color{keywords},
+  commentstyle=\color{comments},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  escapeinside={\%*}{*)},
+  breaklines=true,
+  breakatwhitespace=true,
+  framextopmargin=0pt,
+  framexbottommargin=0pt,
+  inputencoding=utf8,
+  extendedchars=true,
+  literate=  {é}{{\'e}}1%
+  {î}{{\^i}}1%
+  {è}{{\`e}}1%
+  {->}{{$\rightarrow$}}1%
+  {à}{{\`a}}1%
+}
+
+
+Une feuille recapitulant les notions de Python3 vues par les étudiants ayant suivi le  module jgb53d ("Bases de données et programmation").
+
+\section{Variables}
+\subsection{Types}
+- \textbf{int}  : un entier (e.g 1, -3, 19,...)\\
+- \textbf{float} : un réel (0.23, -0.15, 5e-06)\\
+- \textbf{str}   : une chaîne de caractères.\\
+- \textbf{bool} : un booléen (True, False).\\
+- \textbf{NoneType} : pour une variable dont la valeur est \textbf{None} (\textit{i.e.} non définie). \\
+\vspace{.2cm}
+- type(objet) renvoie le type de l'objet (str, int,...).\\
+
+\subsection{Notation}
+- On préfèrera l'utilisation de "-" pour les variables dont le nom est long (e.g une\_jolie\_variable).\\
+- Attention aux noms réservés en python (and, if, class, def,...).
+
+\subsection{Opérations sur les chaînes de caractères}
+Notez que la transformation d'une chaîne nécessite d'utiliser l'opérateur d'assignation (e.g. a = a.lower()).
+
+\begin{lstlisting}
+a="Hello"
+b="world\n"
+v = "" # une chaîne de caractères vide.
+type(a) # un objet str
+help(str) # aide sur l'objet str
+c = a + " " + b # concaténation -> "Hello world"
+c[0] # 'H'
+c[0]*3 # 'multiplication'  -> 'HHH'
+len(b) # longueur -> 6
+b = b.capitalize # 'world\n' -> 'World\n'
+b = b.rstrip("\n") #  enlève le dernier caractère
+b = b.lstrip("W") # enlève le premier caractère
+a.count("l") # nombre d'occurrences -> 2
+a.endswith("o") # True
+a.startswith("H") # True
+a.find("o") # position du premier 'o' -> 4
+a.index("o") # position du premier 'o' -> 4
+a.lower() # minuscule ('lowercase')
+a.upper()# majuscule ('uppercase')
+a.replace("l","g") # 'Heggo'
+conv = str.maketrans("He","Bu")
+a.translate(conv) # Bullo
+a.split("e") # -> ['H', 'llo']
+"3".zfill(4) # -> '0003'
+\end{lstlisting}
+
+\subsection{Opérations sur les numériques}
+
+\begin{lstlisting}
+a=3.2
+b=4
+c = a + b # addition
+d = a * b  # multiplication
+e = a / b # division
+import math  # Opérations mathématiques avancées
+math.sqrt(2) # racine carrée (square root)
+a**2 # puissance
+math.floor(3.14) # partie entière -> 3
+math.ceil(3.14)  # partie entière par excès -> 4
+math.ceil(3.14)  # fonctions trigonométriques (...)
+math.log10(100)  # logarithme (base 10)
+\end{lstlisting}
+
+
+\subsection{Opérations logiques}
+
+\begin{lstlisting}
+a == b	# True si a et b sont égaux.
+a != b	# True si a et b sont différents.
+a > b	# True si a est supérieure à b.
+a < b	# True si a est inférieure à b.
+a >= b	# True si a est supérieure ou égale à b.
+a <= b	# True si a est inférieure ou égale à b.
+c <= a <= b # True si a est supérieure ou égale à c et inférieure ou égale à b.
+c < a < b # True si a est strictement supérieure à c et inférieure à b.
+a < d  and b > c # ET logique.
+a < d  or b > c # OU logique.
+not a == b # Négation logique.
+\end{lstlisting}
+
+
+\subsection{Conversions}
+\begin{lstlisting}
+int(3.0)    # conversion en entier
+str(30)     # conversion en chaîne
+float("30.2")  # conversion en réel
+bool(0)     # conversion en booléen
+\end{lstlisting}
+
+
+\section{Listes}
+Une liste permet de stocker un ensemble d'objets. On peut accéder aux éléments de la liste en désignant des positions (indices) dans celle-ci.
+
+\begin{lstlisting}
+l = list() # déclare une liste vide
+l = []     # déclare une liste vide
+l = ["a", "b", "a", "c"] # une liste à 4 éléments
+len(l) # taille de la liste -> 3
+l.count("a") # compter le nb. d'occurrences de "a" 
+l.append("e") # ajoute un élément (à la fin)
+l.insert(p, "t") # ajoute "t"  avant la position p   
+e = l.pop(p)  # délète/renvoie l'élément en pos. p      
+l.index("c") # la position de l'élément "c"
+l.reverse() # inverse l'ordre
+l.sort() # tri alphanumérique
+l + ["j", "k"] # concaténation
+l += "e"  # ajoute à la fin
+l * 3 # multiplication
+"a" in l # test la présence de "a" dans l
+\end{lstlisting}
+
+
+\section{Dictionnaires}
+Dans un dictionnaire on stocke des objets (valeurs) accessibles par une clef. On n'aura pas besoin de connaitre la position de l'objet mais le nom de sa clef pour y accéder.
+
+\begin{lstlisting}
+prix = dict() # déclare un dictionnaire vide
+prix = {} # déclare uun dictionnaire vide
+# initialisation avec plusieurs éléments
+prix = {"pomme": 3, "cerise": 8}
+# ajoute une valeur (8) pour la clef 'poire'  
+prix['poire'] = 4 
+prix['poire']  # valeur pour la clef 'poire'
+del prix['poire'] # déléte le couple 'poire'/4
+prix.keys()    # l'ensemble des clefs
+len(prix.keys()) # le nombre de clefs
+prix.values() # l'ensemble des valeurs
+len(prix.values()) # le nombre de valeurs
+\end{lstlisting}
+
+
+\section{Boucles}
+
+\subsection{Boucles for}
+Il est souvent nécessaire de réaliser des itérations (boucles). Elles sont très utilisées notamment pour parcourir des listes ou les clefs/valeurs d'un dictionnaire. Les deux types de boucles que l'on rencontre le plus fréquemment sont les boucles for et les boucles while.
+Attention! En python, l'indentation fait partie de la syntaxe. En particulier, le domaine d'application d'une boucle est défini par les lignes qui sont en retrait par rapport à l'instruction initiale.
+
+\begin{lstlisting}
+### Effectuer une opération n fois
+n = 100
+for i in range(n): # 0..99
+	print("je le fais")
+
+# Parcourir des listes
+chroms = ["Chr1", "Chr2", "Chr7"]
+
+for c in chroms:
+        print(c)
+
+# parcourir des listes
+# c contient la valeur en position p        
+for p,c in enumerate(chroms):
+        print(p, c)
+
+# Parcourir des chaînes de caractères
+dna = 'ATGCTCGCTCGCTCGATGAAAATGTG'
+
+# On passe en revue les nucléotides
+# contenus dans la séquence
+for  nuc in dna:
+	print("La séquence contient "+ nuc)
+
+#Parcourir un Dictionnaire
+login2passwd = {"Alain":"abc123", "John":"qwerty"} 
+
+# Afficher les clefs
+for key in login2passwd:
+        print(key)
+
+# Afficher les clefs et valeurs 
+# Il faut utiliser la méthode item()
+for key, value in login2passwd.items():
+	print(value, key)
+\end{lstlisting}
+
+\subsection{Break et continue}
+Comme dans beaucoup d'autres langages, le mot clef \textbf{break}, permet de 'casser' une boucle, de l'arrêter avant qu'elle n'arrive à sa fin. Le mot clef \textbf{continue} permet de passer directement à la prochaine itération, sans effectuer la suite des instructions de cette itération.
+
+\begin{lstlisting}
+## Exemple 1
+# La sortie est:
+# 0 1 2 3 4
+for i in range(10):
+	if i==5:
+		break
+	print(i)
+
+## Exemple 2
+# La sortie est 
+# 1 2 8 9 10
+i = 0
+while i < 10:
+	i += 1
+	if  2 < i < 8:
+		continue
+	print(i)
+\end{lstlisting}
+
+\subsection{Boucle while}
+\begin{lstlisting}
+# Tant que la condition est vraie
+# alors le jeu d'instructions est exécuté
+a = 0
+while a < 10:
+    print(a)
+    a+=1
+\end{lstlisting}
+
+
+
+\section{Structures conditionelles}
+Une structure conditionnelle permet de tester si une condition est vraie ou fausse. Ces structures conditionnelles évaluent, de manière générale, une expression logique. Dans la structure if...else classique, on exécutera un certain nombre d'instructions si la condition est vraie, et un autre jeu d'intructions si celle-ci s'avère fausse.
+
+ 
+\begin{lstlisting}
+# Une structure if simple:
+if a > b :
+      instructions
+
+# Structure if .. else
+if a > b :
+      instructions
+else:
+      instructions
+
+# la structure if...elif...else:
+if a > b:
+     instructions 
+elif c > d:
+     instructions
+else:
+     instructions
+
+# Structures if...else imbriquées
+
+if a > b:
+	instructions
+	if c > d:
+	       instructions
+else:
+        instruction(s)
+\end{lstlisting}
+
+\section{Entrées / sorties}
+\subsection{La fonction input}
+
+\begin{lstlisting}
+# capture d'une entrée utilisateur
+a = input("Entrez un nombre: ")
+a = int(a) # input renvoie un objet str.
+\end{lstlisting}
+
+\subsection{La fonction open}
+
+\begin{lstlisting}
+# ouverture d'un fichier en lecture.
+# Parcours puis fermeture
+f = open("file.txt", "r")
+
+for line in f:
+     instructions
+
+f.close()
+     
+# ouverture d'un fichier en écriture
+f = open("file.txt", "w")
+f.write("blabla")
+print("bidule", file=f)
+f.close()
+\end{lstlisting}
+
+
+\begin{itemize}
+\item[r] Ouvre un fichier en lecture. Défaut.
+\item[w] Ouvre un fichier en écriture. 
+\item[a] Ajouter des lignes dans un fichier. Le pointeur est placé à la fin du fichier s'il existe, sinon un nouveau fichier est créé.
+\item[r+ ou w+ ou a+] Ouvre le fichier en lecture et en écriture.
+\end{itemize}
+
+
+\section{Définition de fonctions}
+\subsection{Définition et appel}
+La création d'une fonction se fait grâce au mot-clé \textbf{def}. Celui-ci est suivi du nom de la fonction. On décrit ensuite les opérations qui doivent être effectuées par la fonction en marquant l'indentation. Le programme python peut alors exécuter, ou appeler cette fonction. On peut alors demander à la fonction de renvoyer son résultat avec le mot clé \textbf{return}.
+
+\begin{lstlisting}
+# Exemple de fonction simple
+def exponential(x, y):
+	return x ** y
+result = exponential(2,4)
+\end{lstlisting}
+
+\subsection{Passage d'arguments}
+\begin{lstlisting}
+#  Exemple d'appel
+def printBreakfast(a, b):
+	print("I'll have ", a , " toast(s) and ", b, " egg(s)")
+
+printBreakfast(2, 3)
+printBreakfast(a=2, b=3)
+
+#  Arguments avec valeurs par défault
+def printBreakfast(a=2, b=3):
+	print("I'll have ", a , " toast(s) and ", b, " egg(s)")
+
+printBreakfast()
+
+\end{lstlisting}
+
+\section{Aide}
+Pour obtenir de l'aide sur un objet, utilisez la fonction \textbf{help}.
+\begin{lstlisting}
+help(str)
+# /start pour rechercher la chaîne de caractères 'start'
+# n (next) pour la prochaine occurence
+# p (previous) pour l'occurence précédente
+# q pour quitter
+\end{lstlisting}
+
+\section{Divers}
+\subsection{Caractères accentués}
+Par défaut, Python ne supporte pas les caractères accentués. Si l'on souhaite en utiliser il convient d'indiquer en première ligne du fichier:
+
+\begin{lstlisting}
+# -*- coding: utf8 -*-
+\end{lstlisting}
+
+\subsection{Lancer ipython3 dans un terminal}
+Dans un terminal taper:
+\begin{verbatim}
+ipython3
+\end{verbatim}
+
+\subsection{Executer le code Python}
+Pour executer le code python présent dans un fichier via un terminal, plusieurs solutions sont possibles.
+\begin{verbatim}
+# Solution 1
+python3 leFichier.py
+\end{verbatim}
+
+Dans la deuxième solution, indiquer en première ligne du fichier que le code doit être executer par python en utilisant un 'shebang' (\#!).
+\begin{lstlisting}
+#!/usr/bin/env python
+...
+... 
+\end{lstlisting}
+
+Ensuite executez ce code après avoir rendu le fichier executable.
+\begin{verbatim}
+chmod u+x leFichier.py
+./leFichier.py  
+\end{verbatim}
+
+\section{Remerciements}
+Ce travail a été réalisé avec \LaTeX d'après un patron proposé par Winston Chang.\\
+Ce travail est sous licence Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. \\
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+
+\end{multicols}
+\end{document}

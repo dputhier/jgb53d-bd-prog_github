@@ -1,0 +1,29 @@
+\frametitle{Pour en savoir plus...}
+ \begin{scriptsize}
+    \begin{itemize}
+          \item Le point de vue de R. Stallman (conf. à L'ENS)
+\tiny
+\begin{verbatim}
+http://framablog.org/index.php/post/2007/04/11/
+Stallman-en-grande-forme-conference-ENST-03-avril-2007
+\end{verbatim}
+\normalsize
+
+          \item Unix RefCard
+\tiny
+\begin{verbatim}
+http://www.ai.univ-paris8.fr/~djedi/poo/unix-refcard.pdf
+\end{verbatim}
+\normalsize
+          \item Unix Refcard (the One Page Linux Manual)
+\tiny
+\begin{verbatim}
+http://homepage.powerup.com.au/~squadron/linux_manual.pdf
+\end{verbatim}
+\normalsize
+          \item Linux: Initiation et utilisation (J.P. Armspach, P. Colin, F. Ostré-Waerzeggers)
+          \item Introduction aux scripts-shell (A. Robbins, N.H.F Beebe)
+          \item Les TD Linux (D. Puthier)
+          \item ...
+    \end{itemize}
+ \end{scriptsize}

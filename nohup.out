@@ -1,0 +1,193 @@
+2015-10-27 11:25:28.571 [NotebookApp] Using existing profile dir: u'/Users/puthier/.ipython/profile_default'
+2015-10-27 11:25:28.574 [NotebookApp] Using MathJax from CDN: https://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-10-27 11:25:28.584 [NotebookApp] The port 8888 is already in use, trying another random port.
+2015-10-27 11:25:28.585 [NotebookApp] The port 8889 is already in use, trying another random port.
+2015-10-27 11:25:28.585 [NotebookApp] The port 8890 is already in use, trying another random port.
+2015-10-27 11:25:28.586 [NotebookApp] Serving notebooks from local directory: /Users/puthier/git/jgb53d-bd-prog
+2015-10-27 11:25:28.586 [NotebookApp] 0 active kernels 
+2015-10-27 11:25:28.586 [NotebookApp] The IPython Notebook is running at: http://localhost:8891/
+2015-10-27 11:25:28.586 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+2015-10-27 11:25:44.400 [NotebookApp] Kernel started: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:25:56.697 [NotebookApp] Uploading notebook to /count_cmd.ipynb
+2015-10-27 11:26:29.431 [NotebookApp] Kernel started: c5870518-ebc3-44a1-a958-d6ec4f57f8cf
+2015-10-27 11:27:44.407 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:29:44.392 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:31:44.389 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:33:44.388 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:35:44.385 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:36:49.614 [NotebookApp] Kernel restarted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:37:27.762 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:37:33.579 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:37:39.478 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:37:39.656 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:37:44.387 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:38:32.889 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:36.677 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:36.873 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:37.073 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:38.969 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:39.149 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:39.333 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:39.511 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:39.711 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:39.887 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:40.081 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:40.273 [NotebookApp] Kernel interrupted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:38:44.029 [NotebookApp] Kernel restarted: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 11:39:44.381 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:41:23.656 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:41:44.379 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:42:51.749 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:43:26.678 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:45:44.826 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:47:44.823 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 11:49:19.918 [NotebookApp] CRITICAL | received signal 15, stopping
+2015-10-27 11:49:19.919 [NotebookApp] Shutting down kernels
+2015-10-27 11:49:20.334 [NotebookApp] Kernel shutdown: c5870518-ebc3-44a1-a958-d6ec4f57f8cf
+2015-10-27 11:49:21.369 [NotebookApp] Kernel shutdown: 2dd1cffb-fdb6-4417-bd79-fdeccd79c14a
+2015-10-27 12:07:58.975 [NotebookApp] Using existing profile dir: u'/Users/puthier/.ipython/profile_default'
+2015-10-27 12:07:58.979 [NotebookApp] Using MathJax from CDN: https://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-10-27 12:07:58.997 [NotebookApp] Serving notebooks from local directory: /Users/puthier/git/jgb53d-bd-prog
+2015-10-27 12:07:58.997 [NotebookApp] 0 active kernels 
+2015-10-27 12:07:58.997 [NotebookApp] The IPython Notebook is running at: http://localhost:8888/
+2015-10-27 12:07:58.997 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+2015-10-27 12:08:06.702 [NotebookApp] Kernel started: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 12:10:06.688 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:12:06.676 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:14:07.175 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:17:11.983 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:17:12.088 [NotebookApp] Loaded template full.tpl
+/Users/puthier/anaconda/lib/python2.7/site-packages/IPython/nbconvert/filters/markdown.py:78: UserWarning: Node.js 0.9.12 or later wasn't found.
+Nbconvert will try to use Pandoc instead.
+  "Nbconvert will try to use Pandoc instead.")
+2015-10-27 12:18:07.150 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:19:41.836 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:19:41.857 [NotebookApp] Loaded template full.tpl
+2015-10-27 12:22:07.156 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:23:49.630 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:24:13.637 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:26:07.155 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:27:01.174 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 12:27:04.035 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 12:28:07.149 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:29:39.257 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:30:07.144 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:32:07.136 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:34:07.130 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:36:43.957 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:46:43.874 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:48:43.868 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:50:43.862 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:52:43.853 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:57:19.600 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 12:58:43.822 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:00:43.817 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:02:43.803 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:04:43.798 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:17:32.916 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:17:57.906 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:18:33.340 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:18:43.745 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:18:48.485 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:19.256 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:57.132 [NotebookApp] Kernel interrupted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:57.135 [NotebookApp] Kernel interrupted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:58.633 [NotebookApp] Kernel interrupted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:58.639 [NotebookApp] Kernel interrupted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:58.644 [NotebookApp] Kernel interrupted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:19:58.673 [NotebookApp] Kernel interrupted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:20:43.759 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:20:46.049 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:21:09.407 [NotebookApp] Kernel restarted: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-10-27 13:22:43.730 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:28:43.710 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:29:14.756 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 13:29:14.777 [NotebookApp] Loaded template full.tpl
+2015-10-27 13:30:43.706 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 14:19:56.260 [NotebookApp] Saving notebook at /practicals/04_python_2015/count_cmd.ipynb
+2015-10-27 14:20:27.364 [NotebookApp] Kernel started: 2c8dcf49-d48c-4fb2-8a24-d4b2df7ae164
+2015-10-27 14:22:27.372 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:24:27.358 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:26:27.351 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:44:28.180 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:46:28.172 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:47:55.300 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:48:28.166 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:48:39.087 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:49:00.469 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:56:29.138 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 14:58:29.128 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 15:00:29.122 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 21:49:05.086 [NotebookApp] Using existing profile dir: u'/Users/puthier/.ipython/profile_default'
+2015-10-27 21:49:05.089 [NotebookApp] Using MathJax from CDN: https://cdn.mathjax.org/mathjax/latest/MathJax.js
+2015-10-27 21:49:05.099 [NotebookApp] The port 8888 is already in use, trying another random port.
+2015-10-27 21:49:05.100 [NotebookApp] Serving notebooks from local directory: /Users/puthier/git/jgb53d-bd-prog
+2015-10-27 21:49:05.100 [NotebookApp] 0 active kernels 
+2015-10-27 21:49:05.100 [NotebookApp] The IPython Notebook is running at: http://localhost:8889/
+2015-10-27 21:49:05.100 [NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+2015-10-27 21:49:19.865 [NotebookApp] Kernel started: 727fd115-468d-4cfc-960c-07ad20a70cc7
+2015-10-27 22:12:29.337 [NotebookApp] Kernel started: b838a5d0-958b-452d-9d97-d60e0681fc63
+2015-10-27 22:14:29.339 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:16:29.328 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:18:29.320 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:20:29.322 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:22:29.313 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+WARNING:tornado.general:404 GET /notebooks/TD05.ipynb (::1): Notebook does not exist: /TD05.ipynb
+WARNING:tornado.access:404 GET /notebooks/TD05.ipynb (::1) 0.96ms referer=None
+WARNING:tornado.access:404 GET /favicon.ico (::1) 0.47ms referer=http://localhost:8889/notebooks/TD05.ipynb
+INFO:tornado.access:302 GET /notebooks/ (::1) 0.43ms
+INFO:tornado.access:302 GET /notebooks (::1) 0.47ms
+2015-10-27 22:24:33.678 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:26:33.664 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:28:33.662 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:30:33.657 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:44:49.635 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:46:49.633 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:48:49.632 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:50:49.629 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:52:49.631 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:54:49.626 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:56:05.350 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:56:08.532 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:56:49.627 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:58:05.687 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-27 22:58:05.827 [NotebookApp] Loaded template full.tpl
+/Users/puthier/anaconda/lib/python2.7/site-packages/IPython/nbconvert/filters/markdown.py:78: UserWarning: Node.js 0.9.12 or later wasn't found.
+Nbconvert will try to use Pandoc instead.
+  "Nbconvert will try to use Pandoc instead.")
+WARNING:tornado.general:404 GET /notebooks/TD05.ipynb (::1): Notebook does not exist: /TD05.ipynb
+WARNING:tornado.access:404 GET /notebooks/TD05.ipynb (::1) 5.00ms referer=None
+INFO:tornado.access:302 GET /notebooks/ (::1) 0.69ms
+INFO:tornado.access:302 GET /notebooks (::1) 0.86ms
+2015-10-28 16:59:44.793 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:00:27.319 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:01:03.811 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:01:23.939 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:02:12.619 [NotebookApp] Kernel restarted: b838a5d0-958b-452d-9d97-d60e0681fc63
+2015-10-28 17:02:38.660 [NotebookApp] Kernel interrupted: b838a5d0-958b-452d-9d97-d60e0681fc63
+2015-10-28 17:02:42.812 [NotebookApp] Kernel restarted: b838a5d0-958b-452d-9d97-d60e0681fc63
+2015-10-28 17:02:50.297 [NotebookApp] Kernel restarted: b838a5d0-958b-452d-9d97-d60e0681fc63
+2015-10-28 17:03:37.353 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:03:37.544 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:04:27.542 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:06:27.488 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:08:27.485 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:10:18.145 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:10:18.164 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:12:27.740 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:12:39.640 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:12:39.660 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:13:10.053 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:13:10.075 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:13:39.926 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-10-28 17:13:39.947 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:14:10.702 [NotebookApp] Loaded template full.tpl
+2015-10-28 17:15:39.985 [NotebookApp] Saving notebook at /practicals/05_python_2015/tx_len.ipynb
+2015-11-01 00:07:29.869 [NotebookApp] CRITICAL | received signal 15, stopping
+2015-11-01 00:07:29.868 [NotebookApp] CRITICAL | received signal 15, stopping
+2015-11-01 00:07:29.927 [NotebookApp] Shutting down kernels
+2015-11-01 00:07:29.932 [NotebookApp] Shutting down kernels
+2015-11-01 00:07:30.480 [NotebookApp] Kernel shutdown: 2829cdb0-a98d-4855-ac8a-b640f3c3e12c
+2015-11-01 00:07:30.481 [NotebookApp] Kernel shutdown: 727fd115-468d-4cfc-960c-07ad20a70cc7
+2015-11-01 00:07:30.917 [NotebookApp] Kernel shutdown: b838a5d0-958b-452d-9d97-d60e0681fc63
+2015-11-01 00:07:30.917 [NotebookApp] Kernel shutdown: 2c8dcf49-d48c-4fb2-8a24-d4b2df7ae164

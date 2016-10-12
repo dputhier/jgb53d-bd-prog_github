@@ -1,0 +1,406 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{TD09\_solutions}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+
+    \section{Travaux pratiques Python - statistiques et graphiques}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os} \PY{c}{\PYZsh{}\PYZsh{} Operating system library}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Get home directory}
+        \PY{n}{home\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{expanduser}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZti{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Home directory = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{home\PYZus{}dir}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Specify the data directory}
+        \PY{n}{course\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{home\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{jgb53d\PYZhy{}bd\PYZhy{}prog}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{cds\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{course\PYZus{}dir}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{data}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{gene\PYZus{}tables}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Data directory = }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{cds\PYZus{}dir}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} List all files in the data directory}
+        \PY{n}{data\PYZus{}files} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{cds\PYZus{}dir}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{n}{data\PYZus{}files}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Specify the full path of the organism\PYZhy{}specific CDS files}
+        \PY{n}{ecoli\PYZus{}cds\PYZus{}file} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{cds\PYZus{}dir}\PY{p}{,}  \PY{l+s}{\PYZdq{}}\PY{l+s}{Escherichia\PYZus{}coli\PYZus{}K\PYZus{}12\PYZus{}substr\PYZus{}\PYZus{}MG1655\PYZus{}uid57779\PYZus{}cds.tab}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{E.coli CDS file : }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{ecoli\PYZus{}cds\PYZus{}file}\PY{p}{)}
+        \PY{n}{plasmodium\PYZus{}cds\PYZus{}file} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{cds\PYZus{}dir}\PY{p}{,}  \PY{l+s}{\PYZdq{}}\PY{l+s}{Plasmodium\PYZus{}falciparum\PYZus{}cds.tab}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{P.falciparum CDS file: }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{plasmodium\PYZus{}cds\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Home directory = /Users/jvanheld
+Data directory = /Users/jvanheld/jgb53d-bd-prog/data/gene\_tables
+['Escherichia\_coli\_K\_12\_substr\_\_MG1655\_uid57779\_cds.tab', 'Plasmodium\_falciparum\_cds.tab']
+E.coli CDS file : /Users/jvanheld/jgb53d-bd-prog/data/gene\_tables/Escherichia\_coli\_K\_12\_substr\_\_MG1655\_uid57779\_cds.tab
+P.falciparum CDS file: /Users/jvanheld/jgb53d-bd-prog/data/gene\_tables/Plasmodium\_falciparum\_cds.tab
+    \end{Verbatim}
+
+
+    \subsection{Lecture des coordonnées à partir d'un fichier tabulaire}
+
+
+    Ecrivez une méthode qui prend en entrée un nom de fichier et un numéro
+de colonne, lit le contenu de ce fichier et retourne une liste contenant
+les valeurs(supposées entières) de la colonne indiquée.
+
+Note: La première ligne du fichier ne contient pas de données, il s'agit
+d'une ligne d'en-tête, qui indique le contenu de chaque colonne. Vous
+pouvez simplement passercette ligne.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{read\PYZus{}column}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,} \PY{n}{column}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Extract the content of a specified column from a tab\PYZhy{}delimited file.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Attributes:}
+        \PY{l+s+sd}{        file\PYZus{}name \PYZhy{}\PYZhy{} name of a tab\PYZhy{}delimited text file}
+        \PY{l+s+sd}{        column \PYZhy{}\PYZhy{} number of the column (first column is 1)}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    Returns:}
+        \PY{l+s+sd}{        values \PYZhy{}\PYZhy{} a list of integer values parsed from the specified column of the input file}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c}{\PYZsh{}\PYZsh{} Check that the column attribute is an integer (column number)}
+            \PY{k}{if} \PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{column}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{read\PYZus{}column() error: invalid column number: should be an integer}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{}\PYZsh{} Check that the column attribute is at least 1}
+            \PY{k}{if} \PY{p}{(}\PY{n}{column} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{read\PYZus{}column() error: invalid column number: should be \PYZgt{}= 1}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{}\PYZsh{} Check that file name is not an empty string}
+            \PY{k}{if} \PY{p}{(}\PY{n}{file\PYZus{}name} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{Exception} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{read\PYZus{}column() error: file name cannot be empty}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{c}{\PYZsh{}\PYZsh{} Open the file in read mode}
+            \PY{n+nb}{file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            
+            \PY{n}{l} \PY{o}{=} \PY{l+m+mi}{0} \PY{c}{\PYZsh{}\PYZsh{} Initialize a line counter}
+            \PY{n}{values} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c}{\PYZsh{}\PYZsh{} Create a list to store the values}
+            \PY{n}{column\PYZus{}header} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}} \PY{c}{\PYZsh{}\PYZsh{} Header of the selected column}
+            \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{file}\PY{p}{:}
+                \PY{n}{l} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{fields} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Split the line by tab}
+                \PY{k}{if} \PY{p}{(}\PY{n}{l} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:} 
+                    \PY{c}{\PYZsh{}\PYZsh{} Report the column content from the header line (for information)}
+                    \PY{n}{column\PYZus{}header} \PY{o}{=} \PY{n}{fields}\PY{p}{[}\PY{n}{column}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} 
+                \PY{k}{else}\PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} parse all subsequent lines}
+                    \PY{n}{value} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{fields}\PY{p}{[}\PY{n}{column}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{values}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+            \PY{k}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Extracted }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{values}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s}{\PYZdq{}}\PY{l+s}{ values from column }\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{column}\PY{p}{)} \PY{o}{+} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n}{column\PYZus{}header}\PY{p}{)}        
+            \PY{k}{return}\PY{p}{(}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+    Utilisez cette méthode pour extraire les positions de début et de fin
+des CDS d'Escherichia coli, que vous stockerez dans des listes dénommées
+start\_positions et end\_positions, respectivement.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{start\PYZus{}positions} \PY{o}{=} \PY{n}{read\PYZus{}column}\PY{p}{(}\PY{n}{ecoli\PYZus{}cds\PYZus{}file}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{end\PYZus{}positions} \PY{o}{=} \PY{n}{read\PYZus{}column}\PY{p}{(}\PY{n}{ecoli\PYZus{}cds\PYZus{}file}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Extracted 4319 values from column 2	start\_pos
+Extracted 4319 values from column 3	end\_pos
+    \end{Verbatim}
+
+
+    \subsection{Statistics on gene lengths}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{cds\PYZus{}lengths} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c}{\PYZsh{}\PYZsh{} Initialize and empty list to store gene lengths}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{start\PYZus{}positions}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cds\PYZus{}lengths}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{end\PYZus{}positions}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}positions}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Check the 5 first gene length values}
+        \PY{k}{print} \PY{p}{(}\PY{n}{cds\PYZus{}lengths}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Compute the min and max values step by step}
+        \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cds\PYZus{}lengths}\PY{p}{)} \PY{c}{\PYZsh{}\PYZsh{} Number of CDS is the length of the list}
+        \PY{n}{min\PYZus{}len} \PY{o}{=} \PY{n}{cds\PYZus{}lengths}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c}{\PYZsh{}\PYZsh{} Initialize the minimal length with the first gene}
+        \PY{n}{max\PYZus{}len} \PY{o}{=} \PY{n}{cds\PYZus{}lengths}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c}{\PYZsh{}\PYZsh{} Initialize the maximal length with the first gene}
+        \PY{n}{sum\PYZus{}len} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mean\PYZus{}len} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n+nb}{len} \PY{o+ow}{in} \PY{n}{cds\PYZus{}lengths}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{len} \PY{o}{\PYZgt{}} \PY{n}{max\PYZus{}len}\PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} Update max if required}
+                \PY{n}{max\PYZus{}len} \PY{o}{=} \PY{n+nb}{len}
+            \PY{k}{if} \PY{n+nb}{len} \PY{o}{\PYZlt{}} \PY{n}{min\PYZus{}len}\PY{p}{:} \PY{c}{\PYZsh{}\PYZsh{} Update min if required}
+                \PY{n}{min\PYZus{}len} \PY{o}{=} \PY{n+nb}{len}
+            \PY{n}{sum\PYZus{}len} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len} \PY{c}{\PYZsh{}\PYZsh{} Update length sum}
+        \PY{n}{mean\PYZus{}len} \PY{o}{=} \PY{n}{sum\PYZus{}len} \PY{o}{/} \PY{n}{n} \PY{c}{\PYZsh{}\PYZsh{} Compute the mean}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Print the result}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of CDS}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Min length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{min\PYZus{}len}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Max length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{max\PYZus{}len}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Mean length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{mean\PYZus{}len}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[66, 2463, 933, 1287, 297]
+Number of CDS	4319
+Min length	45
+Max length	21837
+Mean length	956.6899745311415
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{statistics}
+        
+        \PY{c}{\PYZsh{}\PYZsh{} Print the result}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of CDS}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Min length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{cds\PYZus{}lengths}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Max length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{cds\PYZus{}lengths}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Mean length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{statistics}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cds\PYZus{}lengths}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Median length}\PY{l+s+se}{\PYZbs{}t}\PY{l+s}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{statistics}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{cds\PYZus{}lengths}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of CDS	4319
+Min length	45
+Max length	21837
+Mean length	956.6899745311415
+Median length	837
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}}]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

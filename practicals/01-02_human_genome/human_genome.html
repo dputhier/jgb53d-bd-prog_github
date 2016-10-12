@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
+
+<html>
+
+  <script language="JavaScript" type="text/javascript">
+    <!--
+	function sizeTbl2(h,i) {
+	var tbl = document.getElementById(i);
+	tbl.style.display = h;
+	}
+	// -->
+  </script> 
+
+
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Discovering the human genome with UNIX - Statistics on genes and transcripts</title>
+    <link rel="stylesheet" type="text/css" href="../../html/course.css" />
+    <script type="text/javascript" src="../../html/syntaxhighlight/shCore.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushBash.js"></script>
+    <script type="text/javascript" src="../../html/syntaxhighlight/shBrushR.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="../../html/syntaxhighlight/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.config.clipboardSwf = '../../html/syntaxhighlight/	clipboard.swf';
+      SyntaxHighlighter.all();
+    </script>
+  </head>
+
+  <body>
+    <i>AMU :: Polytech Biotech 3A :: JGB53D :: 2014/2015 :: Jacques van Helden, Denis Puthier, Nicolas Terrapon</i>
+
+    <h1 class='title'>Discovering the human genome with UNIX - Basic statistics on genes and transcripts.</h1>
+
+
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href='#intro'>Introduction</a></li>
+      <li><a href='#Connection'>Connection</a></li>
+      <li><a href='#term'>Improving the terminal display</a></li>
+      <li><a href='#wdir'>Creating a result directory</a></li>
+      <li><a href='#datasets'>Retrieving RefSeq transcript coordinates</a></li>
+      <li><a href='#datasets2'>What does the RefGene file contain?</a></li>
+      <li><a href='#datasets3'>Inspecting the file content</a></li>
+      <li><a href='#stat1'>Some statistics on transcript and genes</a></li>
+      <li><a href='#stat2'>Density of gene per chromosome</a></li>
+      <li><a href='#struct'>Some statistics on gene structures</a></li>
+    </ul> 
+
+    <hr>		  
+    <a name='intro'></a>
+    <h2>Introduction</h2>
+
+    <p>Bioinformatics is highly dependent on Linux-based computers and
+      software. First, with the advent of new technologies
+      (e.g. sequencing), analysis tend to rely more and more on
+      powerful computing clusters. Second, Linux/UNIX systems come
+      with pre-installed versions of most popular programing languages
+      and thus tend to become the natural platform for newly developed
+      software(some programs are exclusively developed for Linux-based
+      systems). Thus, mastering the UNIX/Linux environment and
+      interface is a critical step required to perform lots of
+      bioinformatics analysis.</p>
+
+    <p>In the present session we will aim at computing some
+      basic <b>statistics</b> on the <b>human genome</b> (number of
+      transcripts, number of genes, number of genes per chromosomes,
+      number of exons,...)</p>
+
+    <p>To this aim we will use information produced by The Reference
+      Sequence Database (<b><a target='_blank'
+      href="http://www.ncbi.nlm.nih.gov/RefSeq/">RefSeq</a></b>). This
+      project provides a comprehensive but not redundant list of known
+      transcripts. Refseq transcript coordinates will be obtained
+      from <a target='_blank' href="https://genome.ucsc.edu">UCSC</a>
+      genome browser.</p>
+    <hr>
+    
+    <a name='Connection'></a>
+    <h2>Connection</h2>
+    <h3>Starting a session.</h3>
+
+    <div class="protocol">
+      <p>Connect to the computer using your login and
+	password. Remember that the UNIX is case-sensitive. When you
+	type your login and password (and more generally), be sure to
+	use upper and lower case characters accurately.</p>
+    </div>
+
+    <h4>Launching a terminal</h4>
+    <div class="protocol">
+      <p>Start a terminal using the following menu: </p>
+
+      <div class="pre">
+	Applications > Accessoires > terminal
+      </div>
+    </div>
+
+    <hr>		  
+    <a name='term'></a>
+    <h2>Improving the terminal display</h2>
+    
+    <h3>Before going any further...</h3>
+
+    <p>The first time you open a terminal, it may be rather difficult
+      to read the information displayed in the window. To improve
+      readability we will configure the terminal by modifying
+      the <b>.bashrc</b> file located in your home directory. This
+      file can contain various information related to the behavior of
+      the commands. </p>
+    
+    <p>First, in order to make a <span class="concept">backup</span>,
+      we will copy (<span class="command">cp</span>)
+      the <i>.bashrc</i> file (hiden file) that is located in your
+      home directory (<b>~</b>) to <i>.bashrc_back</i> (hiden file) in
+      your home directory.</p>
+
+    <p>Type the following command in the terminal.</p>
+
+    <p class="tips"> <b>NB:</b> the <tt>#</tt> character indicates the
+      beginning of a comment. The text following the comment char is
+      ignored by the system. In the following examples, the actual
+      commands are followed by comments to explain their usage.</p>
+
+<pre class="brush:bash;">
+  ls -l ~/.bash* 					# Check that the file exists
+  cp ~/.bashrc ~/.bashrc_backup		# Creating a backup. In case...
+</pre>
+
+    <p>At this step, the list should contain
+      a <span class="file">.bash_rc</span> file (if not, please ask
+      the instructors).</p>
+    <p>Use the following command which tells the system to
+      start <span class="program">gedit</span>, a program that can be
+      used to edit the content of
+      the <span class="file">.bashrc</span> file. </p>
+
+<pre class="brush:bash;">
+  gedit ~/.bashrc
+</pre>
+
+    <p>Copy and paste the following lines at the end of your
+      your <span class="file">.bashrc</span> file. </p>
+
+
+    <div class="tips">
+      <h4>Tips</h4>
+      <ul>
+	<li>Add your settings at the end of the file, and do not
+	  delete the other lines.</li>
+	<li>The <span class="program">gedit</span> text editor
+	  supports synctactic coloring, which is particularly useful for
+	  viewing and editing programming files. To highlight the
+	  syntactic elements of the bash file, activate the following
+	  option in gedit menu.
+	  <br><span class="command">View -> Highlight mode -> Scripts -> sh</span>
+	</li>
+    
+	<li>Do not worry if at this stage of the course, the following
+	  lines are not understandable for you. We perform this
+	  operation to improve the comfort for our future work, but
+	  these commands are already somewhat advanced seddings. 
+	</li>
+      </ul>
+    </div>
+
+<pre class="brush:bash;">
+################################################################
+## Personal configuration for the bash prompt
+
+# We declare a new command 'll'. Equivalent to 'ls -l'
+alias ll="ls -l" 	
+  
+# When using the 'ls' command, file and directory names will be colored.
+alias ls="ls --color" 
+  
+# If the rm command is used the system will ask before... (but don't use it please)
+alias rm="rm -i"	
+  
+# Changing the prompt display (don't worry it this line seems obscure to you)
+export PS1="\[\033[01;34m\]\h\[\033[00m\]\[\033[01;32m\] \[\033[01;32m\]\u \[\033[00;33m\]\w\n\[\033[01;30m\e[0m\e[1;00m\]$ "
+</pre>
+    
+    <p>Save the file, close the terminal and open a new one
+      (alternatively, you can stay in the existing terminal, and run
+      the command <span class="command">source ~/.bashrc</span>).</p>
+    <p>Your terminal is now ready.</p>
+
+    
+    <hr>
+    
+    <a name='wdir'></a>
+    <h2>Creating a result directory</h2>
+
+    <p>In your home directory, we will create a sub-directory
+      called <span class="file">TD01_Bioinfo</span> to store the
+      results of the practicals. This will be used to store the
+      datasets used in this practical session.</p>
+    <p>First, use the <span class="command">cd</span> command to go
+      into your home directory. Then use the <b>pwd</b>
+      (<b>p</b>rint <b>w</b>orking <b>d</b>irectory) command that can
+      be used to display the path of the current working directory
+      (the one where you are currently located).</p>
+    
+    
+<pre class="brush:bash;">
+  cd ~ ## or cd
+  pwd
+</pre>
+
+    <div class="tips">
+      <ul>
+	<li>In Unix, the character "~" (tilde) denotes your home
+	  directory, by definition.</li>
+	<li>When the command <span class="command">cd</span> is used
+	  without arguments, it automatically goes to your home
+	  directory.</li>
+      </ul>
+    </div>
+
+    <div class="exo">
+      <ul>
+	<li>Now use the <b>mkdir</b> command to create a directory named <b>TD01_Bioinfo</b>.</li>
+	<li>Check that the directory has been created using the <b>ls</b> command.</li>
+	<li>Enter into the <b>TD01_Bioinfo</b> directory using the <b>cd</b> command.</li>
+	<li>Use the <b>mkdir</b> command to create a sub-directory named <b>hg38_transcripts</b>.</li>
+	<li>Enter into the <b>hg38_transcripts</b> directory using the <b>cd</b> command.</li>	
+	<li>Check the current value of your working directory.</li>
+      </ul>
+    </div>
+
+    <a href="javascript:sizeTbl2('block','sol_01')" class="sol" >View solution</a>|
+    <a href="javascript:sizeTbl2('none','sol_01')" >Hide solution</a>
+    <div id=sol_01  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">	
+mkdir TD01_Bioinfo
+ls 
+cd TD01_Bioinfo
+pwd
+mkdir hg38_transcripts
+cd hg38_transcripts
+pwd
+      </pre>
+    
+    <p>The result should be something like this:
+      <br><tt>/home/[your_login]/TD01_Bioinfo/hg38_transcripts</tt>
+    </p>
+
+    </div>
+
+    
+    <hr>	
+    <a name='datasets'></a>    
+    <h2>Retrieving RefSeq transcript coordinates</h2>
+    
+    <p>We will retrieve information on known human transcripts. This
+      dataset is provided by the Reference Sequence Database (RefSeq)
+      and available for download through the UCSC server.</p>
+
+    <p>The downloaded file should contain various information about these transcripts.</p>
+
+    <h3>Retrieving RefSeq annotations</h3>
+    
+    
+    <div class='exo'>
+      <ol>
+	<li>Using your <b>Web Browser</b>, go to the <b><a target='_blank' href="https://genome.ucsc.edu">UCSC</a></b> web site.</li>
+	<li>In the middle of the left menu, select <b>Downloads</b>.</li>
+	<li>Select the <b>Human</b> genome.</li>
+	
+	<li>In the <b>"Dec. 2013 (hg38, GRCh38)"</b> section, select
+	  "Annotation database". This will connect you to the UCSC FTP web
+	  site. After a rather long explanatory text, you will find an
+	  even longer list of available files.</li>
+	
+	<li>Find the file <b>refGene.txt.gz</b>. Right-click on the link
+	  and select "Copy link adress" to get the URL.</li>
+	
+	<li>In a terminal check that you are located in the <b>hg38_transcripts</b> directory.</li>
+	<li>Still in the terminal use the <b>wget</b> command followed by the URL to retrieve the  <b>refGene.txt.gz</b> file. </li>
+	<li>Use the <b>ls</b> command to ensure that a file was created. You should see one file: <b>refGene.txt.gz</b>.</li>
+	<li>Get some help on the  <b>gunzip</b> command. What is it for ?</li>
+	<li>Uncompress the file using the <b>gunzip</b> command.</li>
+	<li>Use the <b>ls</b> command to ensure that the file was uncompressed (the file should have been renamed without the <b>.gz</b> extension).</li>
+	<li>Rename (<b>mv</b>) the refGene.txt file to refGene_hg38.txt.</li>
+	<li>Use the <b>ls</b> command with <b>-l</b> argument to check that the file was rename. What are the permissions on refGene_hg38.txt file?</li>
+      </ol>
+    </div>
+    
+    
+    <a href="javascript:sizeTbl2('block','sol_02')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_02')">Hide solution</a>
+    <div id=sol_02  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">	
+pwd                                                                         # check location
+wget http://hgdownload.cse.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz # download
+ls                                                                          # get the list of files
+man gunzip                                                                  # q to quit 
+gunzip refGene.txt.gz                                                       # uncompress
+ls                                                                          # no .gz extension in file name
+mv refGene.txt refGene_hg38.txt                                             # rename file to refGene_hg38.txt
+ls                                                                          # get the list of files
+  </pre>
+    </div>
+    
+    <hr>	
+    <a name='datasets2'></a>    
+    <h2>What does the RefGene_hg38.txt file contain?</h2>
+    
+    
+    <h3>Getting a description of each column</h3>
+    <p>The file downloaded from UCSC (refGene_hg38.txt) does not
+      contain any column name. An extensive description of these columns
+      can be obtained through the <b>Table Browser</b> from the UCSC
+      server.</p>
+    
+    <div class='protocol'>
+      <p>Each transcript is associated to a set of annotations. For
+	instance, the file will contain information about the
+	chromosome and coordinates of the transcribed region (start
+	and end positions), the strand (plus or minus), the number of
+	exons...
+      </p>
+      
+      <ol>
+	<li>Using your internet browser, go to the <a target='_blank'
+						      href="https://genome.ucsc.edu">UCSC</a> web site</li>
+	<li>Select <a href="http://genome.ucsc.edu/cgi-bin/hgTables?command=start"><b>Tables</b></a> in the top menu </li>	
+	<li>Select <b>Clade:</b> Mammal, <b>Genome</b>: Human, <b>assembly:</b> "Dec. 2013 (hg38, GRCh38)", 
+	  <b>group</b>: Genes and Gene Prediction tracks, <b>table</b>: refGene. Click on <b>describe table schema</b> </li>
+	<li>Each line of the table describes a given column of the
+	  refGene file.</li>
+	<li>Leave this window open so that you can go back to it if
+	  needed.</li>
+      </ol>
+    </div>
+
+
+
+    <hr>	
+    <a name='datasets3'></a>    
+    <h2>Inspecting the file content</h2>
+    
+    <h3>First lines, last lines...</h3>
+    <div class='exo'>
+      <ol>
+	<li>Count the number of lines of the file <span class="file">refGene_hg38.txt</span>.</li>
+	<li>Use the <b>head</b> command with <b>-n</b> arguments to see the first 5 lines of the file <span class="file">refGene_hg38.txt</span>.</li>	
+	<li>Use the <b>tail</b> command with <b>-n</b> arguments to see the last 5 lines of the file <span class="file">refGene_hg38.txt</span>.</li>		
+	<li>Have a look at the whole file using <b>less</b> (use up/down arrow keys and type "<b>q</b>" to <b>q</b>uit))</li>
+	<li>Use the <b>head</b> command then the <b>tail</b> command (use a pipe) to select the <b>10th</b> line of the file <span class="file">refGene_hg38.txt</span>.</li>
+	<li>Extract the first line using <b>head</b> and use a <b>pipe</b> to redirect the output to the <b>od</b> command with <b>-c</b> argument. This will tell you the kind of character that are enclosed in the file. Based on the first line, does it seems to be a tabulated file  ?</li>			 
+      </ol>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_ref')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_ref')">Hide solution</a>
+    <div id=sol_ref  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      <pre class="brush:bash;">		   
+wc -l refGene_hg38.txt
+head -n 5 refGene_hg38.txt
+tail -n 5 refGene_hg38.txt
+less refGene_hg38.txt
+head -n 10 refGene_hg38.txt | tail -n 1
+head -n 1 refGene_hg38.txt  | od -c 	# columns seem to be separated by tabulations ("\t"). This is a tabulated file.
+      </pre>
+    </div>
+
+    <hr>
+    <a name='stat1'></a>				
+    <h2>Some statistics on transcript and genes</h2>
+
+
+    <h3>Statistics on genes</h3>
+    
+    <p>Our knowledge of the human genome is evolving. New genes are
+      still being discovered. In the
+      file <span class="file">refGene_hg38.txt</span>, each line
+      corresponds to a transcript whose <b>name/identifier</b> is
+      provided in the <b>2nd</b> column. Note that a gene can
+      correspond to one or more transcript. Indeed, some genes have
+      several alternative promoters, or can be spliced
+      differentially. The number of lines we counted in the previous
+      exercise indicates the number of transcripts identified in the
+      version 38 of the human genome (hg38). </p>
+
+
+      <p>The <b>symbol/identifier of the gene</b> associated to this
+	transcript is annotated in the <b>13th column</b> of the
+	RefGenes file. What about our current knowledge of human
+	transcripts and genes ?</p>
+
+    <div class='exo'>
+      <ol>
+	<li>What is the number of distinct genes in the version 38 of
+	  the human genome ? The result can be found by computing the
+	  number of non redondant gene symbols in the <b>13th
+	  column</b>.</li>
+    </div>
+    
+    <p class="tips">Use the
+      commands <span class="command">sort</span>
+      and <span class="command">uniq</span>.</p>
+    
+    <a href="javascript:sizeTbl2('block','sol_dstats')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_dstats')">Hide solution</a>
+    <div id=sol_dstats  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+  
+      <pre class="brush:bash;">
+cut -f13 refGene_hg38.txt | sort | uniq | wc -l										# The number of known genes
+      </pre>		
+    </div>
+    
+    
+    <h3>Statistics on transcripts</h3>
+    
+    <div class='exo'>
+      <ol>
+	<li>In a previous exercise, we used the <b>wc</b> command with
+	  the <b>-l</b> argument to count the number of lines (and
+	  thus the number of known transcripts in human) of the
+	  file <span class="file">refGene_hg38.txt</span>.</li>
+
+
+	<li>Among them, how many <b>coding transcripts</b> have been
+	  identified in this version of the genome ?  Using
+	  <span class="command">cut</span>, <span class="command">grep</span>
+	  and <span class="command">wc -l</span>, select the <b>2nd
+	  column</b>, select the lines <b>starting with NM_</b> and
+	  count them (use <b>pipe</b> characters to concatenate the
+	  commands).</li>
+	<li>With almost the same command line, count the number of
+	  known <b>non-coding transcripts</b>.</li>
+      </ol>
+    </div>
+
+    <a href="javascript:sizeTbl2('block','sol_tx')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_tx')">Hide solution</a>
+    <div id=sol_tx  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">
+wc -l refGene_hg38.txt                          # How many transcripts
+cut -f2 refGene_hg38.txt | grep "^NM_" | wc -l  # How many coding transcripts
+cut -f2 refGene_hg38.txt | grep "^NR_" | wc -l  # How many non-coding transcripts
+  </pre>
+    </div>
+
+
+
+    <hr>		
+    <a name='stat2'></a>				
+    <h2>Density of genes per chromosome</h2>
+    <h3>Chromosome sizes</h3>
+    
+    <p>Before looking at the density of genes per chromosome we will
+      have a look at chromosome sizes. This information can be
+      retrieved from the UCSC server
+      (file <b>chromInfo.txt.gz</b>).</p>
+    
+    <div class='exo'>
+
+      <ol>
+	<li>Using your internet browser, go to the <b><a target='_blank' href="https://genome.ucsc.edu">UCSC</a></b> web site</li> 
+	<li> In the middle of the left menu select <b>Downloads</b>.</li>
+	<li> Select the <b>Human</b> genome.</li>
+	<li>In the <b>"Dec. 2013 (hg38, GRCh38)"</b> section select "Annotation database" to enter the UCSC ftp web site.</li>    
+	<li>Find the file <span class="file">chromInfo.txt.gz</span>. Right-click on the link and select "Copy link adress" to get the URL.</li>
+	<li>In a terminal check that you are located in the <span class="file">hg38_transcripts</span> directory.</li>
+	<li>Still in the terminal use the <b>wget</b> command followed by the URL to retrieve the  <span class="file">chromInfo.txt.gz</span> file. </li>
+	<li>Use the <b>ls</b> command to ensure that a file was created. You should see the file <span class="file">chromInfo.txt.gz</span>.</li>
+	<li>Uncompress the file using the <b>gunzip</b> command.</li>
+	<li>Use the <b>ls</b> command to ensure that the file was uncompressed (the file should have been renamed without the <b>.gz</b> extension).</li>
+	<li>Rename (<b>mv</b>) the <b>chromInfo.txt</b> file to <b>chromInfo_hg38.txt</b></li>
+
+	<li>Using <span class="command">grep</span> select lines
+	  containing informations regarding 'regular' chromosomes
+	  (chr1 to chr22, chrY and chrX) then
+	  use <span class="command">sort</span>
+	  with <span class="option">-r</span>, <span class="option">-n</span>, and <span class="option">-k</span> arguments to get
+	  the size of chromosomes in descending order. Use the manual
+	  (<span class="command">man</span>) to get more information about the <span class="option">-n</span>
+	  and <span class="option">-r</span> and <span class="option">-k</span> arguments of <span class="command">sort</span>. Store
+	  the results in a file
+	  named <span class="file">chromInfo_hg38_regular.txt</span> (use redirection
+	  operator <span class="option">></span>).</li>
+	<li>Inspect file content using the
+	  command <span class="command">less</span>.</li>
+      </ol>
+      <li>Do you see a relationship between chromosome names and
+	sizes?</li>
+    </div>
+    
+    
+    <a href="javascript:sizeTbl2('block','sol_cs')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_cs')">Hide solution</a>
+    <div id=sol_cs  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">
+pwd
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/chromInfo.txt.gz 			# download chromosome informations
+ls 																						# check that the file was downloaded
+gunzip  chromInfo.txt.gz																# uncompress
+mv chromInfo.txt.gz chromInfo_hg38.txt													# rename
+grep -P "chr[0-9XY]+\t" chromInfo_hg38.txt| sort -rnk2 > chromInfo_hg38_regular.txt		# Select 'regular' chromosomes and perform a numerical sort (reverse order)
+less chromInfo_hg38_regular.txt															# Inspect file content
+  </pre>		
+</div>
+
+
+    <h3>Number of genes per chromosome</h3>
+    
+    <div class='exo'>
+      <ol>
+	<li>What is the number of genes per chromosome ? Take only 'regular' chromosomes into account.</li>
+	<li>Given this result and the size of chromosomes, what can you say ?</li>	
+      </ol>
+    </div>
+    
+    <a href="javascript:sizeTbl2('block','sol_g')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_g')">Hide solution</a>
+    <div id=sol_g  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+      
+      <pre class="brush:bash;">
+cut -f3,13 refGene_hg38.txt  | grep -P "chr[0-9XY]+\t" | sort | uniq | cut -f1 | uniq -c | sort -rn # number of genes per chromosome
+    # Some chromosomes (e.g chr19) tend to be gene-rich
+  </pre>		
+    </div>
+    <hr>
+    
+    
+    <a name='struct'></a>				
+    <h2>Some statistics on gene structures</h2>
+    <h3>Number of exons</h3>
+    
+    <div class='exo'>
+      <ol>
+	<li>What is the gene that contains the maximum number of exons&nbsp;?</li>
+
+	<li>Using your <b>Web browser</b>, go to
+	  the <b><a target='_blank'
+		    href="https://genome.ucsc.edu">UCSC</a></b> web site. In the
+	  top menu, select <b>Genomes</b>. Select <b>group:
+	    Mammal</b>, <b>genome: Human</b> <b>assembly:hg38</b>. In
+	  the <b>search term area</b> paste the name of the gene. Select
+	  the first transcript of the list to visualize its genomic
+	  structure.</li>
+      </ol>
+    </div>
+
+
+    <a href="javascript:sizeTbl2('block','sol_e')">View solution</a>| 
+    <a href="javascript:sizeTbl2('none','sol_e')">Hide solution</a>
+    <div id=sol_e  style="overflow:hidden;display:none">
+      <h4>Solution</h4>
+  
+  <pre class="brush:bash;">
+cut -f9,13 refGene_hg38.txt | sort -n | tail -1   # The gene containing the maximum number of exons
+  </pre>		
+    </div>
+    <hr>
+  </body>
+</html>
+
+

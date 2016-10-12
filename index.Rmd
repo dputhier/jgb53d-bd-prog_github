@@ -1,0 +1,67 @@
+---
+title: "jgb53d — 3ème année Polytech Marseille - Programmation et analyse de données"
+author: "Denis Puthier, Jacques van Helden, Arnaud Sergé"
+date: "2015-2016"
+output: 
+  html_document:
+    theme: cerulean
+
+
+---
+
+#### Enseignants
+
+ > - Jacques van Helden (JvH)
+ > - Denis Puthier (DP)
+ > - Arnaud Sergé
+ > - Nicolas Terrapon (2014-2015)
+
+#### Resources
+
+| Nom | Lien | Description
+-----|------|--------------
+| JGB53D  | http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/ |	Site du cours 
+| GNU Bash	| http://www.gnu.org/software/bash/	| Un interpréteur de commandes installé par défaut sur la pluspart des environnements Linux.
+| Python	| https://www.python.org/	| Un langage très populaire dans la communauté bioinformatique. Pour ce cours, nous utiliserons la version 3 de Python.
+| Python	| https://docs.python.org/3.3/	| Official site for the documentation of the Python langage.
+| Python Style Guide	| https://www.python.org/dev/peps/pep-0008/	| Un guide concis pour les règles d'écriture en Python.
+| Pylint | http://www.pylint.org/| C'est l'ordinateur qui vous note, plus le prof...
+| Python Cheat Sheet | [python_refcard](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/theorical/python_refcard/latexsheet.pdf) | Pour tricher mais pas trop...
+
+-------------------------------------------------------
+
+#### Cours théoriques
+
+Vous trouverez ci-dessous des  informations portant sur les concepts nécessaires à la réalisation des travaux dirigés.
+
+
+| Nom | Description 
+|-----|-----------
+|[Bioinformatique: applications dans le contexte de la génomique](theorical/Bioinformatique.pdf)  | Les challenges en bioinformatique dans le domaine de la génomique notamment
+| [Vue d'ensemble du système Unix](theorical/bash/unix_course_dp.pdf)| Bash, arborescence, commandes de base, redirections, expressions régulières, réseau, exemple d'outils pour la bioinformatique... 
+| [Premiers pas avec Python](theorical/python/hello_world.html) | Hello world, manipulation de variables.
+| [Les tableaux en python](theorical/python/hello_world.html) | Listes, tuples et dictionnaires.
+| [Lire et écrire dans un fichier](theorical/python/read_write.html) | la-classe 'file', modes-d'ouverture, fermeture du fichier
+| [Les fonctions](theorical/python/functions.html)  | définition et appel, passage d'arguments par noms, variable retour, portée des variables
+
+-------------------------------------------------------
+
+#### Travaux dirigés
+
+Vous trouverez ci-dessous la liste des exercices réalisés.
+
+| Nom |  Concept présentés
+|-------|----------
+| [Découvrir le génome humain avec Unix](practicals/01-02_human_genome/human_genome.html) | Quelques statistiques basiques sur le génome humain effectués programmatiquement via le langage Bash
+| [Découvrir le génome avec bedtools](practicals/03_bedtools/index.html) | Consolidation des acquis sur les commandes de base. Présentation des commandes Bedtools (sortBed, mergeBed...)
+| [Prise en main du langage avec ipython3](theorical/python/hello_world.html)   | manipulation de variables (int, float, str), listes.
+| [Re-implémentation de la commande cut](practicals/02_python_2015/cmd_cut.py.html) | Lecture de fichiers, méthodes des objets str, recherche dans l'aide, les listes.
+| [Re-implémentation de la commande head](practicals/03_python_2015/head_cmd.html) | Lecture de fichiers,  méthode sur l'objet file, structure conditionnelle, import du module sys, boucle while, boucle for.
+| [Implémentation d'une commande count.py](practicals/04_python_2015/count_cmd.html) | Lecture de fichier, boucle for, listes, dictionnaires, module re (regular expression), l'importance du choix des structures de stockage.
+| [Implémentation d'un programme tx_len.py](practicals/05_python_2015/tx_len.html) | Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.
+| [Implémentation d'un programme nb_exons.py](practicals/06_python_2015/nb_exons.py.html) | Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.
+| [Exercice autour des fonctions. Créer des modules](practicals/07_python_2015/functions.html) | Insertion de fonctions dans le code. création d'un module.
+| [Créer un programme complet appelant les modules](practicals/08_python_2015/final_program.html) | Importer les modules dans un programme principal. Appeler ces modules. Créer un analyseur d'arguments
+| [Calculer la taille des cDNAs](practicals/10_python_2015/cdna_len.html) | Consolider les acquis
+| [Extraire une liste de transcripts ou de gènes](practicals/09_python_2015/get_values.html) | Consolider les acquis.
+| [Enoncé examen 2014-2015](examen/2014-2015/Examen_2014-2015_Unix_session-1.pdf) | exercice.
