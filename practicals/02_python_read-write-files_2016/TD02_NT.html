@@ -1894,27 +1894,6 @@ div.prompt {display:none}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="configuration-de-geany">Configuration de geany</h2>
-<div class="protocol">
-<p>Lancez le programme geany. Créez un nouveau fichier. A la première ligne de ce fichier, indiquez:</p>
-<pre>
-# -*- coding: utf8 -*-
-</pre>
-<p>Sauvegardez le fichier sous le nom &quot;cut.py&quot;.</p>
-Allez dans le menu Build &gt; Set Build Commands et aux lignes &quot;compile&quot; et &quot;execute&quot; changez les lignes ci-dessous et cliquez sur OK.
-<pre>
-python -m py_compile "%f" ---> python3 -m py_compile "%f"
-python "%f" ---> python3 "%f"
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="données">Données</h2>
 <h3 id="téléchargement">Téléchargement</h3>
 <p>A titre d'exemple, nous utiliserons un fichier gtf. Ce fichier qui contient les coordonnées des exons de 5000 transcrits dans le génome humain peut être téléchargé ici: <a href="../data/hg38_5k.gtf">hg38_5k.gtf</a></p>
