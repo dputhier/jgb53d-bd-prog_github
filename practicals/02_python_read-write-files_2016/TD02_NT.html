@@ -1889,6 +1889,21 @@ div.prompt {display:none}
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="c"># A faire plus tard</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1896,7 +1911,8 @@ div.prompt {display:none}
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="données">Données</h2>
 <h3 id="téléchargement">Téléchargement</h3>
-<p>A titre d'exemple, nous utiliserons un fichier gtf. Ce fichier qui contient les coordonnées des exons de 5000 transcrits dans le génome humain peut être téléchargé ici: <a href="../data/hg38_5k.gtf">hg38_5k.gtf</a></p>
+<p>Commencez par télécharger le sujet au format ipython notebook <a href="http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/02_python_read-write-files_2016/TD02_NT.ipynb">TD02_NT.ipynb</a>. Après u clic-droit sur ce lien, enregistrez-le dans un dossier particulier (TD2_python par exemple). Puis ouvrez un terminal de commande et lancez le &quot;ipython3 notebook&quot; et enfin chargez le fichier du TD.</p>
+<p>A titre d'exemple, nous utiliserons un fichier gtf. Ce fichier qui contient les coordonnées des exons de 5000 transcrits dans le génome humain, doit être téléchargé ici: <a href="http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf">hg38_5k.gtf</a> et enregistré dans votre dossier <em>Téléchargements</em>.</p>
 <h3 id="format">Format</h3>
 <p>Le format GTF est un fichier <strong>tabulé</strong> (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:</p>
 <blockquote>
@@ -1951,8 +1967,31 @@ div.prompt {display:none}
 <li>Quelle méthode permet de vérifier que le fichier est ouvert?</li>
 <li>Que se passe-t-il quand vous ouvrez en lecture un fichier qui n'existe pas encore?</li>
 </ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="lire-dans-un-fichier">Lire dans un fichier</h2>
-<p>Après avoir ouvert un fichier en mode lecture, plusieurs fonctions vous permettent d'en stocker le contenu. Testez les principales, listées ci-dessous. Puis répondez aux questions suivantes 1. Quel est l'effet d'appels succéssifs à la méthode read(int)? 2. Quelle méthode permet de replacer le <em>curseur</em> au début du fichier? 3. Afficher la troisième ligne du fichier, puis la deuxième. <br><br></p>
+<p>Après avoir ouvert un fichier en mode lecture, plusieurs fonctions vous permettent d'en stocker le contenu. Testez les principales, listées ci-dessous. Puis répondez aux questions suivantes 1. Quel est l'effet d'appels succéssifs à la méthode read(int)? 3. Quelle méthode permet de replacer le <em>curseur</em> au début du fichier? 2. Afficher la troisième ligne du fichier, puis la deuxième avec la méthode <em>readlines()</em> puis recommencer avec la méthode <em>readline()</em>. 4. Retourner à l'objectif de départ du TD. <br><br></p>
 </div>
 </div>
 </div>
@@ -2025,7 +2064,7 @@ In&nbsp;[]:
 <h3 id="écrire-dans-un-fichier">Écrire dans un fichier</h3>
 <ol style="list-style-type: decimal">
 <li>Recherchez les deux fonctions permettant l'écriture dans un fichier.</li>
-<li>Ouvrez un nouveau fichier en écriture, puis testez l'écriture d'un entier sur une première ligne (par exemple la moyenne des positions <em>start</em> des transcrits) et pensez à fermer votre fichier.</li>
+<li>Ouvrez un <strong>nouveau</strong> fichier en écriture, puis testez l'écriture d'un entier sur une première ligne (par exemple la moyenne des positions <em>start</em> des transcrits) et pensez à fermer votre fichier.</li>
 <li>Réouvrez votre fichier, créez une liste et écrivez-la sur la dernière ligne (2ème), puis sur la première.</li>
 </ol>
 </div>
