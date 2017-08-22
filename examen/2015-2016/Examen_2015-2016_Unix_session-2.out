@@ -1,0 +1,6 @@
+\BOOKMARK [1][-]{section.1}{Premiers pas sous Unix \(5 points\)}{}% 1
+\BOOKMARK [1][-]{section.2}{O\371 sont les commentaires ?! \(6 points\)}{}% 2
+\BOOKMARK [1][-]{section.3}{Impl\351mentation de petits programmes}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Impl\351mentation de la commande cut \(4 points\)}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Impl\351mentation de la commande head \(5 points\)}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Impl\351menter une commande permettant de compter le nombre d'exons}{section.3}% 6

@@ -1,0 +1,22 @@
+print("opening file")
+f = open("exon.GRCh38.83.txt")
+
+tx_len = dict()
+
+for line in f:
+    line = line.rstrip("\n")
+    cols = line.split("\t")
+    tx = cols[0]
+    chrom = cols[1]
+    start = int(cols[2])
+    end = int(cols[3])
+    exon_size = start - end
+
+    if chrom == "chr22":
+        if not tx in tx_len:
+            tx_len[tx] = exon_size
+        else:
+            tx_len[tx] += exon_size
+    
+
+    

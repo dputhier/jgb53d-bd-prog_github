@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,epsfig,hyperref}%psfig,pstricks,
+\parindent 0in
+\usepackage{graphicx}
+\usepackage{moreverb} % tabulation in verbatim mode
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage[latin1]{inputenc} % LaTeX, comprends les accents !
+\usepackage[T1]{fontenc}      % Police contenant les caractères français
+\usepackage{geometry}         % Définir les marges
+\usepackage[francais]{babel}  % Placez ici une liste de langues, la     
+\bibliographystyle{abbrvnat}
+\usepackage[authoryear,round]{natbib}
+\usepackage{enumerate}
+\usepackage{pifont}
+\usepackage{fancyvrb}
+\makeatletter
+\AtBeginDocument{
+	\def\labelitemi{\textbullet}
+	\def\labelitemii{\ding{43}}
+}
+
+
+\renewcommand{\contentsname}{Sommaire}
+
+\begin{document}
+
+\begin{center}
+ \huge{ \textbf{Polytech\\Biotech III}}\\
+\end{center}
+\rule[0.5ex]{\textwidth}{0.3mm}
+\begin{flushleft}
+\textbf{Module:} .\\
+\textbf{Responsable:} D. Puthier \& A. Sergé \\
+\textbf{Date:} Jeudi 16 Juin 2016 - 13h-14h.\\
+\textbf{Durée:} 2 heures.\\
+\textbf{Calculatrices/portables:} non autorisés.\\ 
+\textbf{Documents:} non-autorisés.\\
+\textbf{Nombre de pages: } \\
+
+\end{flushleft}
+\begin{enumerate}
+	\item Vous répondrez aux questions qui suivent sur la feuille d'examen qui vous sera fournie.
+	\item Ecrivez distinctement. Si une instruction contient des espaces ou des tabulations, faites les apparaître clairement.
+	\item N'oubliez pas de signer la feuille d'émargement après avoir rendu votre copie.
+\end{enumerate}
+\rule[0.5ex]{\textwidth}{0.3mm}\\
+\vspace{0.1cm}
+
+
+Le fichier \textit{exons.txt}, dont les premières lignes sont affichées ci-dessous, sera utilisé dans certains des exercices proposés. Ce fichier contient des informations issues de la base de données \textit{ensembl}. Il s'agit d'un fichier tabulé à six colonnes. \textbf{Chaque ligne contient les informations sur un exon} d'un transcrit humain. \\
+
+\begin{itemize}
+	\item La colonne 1 contient le nom du chromosome portant le transcrit dont est issu l'exon.
+	\item La colonne 2 contient la coordonnée de départ de l'exon.
+	\item La colonne 3 contient la coordonnée de fin de l'exon.
+	\item La colonne 4 contient l'identifiant du gène.
+	\item La colonne 5 contient l'identifiant du transcrit associé à cet exon, 
+	\item La colonne 6 contient le brin (+ ou -).
+\end{itemize}
+\vspace{0.5cm}
+
+\begin{center}
+	\begin{BVerbatim}
+	chr1 11869 12227 ENSG00000223972 ENST00000456328 +
+	chr1 12613 12721 ENSG00000223972 ENST00000456328 +
+	chr1 12010 12057 ENSG00000223972 ENST00000450305 +
+	chr1 12179 12227 ENSG00000223972 ENST00000450305 +
+	chr1 12613 12697 ENSG00000223972 ENST00000450305 +
+	chr1 29534 29570 ENSG00000227232 ENST00000488147 -
+	chr1 17369 17436 ENSG00000278267 ENST00000619216 -
+	...
+	\end{BVerbatim}
+\end{center}
+
+
+\vspace{0.5cm}
+\section{Premiers pas sous Unix (5 points)}
+\vspace{0.1cm}
+Attention, vous devrez, toujours utiliser une instruction Unix pour répondre à la question posée.\\ 
+Mr R. Stallman est un étudiant de la promo Polytech 2015 qui fait ses premiers pas dans l'environnement Unix/Linux et qui s'est vu confié une analyse bioinformatique. Le chemin de son répertoire d'utilisateur (\textit{home}) est:
+
+\begin{verbatim}
+/etudiants/2016/stallman
+\end{verbatim}
+R. Stallman s'est placé à la racine de l'arborescence, dans le répertoire \textbf{/tmp} (c'est donc le répertoire \textit{courant}). \\
+
+\textbf{Proposez une instruction lui permettant:}
+\vspace{0.1cm}\\
+
+\begin{enumerate}[1) ]
+	\item De lister les fichiers et dossiers présents dans le répertoire courant.
+	\item De lister les fichiers et dossiers présents dans le répertoire courant en affichant les informations associées (propriétaire, groupe, droits,...).
+	\item De lister les fichiers et dossiers présents dans le répertoire courant y compris les fichiers cachés.
+	\item De lister sans se déplacer les fichiers et dossiers présents dans le répertoire "/".
+	\item De lister sans se déplacer les fichiers et dossiers présents dans le répertoire "/" (proposez une autre solution).
+	\item De lister, sans se déplacer, les fichiers présents dans son répertoire utilisateurs ("home").
+	\item De visualiser, avec la commande \textit{less} le contenu du fichier "exons.txt" présent dans son répertoire utilisateur (\textit{home}).
+	\item D'afficher les 10 premières lignes du fichier "exons.txt" présent dans son répertoire utilisateur.
+	\item D'afficher les 10 dernières lignes du fichier "exons.txt" présent dans son répertoire utilisateur.
+	\item De changer les droits du fichier "exons.txt" présent dans son répertoire utilisateur pour que les personnes de son groupe puissent lire et écrire dans ce fichier.
+	\item D'extraire la colonne 2 du fichier "exons.txt" présent dans son répertoire utilisateur.
+	\item De rechercher, dans ce même fichier,  les lignes commençant par "chr".
+	\item De rechercher, dans ce même fichier,  les lignes commençant par "chr" et finissant par un 2, suivi d'un chiffre quelconque et d'un 3.
+	\item De rechercher, dans ce même fichier,  toutes les lignes contenant exactement trois caractères.
+	\item De rechercher les lignes vides.
+	\item De copier le fichier "exons.txt" depuis son répertoire  utilisateur vers le répertoire courant.
+	\item De renommer le fichier "exons.txt" (répertoire courant) en "exons\_1.txt".
+	
+\end{enumerate}
+
+
+\section{Où sont les commentaires  ?!  (6 points)}
+
+Pour son premier stage, R. Stallman dois reprendre le code produit par un autre étudiants ayant quitté le laboratoire. Le fichier, dont le nom est peu explicite \textit{script.py}, comporte quelque lignes de code non commentées. Cependant, on comprend vite que le script prend en entrée ce même fichier "exons.txt". \\
+
+\begin{BVerbatim}
+01 f = open("exons.txt")
+02 tx_5p = dict()
+03     
+04 for line in f:
+05     line = line.rstrip("\n")
+06     cols = line.split("\t")
+07     tx = cols[4]
+08     start = int(cols[1])
+09     end = int(cols[2])
+10     strand = cols[5]
+11     if strand == "+":
+12         if tx not in tx_5p:
+13             tx_5p[tx] = start
+14         else:
+15             if start < tx_5p[tx]:
+16                 tx_5p[tx] = start
+17     else:
+18         if tx not in tx_5p:
+19             tx_5p[tx] = end
+20         else:
+21             if end > tx_5p[tx]:
+22                 tx_5p[tx] = end
+23 for tx in tx_5p:
+24     print(tx + "\t" + str(tx_5p[tx]))
+\end{BVerbatim}
+
+\vspace{0.2cm}
+
+\textbf{Questions 1:} Recopiez le code sur votre copie en le commentant abondamment  (4 points).
+\textbf{Questions 2:} Qu'est censé faire ce programme ? Expliquez. (2 points)
+
+\section{Implémentation de petits programmes}
+
+\subsection{Implémentation de la commande cut (4 points)}
+
+On se propose d'implémenter la commande cut (que nous avons vu lors des cours sur le language BASH). L'objectif est de créer un programme (sous sa forme la plus simple), capable de:
+
+\begin{itemize}
+\item Ouvrir le fichier \textit{exons.txt}.
+\item Parcourir le fichier ligne à ligne.
+\item Couper ("splitter") chacune des lignes en fonction du séparateur (ici une tabulation, "\textbackslash t").
+\item Récupérer la colonne d'intérêt en indexant la liste (disons la 3ème...).
+\item Imprimer la colonne recherchée.
+\end{itemize}
+
+Ecrivez sur votre copie le code permettant de réaliser un tel programme.
+
+\subsection{Implémentation de la commande head (5 points)}
+
+On se propose de re-implémenter la commande head (que nous avons précédemment lors des cours sur le language BASH). L'objectif est de créer un programme (sous sa forme la plus simple), capable de:
+
+\begin{itemize}
+\item D'ouvrir le fichier \textit{exons.txt}.
+\item Parcourir le fichier ligne à ligne.
+\item Imprimer la ligne si le numéro de celle-ci est inférieur ou égal à 10.
+\end{itemize}
+
+Ecrivez sur votre copie le code permettant de réaliser un tel programme.
+
+\subsection{Implémenter une commande permettant de compter le nombre d'exons}
+
+On se propose de d'implémenter une commande nb\_exons capable de renvoyer pour chaque transcript du fichier \textit{exons.txt}. le nombre d'exons rencontrés.\\
+
+Ecrivez sur votre copie le code permettant de réaliser un tel programme.
+
+\end{document}

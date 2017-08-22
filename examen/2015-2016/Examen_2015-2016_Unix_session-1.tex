@@ -1,0 +1,192 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,epsfig,hyperref}%psfig,pstricks,
+\parindent 0in
+\usepackage{graphicx}
+\usepackage{moreverb} % tabulation in verbatim mode
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage[latin1]{inputenc} % LaTeX, comprends les accents !
+\usepackage[T1]{fontenc}      % Police contenant les caractères français
+\usepackage{geometry}         % Définir les marges
+\usepackage[francais]{babel}  % Placez ici une liste de langues, la     
+\bibliographystyle{abbrvnat}
+\usepackage[authoryear,round]{natbib}
+\usepackage{enumerate}
+\usepackage{pifont}
+\usepackage{fancyvrb}
+\makeatletter
+\AtBeginDocument{
+ 	\def\labelitemi{\textbullet}
+ 	\def\labelitemii{\ding{43}}
+}
+
+\renewcommand{\contentsname}{Sommaire}
+
+
+\begin{document}
+
+\begin{center}
+ \huge{ \textbf{Polytech\\Biotech III}}\\
+\end{center}
+\rule[0.5ex]{\textwidth}{0.3mm}
+\begin{flushleft}
+\textbf{Module:} Bioinformatique et analyse de données.\\
+\textbf{Responsable:} D. Puthier.\\
+\textbf{Date:} Jeudi 28 Janvier.\\
+\textbf{Durée:} 2 heures.\\
+\textbf{Calculatrices/portables:} non autorisés.\\ 
+\textbf{Documents:} non-autorisés.\\
+\textbf{Nombre de pages: 5} \\
+
+\end{flushleft}
+\begin{enumerate}
+\item Vous répondrez aux questions qui suivent sur la feuille d'examen qui vous sera fournie. 
+\item Ecrivez lisiblement.
+\item Respectez bien les consignes qui vous sont données dans chacune des questions.
+\item N'oubliez pas de  signer la feuille d'émargement après avoir rendu votre copie.
+\end{enumerate}
+\rule[0.5ex]{\textwidth}{0.3mm}\\
+\vspace{0.1cm}
+
+
+Le fichier \textit{exons.txt}, dont les premières lignes sont affichées ci-dessous, sera utilisé dans certains des exercices proposés. Ce fichier contient des informations issues de la base de données \textit{ensembl}. Il s'agit d'un fichier tabulé à six colonnes. \textbf{Chaque ligne contient les informations sur un exon} d'un transcrit humain. \\
+
+\begin{itemize}
+\item La colonne 1 contient le nom du chromosome portant le transcrit dont est issu l'exon.
+\item La colonne 2 contient la coordonnée de départ de l'exon.
+\item La colonne 3 contient la coordonnée de fin de l'exon.
+\item La colonne 4 contient l'identifiant du gène.
+\item La colonne 5 contient l'identifiant du transcrit associé à cet exon, 
+\item La colonne 6 contient le brin (+ ou -).
+\end{itemize}
+\vspace{0.5cm}
+
+\begin{center}
+\begin{BVerbatim}
+chr1 11869 12227 ENSG00000223972 ENST00000456328 +
+chr1 12613 12721 ENSG00000223972 ENST00000456328 +
+chr1 12010 12057 ENSG00000223972 ENST00000450305 +
+chr1 12179 12227 ENSG00000223972 ENST00000450305 +
+chr1 12613 12697 ENSG00000223972 ENST00000450305 +
+chr1 29534 29570 ENSG00000227232 ENST00000488147 -
+chr1 17369 17436 ENSG00000278267 ENST00000619216 -
+...
+\end{BVerbatim}
+\end{center}
+
+
+\vspace{0.5cm}
+\section{Premiers pas sous Unix (5 points)}
+\vspace{0.1cm}
+Attention, vous devrez, toujours utiliser une instruction Unix pour répondre à la question posée.\\ 
+Mr R. Stallman est un étudiant de la promo Polytech 2015 qui fait ses premiers pas dans l'environnement Unix/Linux et qui s'est vu confié une analyse bioinformatique. Le chemin de son répertoire d'utilisateur (\textit{home}) est:
+
+\begin{verbatim}
+/etudiants/2016/stallman
+\end{verbatim}
+R. Stallman s'est placé à la racine de l'arborescence, dans le répertoire \textbf{/tmp} (c'est donc le répertoire \textit{courant}). \\
+
+\textbf{Proposez une instruction lui permettant:}
+\vspace{0.1cm}\\
+
+\begin{enumerate}[1) ]
+\item De lister les fichiers et dossiers présents dans le répertoire courant.
+\item De lister les fichiers et dossiers présents dans le répertoire courant en affichant les informations associées (propriétaire, groupe, droits,...).
+\item De lister les fichiers et dossiers présents dans le répertoire courant y compris les fichiers cachés.
+\item De lister sans se déplacer les fichiers et dossiers présents dans le répertoire "/".
+\item De lister sans se déplacer les fichiers et dossiers présents dans le répertoire "/" (proposez une autre solution).
+\item De lister, sans se déplacer, les fichiers présents dans son répertoire utilisateurs ("home").
+\item De visualiser, avec la commande \textit{less} le contenu du fichier "exons.txt" présent dans son répertoire utilisateur (\textit{home}).
+\item D'afficher les 10 premières lignes du fichier "exons.txt" présent dans son répertoire utilisateur.
+\item D'afficher les 10 dernières lignes du fichier "exons.txt" présent dans son répertoire utilisateur.
+\item De changer les droits du fichier "exons.txt" présent dans son répertoire utilisateur pour que les personnes de son groupe puissent lire et écrire dans ce fichier.
+\item D'extraire la colonne 2 du fichier "exons.txt" présent dans son répertoire utilisateur.
+\item De rechercher, dans ce même fichier,  les lignes commençant par "ENST".
+\item De rechercher, dans ce même fichier,  les lignes commençant par "ENST" et finissant par un 2, suivi d'un chiffre quelconque et d'un 3.
+\item De rechercher, dans ce même fichier,  toutes les lignes contenant exactement trois caractères.
+\item De rechercher les lignes vides.
+\item De copier le fichier "exons.txt" depuis son répertoire  utilisateur vers le répertoire courant.
+\item De renommer le fichier "exons.txt" (répertoire courant) en "exons\_1.txt".
+
+\end{enumerate}
+
+\section{Mince alors  !  (6 points)}
+R. Stallman débute. Il a par erreur utilisé la commande gshuf qui a randomisé les lignes de son programme. Dommage... Ce programme assez rudimentaire permet de calculer la taille des  cDNA et de n'imprimer que ceux dont la taille est supérieur à 200 nucléotides. Le code du programme est indiqué ci-dessous.
+
+\begin{verbatimtab}
+01     line = line.rstrip("\n")
+02     if not tx in tx_len:
+03     else:
+04         print(tx + "\t" + str(tx_len[tx]))
+05     cols = line.split("\t")
+06     start = int(cols[1])
+07     tx = cols[4]
+08 for line in f:
+09         tx_len[tx] = ex_size
+10 for tx in tx_len:
+11 f = open("exons.txt")
+12     if tx_len[tx] > 200:
+13     ex_size = end - start
+14 tx_len = dict()
+15         tx_len[tx] =  tx_len[tx] + ex_size
+16     end = int(cols[2])
+\end{verbatimtab}
+
+\textbf{Question}: réorganiser les lignes du programme  pour que celui-ci puisse à nouveau faire ce pour quoi il a été écrit. Reportez le code réorganisé dans votre copie d'examen.
+
+
+\section{Où sont les commentaires  !  (6 points)}
+
+Pour son premier stage, R. Stallman dois reprendre le code produit par un autre étudiants ayant quitté le laboratoire. Le fichier, dont le nom est peu explicite \textit{script.py}, comporte quelque lignes de code non commentées. Cependant, on comprend vite que le script prend en entrée ce même fichier "exons.txt". \\
+
+\begin{BVerbatim}
+01 f = open("exons.txt")
+02 tx_5p = dict()
+03     
+04 for line in f:
+05     line = line.rstrip("\n")
+06     cols = line.split("\t")
+07     tx = cols[4]
+08     start = int(cols[1])
+09     end = int(cols[2])
+10     strand = cols[5]
+11     if strand == "+":
+12         if tx not in tx_5p:
+13             tx_5p[tx] = start
+14         else:
+15             if start < tx_5p[tx]:
+16                 tx_5p[tx] = start
+17     else:
+18         if tx not in tx_5p:
+19             tx_5p[tx] = end
+20         else:
+21             if end > tx_5p[tx]:
+22                 tx_5p[tx] = end
+23 for tx in tx_5p:
+24     print(tx + "\t" + str(tx_5p[tx]))
+\end{BVerbatim}
+
+\vspace{0.2cm}
+
+\textbf{Questions 1:} Recopiez le code sur votre copie en le commentant abondamment  (4 points).
+\textbf{Questions 2:} Qu'est censé faire ce programme ? Expliquez. (2 points)
+
+\section{Sélection aléatoire (3 points)}
+\vspace{0.1cm}
+Ecrivez un programme permettant de lire le fichier "exons.txt" et d'imprimer pour chaque gène une ligne contenant:  son identifiant et l'un de ses transcrits tiré au hasard.
+
+\begin{enumerate}
+	\item Le pseudo-code permettant de décrire la stratégie (2 points)
+	\item Le code du programme écrit en Python ? (2 points)
+\end{enumerate}
+
+Vous devez dans ce programme utiliser la fonction randint() du module random. Celle-ci permet de tirer, au hasard, un entier dans un interval  [n, m] (exemple ci-dessous)
+
+\begin{verbatimtab}
+from random import randint
+n=2
+m=5
+randint(n,m) # un entier au hasard parmi: 2,3,4,5
+\end{verbatimtab}
+
+\end{document}
