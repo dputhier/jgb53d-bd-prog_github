@@ -15,6 +15,12 @@ output:
  > - Arnaud Sergé
  > - Nicolas Terrapon
 
+
+#### Dépôt github
+
+Ce cours est disponible via un dépôt github à l'adresse suivante: [https://github.com/dputhier/jgb53d-bd-prog_github](https://github.com/dputhier/jgb53d-bd-prog_github) 
+
+
 #### Resources
 
 | Nom | Lien | Description
@@ -63,4 +69,6 @@ Vous trouverez ci-dessous la liste des exercices réalisés.
 | [Créer un programme complet appelant les modules](practicals/08_python_2015/final_program.html) | Importer les modules dans un programme principal. Appeler ces modules. Créer un analyseur d'arguments
 | [Calculer la taille des cDNAs](practicals/10_python_2015/cdna_len.html) | Consolider les acquis
 | [Extraire une liste de transcripts ou de gènes](practicals/09_python_2015/get_values.html) | Consolider les acquis.
+| [An introduction to the grammar of graphics (plotnine)](intro_ggplot/intro_ggplot.html) | Découvrir le monde des graphiques avec plotnine.
+
 | [Enoncé examen 2014-2015](examen/2014-2015/Examen_2014-2015_Unix_session-1.pdf) | exercice.
