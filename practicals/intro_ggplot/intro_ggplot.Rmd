@@ -1,0 +1,464 @@
+---
+title: "An introduction to plotnine."
+author: "Denis Puthier"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    collapsed: false
+    smooth_scroll: false
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: no
+    toc_depth: 3
+  word_document: default
+css: course.css
+---
+
+
+
+<script type="">
+    $(function() {
+        $(".hideshow").click(function() {
+                $(this).parent().find(".exo_code").toggle();
+        });
+            
+    })
+</script>
+
+<style>
+.exo_code {
+  display:none;
+}
+
+pre  {
+  background-color: #2C3539!important;
+  color: white;
+} 
+
+pre.text {
+  background-color: #2C3539 !important;
+}
+
+hr {
+  color: grey !important;
+}
+
+
+hr {
+  color: grey !important;
+}
+
+p {
+  font-size: 15px;
+}
+</style>
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_python("/Users/puthier/miniconda3/envs/pygtftk_conda/bin/python")
+```
+
+# About plotnine
+
+When doing descriptive statistics we frequently need to partition the graphics based on categorical (*i.e.* qualitative) or ordinal variables. Doing such graphics may be be particularly difficult when using classical Python graphical libraries (*e.g* matplotlib). The **R** software benefits from a very nice library for such a task, the **ggplot2** package developed by *Hadley Wickham*. This package has been quickly became really popular in the bioinformatic field (here categories may be gene, groups of genes, species, signaling pathways, epigenetic marks...) and ordinanal variable a discretized level of expression. One of the particularity of the ggplot2 is that is development is an implementation of the graphical model proposed by *Leland Wilkison* in his book: "The Grammar of Graphics". In this model, the graph is viewed as an entity composed of *data*, *layers*, *scales*, *coordinate system* and facets. One can create a graphic then add the various component using the **+** operator. Although the syntax may appear a little bit complexe for beginners, one can quickly understand the benefit of such an approach when composing complexe diagrams.
+
+Several project have proposed a port of **ggplot2** under **Python**. The **plotnine** library is one of this project that proposes a rather stable and exhaustive port of **ggplot2** under Python. In the subsequent tutorial, we will use the **chickwts** dataset that is availble in the R **datasets** library. We will propose this dataset through a URL available for download. The information we have about the **chickwts** dataset are the following:
+
+**Chicken Weights By Feed Type:** An experiment was conducted to measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
+
+
+
+
+
+# Downloading the dataset
+
+We will download the dataset (a tabulated flat file) and load it into a **pandas** DataFrame. The DataFrame object is also a port from a popular object in the R world (data.frame). This data.frame can be viewed as a matrix whose columns may be of various types (Objects, int64, floats...). The DataFrame object contains various functions to perform operations on the dataset. 
+ 
+```{python}
+import pandas as pd
+
+## The URL of the dataset
+GITHUB_REPO = "https://raw.githubusercontent.com/dputhier/jgb53d-bd-prog_github/master/"
+PATH="practicals/intro_ggplot/chickwts.txt"
+
+## Read the dataset into a 
+chickwts = pd.read_csv(filepath_or_buffer=GITHUB_REPO+PATH, header=0, sep="\t")
+
+print(chickwts)
+
+```
+
+What about the type of object returned by **pandas.read_csv()** ? What about the types of the columns ?
+
+```{python}
+print(type(chickwts))
+print(chickwts.dtypes)
+```
+
+
+
+# Creating a basic diagram
+
+
+## Example with boxplot and violin plots
+
+The boxplot and violin plots can be used to display the distribution of the underlying variables:
+
+
+```{python, fig.show='asis'}
+## loading the plonine package
+## Here we load all object enclosed in the package.
+## This is useful for analysis but may be harmful
+## in a development context
+from plotnine import *
+  
+
+## Then we declare a new graphics and associate 
+## a dataset. Here the aes (aesthetic) argument is set
+## to feed and weight.
+p = ggplot(data=chickwts, mapping=aes( x='feed', y='weight'))
+
+## We have to indicate the type of requested graphics.
+## Here, a boxplot.
+print(p + geom_boxplot())
+
+```
+
+```{python}
+## Now the code for a violin plot
+print(p + geom_violin())
+
+```
+
+## Changing the global diagram theme
+
+The diagram theme can be changed using call to functions from plotnine starting with **theme_**. 
+<div class="exo">
+- Using completion, discover the various functions proposing builtin themes for the diagrams.
+- Test some of them to change the global graphic rendering.
+</div>
+
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+# Using seaborn theme
+print(p + geom_boxplot() + theme_seaborn())
+```
+```{python, fig.show='asis'}
+# Using black and white theme (my favorite :))
+print(p + geom_boxplot() + theme_bw())
+```
+
+<\div>
+
+## Theming your diagram
+
+The diagram can be tweaked more deeply by passing some arguments to the **theme()** function. Several aspects of the diagram are thus **themeable**. The list of  **themeable** elements is provided [here](https://plotnine.readthedocs.io/en/stable/api.html#themeables). The themeables are object of several classes:
+
+- [element_line](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_line.html#plotnine.themes.element_line) --  a line.
+- [element_rect](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_rect.html#plotnine.themes.element_rect) --  a rectangle.
+- [element_text](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_text.html#plotnine.themes.element_text) -- a text.
+- element_blank -- no display.
+
+For instance, the following code changes various elements of the theme:
+
+- The axis text.
+- The axis title.
+- The axis ticks.
+- The panel grid.
+
+```{python, fig.show='asis'}
+my_plot = p + geom_boxplot() + theme(axis_text=element_text(color='red',size=10,rotation=45),
+                           axis_title=element_text(color='green',size=10),
+                           axis_ticks=element_line(color='violet',size=20),
+                           panel_grid_major=element_line(color='lightblue',size=1),
+                           panel_grid_minor=element_line(color='orange',size=1),
+                          )
+print(my_plot)
+```
+
+
+<div class="exo">
+- Use the themeable elements to create your own boxplot or violin diagram. Think about using html hexadecimal colors such as those proposed on [ColorBrewer web site](http://colorbrewer2.org/).
+</div>
+
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+# example answer
+my_plot = p + geom_boxplot() + theme(axis_text=element_text(color='#e41a1c',size=10,rotation=45),
+                           axis_title=element_text(color='#377eb8',size=10),
+                           axis_ticks=element_line(color='#4daf4a',size=20),
+                           panel_grid_major=element_line(color='#984ea3',size=1),
+                           panel_grid_minor=element_line(color='#ff7f00',size=1),
+                           plot_background=element_rect(color='#a6cee3',size=2, fill='#a6cee3')
+                           
+                          )
+print(my_plot)
+```
+<\div>
+
+## More on aesthetics/mapping
+
+At the moment, we have defined, for a boxplot or violin plot, the categories that should appear on the x axis and the values whose distributions should appear on the y axis. We may also assign additional aesthetics. These additional aesthetics may be 'fill' (for the color of the boxes in the boxplot) or the 'color' for the colors of the box borders.
+
+If 'fill' and 'color' are passed to the **geom_boxplot()** this mean that colors should be the same for all boxes. 
+
+
+
+```{python, fig.show='asis'}
+## Then we declare a new graphics and associate 
+## a dataset. Here the aes (aesthetic) argument is set
+## to feed and weight.
+my_plot = ggplot(data=chickwts, 
+          mapping=aes( x='feed', y='weight')) + geom_boxplot(color='#984ea3', fill='#ff7f00')
+print(my_plot)
+
+```
+
+
+Now, another solution is to path 'fill' and 'colors' to the **aes()** function. In this case it means that we want to change the color according to the categories found in 'feed'. This also mean that we need a way to tell plotnine which colors we want to apply as it will just use a set of default colors. 
+
+
+
+```{python, fig.show='asis'}
+## Then we declare a new graphics and associate 
+## a dataset. Here the aes (aesthetic) argument is set
+## to feed and weight.
+my_plot = ggplot(data=chickwts, 
+          mapping=aes( x='feed', y='weight', color='feed', fill='feed')) + geom_boxplot()
+print(my_plot)
+
+```
+
+To change the color we now need to use the **scale_color_manual()** and **scale_fill_manual()** function to which we can pass a dictionnary containing the class to color mapping. Here the classes are the following:
+
+```{python, fig.show='asis'}
+print(pd.Categorical(chickwts['feed']).categories)
+```
+
+So we just need to create a dictionnary containing the classes (*i.e* 'feed') and the associated colors.
+
+```{python, fig.show='asis'}
+color_dict = {'casein': 'red', 
+              'horsebean': 'darkblue', 
+              'linseed': 'violet', 
+              'meatmeal': 'orange', 
+              'soybean': 'yellow', 
+              'sunflower':'pink'}
+my_plot = ggplot(data=chickwts, 
+          mapping=aes( x='feed', y='weight', color='feed', fill='feed')) + geom_boxplot()
+my_plot += scale_color_manual(values=color_dict)
+my_plot += scale_fill_manual(values=color_dict)
+
+print(my_plot)
+```
+
+We may improve this plot by changing the legend attributes.
+
+```{python, fig.show='asis'}
+
+my_plot += theme(legend_position="bottom",
+                      legend_text=element_text(size=8),
+                      legend_key=element_rect(colour="white", fill="white"),
+                      legend_title=element_blank())
+print(my_plot)
+```
+
+<div class="exo">
+- Create your own violin plot using your own theme.
+</div>
+
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+color_dict = {'casein': '#80FF80', 
+              'horsebean': '#BF0000', 
+              'linseed': '#BFFF40', 
+              'meatmeal': '#00FFFF', 
+              'soybean': '#0000FF', 
+              'sunflower':'#0000BF'}
+my_plot = ggplot(data=chickwts, 
+          mapping=aes( x='feed', y='weight', fill='feed')) + geom_violin(color='black')
+          
+my_plot += scale_fill_manual(values=color_dict)
+
+my_plot += theme(legend_position="bottom",
+                      legend_text=element_text(size=8),
+                      legend_key=element_rect(colour="white", fill="white"),
+                      legend_title=element_blank())
+print(my_plot)
+```
+
+
+## Other diagrams
+
+There are about [40 different graphics](https://plotnine.readthedocs.io/en/stable/api.html#geoms) currently available in **plotnine**. The names of the associated functions starts with 'geom_*' (*e.g.* geom_boxplot, geom_tile, geom_text, geom_smooth, geom_rug, geom_hist, geom_bar...). 
+
+
+### Histograms and densities
+
+In the case of histograms, the x axis corresponds to intervals ('bins') and the y axis to the number of values falling in the intervals. There is thus only one value to pass to **aes()**.
+
+```{python, fig.show='asis'}
+## Here the code for an histogram
+my_plot = ggplot(data=chickwts, mapping=aes(x='weight')) + geom_histogram(color='white', bins=10)
+print(my_plot)
+```
+
+
+Probability density can be displayed using **geom_density()**. Unfortunatly, the number of data in each class is clearly too limited...
+
+```{python, fig.show='asis'}
+my_plot = ggplot(data=chickwts, mapping=aes(x='weight', fill='feed')) + geom_density(adjust = 1/4, alpha=0.5)
+print(my_plot)
+
+```
+
+
+## Overlaying diagrams 
+
+One can overlay several diagrams of various type very easily, just using the '+' operator. For instance one can create a simple scatterplot using **geom_point()**. 
+
+```{python, fig.show='asis'}
+## We can, for instance, show the values associated to each feed
+my_plot = ggplot(data=chickwts, 
+          mapping=aes( x='feed', y='weight', fill='feed', color='feed')) + geom_point(size=4)
+
+
+print(my_plot)
+```
+
+However as they are some ties it may be advised to use the jitter option that will add some randomness to the value of the x axis (that here are categorical but can be viewed as 1, 2, 3...)
+
+```{python, fig.show='asis'}
+my_plot += geom_jitter(size=4)
+print(my_plot)
+```
+
+As diagrams can be viewed as layers, we may also add a **geom_rug()** layer.
+
+```{python, fig.show='asis'}
+my_plot += geom_rug(color='darkgrey')
+print(my_plot)
+```
+
+
+# Partitioning graphics using facets
+
+Partitioning the diagram based on a given factor/variable allows one to explore the dataset. For the following example, we will create a matrix containing the results of an artificial ELISA experiment in which several the measures done at two different times and by four different researchers are recorded.
+
+## Loading the dataset
+
+```{python, fig.show='asis'}
+URL = "https://tinyurl.com/ycdhmof8"
+elisa = pd.read_csv(filepath_or_buffer=URL, header=0, sep="\t")
+elisa.head()
+```
+
+The column names of the DataFrame are the following:
+
+```{python, fig.show='asis'}
+elisa.columns.tolist()
+```
+
+The number of elements:
+
+```{python, fig.show='asis'}
+# Number of rows
+elisa.shape[0]
+
+# Number of columns
+elisa.shape[1]
+```
+
+
+These are ELISA plate so each of them contain 96 elements.
+
+```{python, fig.show='asis'}
+elisa.groupby(['day','user']).size()
+```
+
+## Facetting
+
+Using plotnine or ggplot2 syntax, it becomes very easy to assess the distribution of the results (available in the 'values' column) depending on users:
+
+```{python, fig.show='asis'}
+my_plot = ggplot(data = elisa, mapping = aes(x='value'))
+my_plot += geom_histogram(fill="blue", color="white", bins=20) 
+my_plot += theme_bw()
+my_plot += theme(strip_background = element_rect(colour = "white", fill="orange"))
+
+print(my_plot + facet_grid(facets = '~ user'))
+```
+
+Interestingly, one can also easily create facets based on two variables, here user and days:
+
+```{python, fig.show='asis'}
+print(my_plot + facet_grid(facets = 'user ~ day'))
+```
+
+Or alternatively...
+
+```{python, fig.show='asis'}
+print(my_plot + facet_grid(facets = '~ user + day '))
+```
+
+Or even
+
+
+```{python, fig.show='asis'}
+print(my_plot + facet_grid(facets = 'user + day ~') + theme(strip_text = element_text(rotation=0)))
+```
+
+
+# Creating heatmaps
+
+As we are working with an artificial ELISA dataset, it can be interesting to reproduce a color-coded image of the 'original' ELISA plates. The **geom_tile()** function can be used to create heatmaps. 
+
+```{python, fig.show='asis'}
+my_plot = ggplot(data = elisa, mapping = aes(x='columns', y='rows', fill='value'))
+my_plot += geom_tile() 
+my_plot += theme(axis_text_x = element_text(size = 10),
+                 axis_text_y = element_text(size = 10),
+                 panel_background = element_rect(fill="white"),
+                 panel_grid_major = element_line(colour = "white"),
+                 strip_background = element_rect(colour = "orange", fill="orange"))
+my_plot +=   scale_fill_gradientn(colors = ["#0000BF", "#0000FF",
+                                              "#0080FF", "#00FFFF",
+                                              "#40FFBF", "#80FF80",
+                                              "#BFFF40", "#FFFF00",
+                                              "#FF8000", "#FF0000",
+                                              "#BF0000"])
+print(my_plot + facet_grid(facets = 'day ~ user'))
+```
+
+
+
+
+# Exercices
+
+## The dataset
+
+Here, our dataset contains several informations related to transcripts in the human genome. They were computed using *pygtftk* (v0.9.8) from a GTF file downloaded from ensembl (genome version GRCh38, release 92). First we will load the dataset, set the row names to the transcript ids and inspect the column names.
+
+```{python, fig.show='asis'}
+## Read the dataset into a 
+URL = "https://tinyurl.com/hg38-tx-info-txt"
+tx_info = pd.read_csv(filepath_or_buffer=URL, header=0, sep="\t")
+```
