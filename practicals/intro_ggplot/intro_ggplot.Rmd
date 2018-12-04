@@ -24,9 +24,9 @@ css: course.css
 
 
 <script type="">
-    $(function() {
+    $(function(x) {
         $(".hideshow").click(function() {
-                $(this).parent().find(".exo_code").toggle();
+                $(this).find(".exo_code").first().slideToggle(0);
         });
             
     })
@@ -150,7 +150,7 @@ The diagram theme can be changed using call to functions from plotnine starting 
 </div>
 
 
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 # Using seaborn theme
@@ -160,7 +160,7 @@ print(p + geom_boxplot() + theme_seaborn())
 # Using black and white theme (my favorite :))
 print(p + geom_boxplot() + theme_bw())
 ```
-</div>
+</div></div>
 
 ## Theming your diagram
 
@@ -194,7 +194,7 @@ print(my_plot)
 </div>
 
 
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 # example answer
@@ -208,7 +208,7 @@ my_plot = p + geom_boxplot() + theme(axis_text=element_text(color='#e41a1c',size
                           )
 print(my_plot)
 ```
-</div>
+</div></div>
 
 ## More on aesthetics/mapping
 
@@ -281,7 +281,7 @@ print(my_plot)
 </div>
 
 
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 color_dict = {'casein': '#80FF80', 
@@ -301,7 +301,7 @@ my_plot += theme(legend_position="bottom",
                       legend_title=element_blank())
 print(my_plot)
 ```
-</div>
+</div></div>
 
 ## Other diagrams
 
@@ -482,8 +482,7 @@ tx_info = pd.read_csv(filepath_or_buffer=URL, header=0, sep="\t", index_col=10)
 - What are the possible values for 'gene_biotype' ?
 </div>
 
-
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 # What is the type of tx_info ?
@@ -525,7 +524,7 @@ len(set(tx_info['gene_id'].tolist()))
 # What are the possible values for 'gene_biotype' ?
 set(tx_info['gene_biotype'].tolist())
 ```
-</div>
+</div></div>
 
 ## Subseting the dataset
 
@@ -551,7 +550,7 @@ tx_info.gene_biotype = [x.replace("_", "\n") for x in tx_info.gene_biotype]
 - What about the size of **processed pseudo-genes** ? How may one explain this difference ?
 </div>
 
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 ## The global distribution
@@ -588,14 +587,15 @@ my_plot += theme(strip_text=element_text(rotation=0, size=5), panel_grid=element
 my_plot += facet_grid('gene_biotype~', scales="free_y")
 print(my_plot)
 ```
-</div>
+</div></div>
+
 
 <div class="exo">
 - Now, what can you say about the number of exons for transcripts depending on 'gene_biotype' ? Use a proper graphic to display this information. 
 - What can we say about **processed pseudo-genes** ? Is that expected ?
 </div>
 
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 ## The global distribution
@@ -609,7 +609,7 @@ my_plot += theme(axis_text_x=element_text(size=6, rotation=45),
 my_plot += geom_abline(intercept = 1, slope=0)
 print(my_plot)
 ```
-</div>
+</div></div>
 
 
 <div class="exo">
@@ -618,7 +618,7 @@ print(my_plot)
 - What is another intriging feature of the Y chromosome ?
 </div>
 
-<div class="hideshow"> << Hide | Show >> </div>
+<div class="hideshow"> << Hide | Show >> 
 <div class="exo_code">
 ```{python, fig.show='asis'}
 # geom bar with position "stack"
@@ -638,7 +638,7 @@ print(my_plot + geom_bar(color="white", position='dodge'))
 # geom bar with position "fill"
 print(my_plot + geom_bar(color="white", position='fill'))
 ```
-</div>
+</div></div>
 
 # References
 
