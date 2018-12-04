@@ -72,19 +72,17 @@ use_python("/Users/puthier/miniconda3/envs/pygtftk_conda/bin/python")
 
 # About plotnine
 
-When doing descriptive statistics we frequently need to partition the graphics based on categorical (*i.e.* qualitative) or ordinal variables. Doing such graphics may be be particularly difficult when using classical Python graphical libraries (*e.g* matplotlib). The **R** software benefits from a very nice library for such a task, the **ggplot2** package developed by *Hadley Wickham*. This package has been quickly became really popular in the bioinformatic field (here categories may be gene, groups of genes, species, signaling pathways, epigenetic marks...) and ordinanal variable a discretized level of expression. One of the particularity of the ggplot2 is that is development is an implementation of the graphical model proposed by *Leland Wilkison* in his book: "The Grammar of Graphics". In this model, the graph is viewed as an entity composed of *data*, *layers*, *scales*, *coordinate system* and facets. One can create a graphic then add the various component using the **+** operator. Although the syntax may appear a little bit complexe for beginners, one can quickly understand the benefit of such an approach when composing complexe diagrams.
+When doing descriptive statistics we frequently need to partition the graphics based on categorical (*i.e.* qualitative) or ordinal variables. Doing such graphics may be be particularly difficult when using classical Python graphical libraries (*e.g* matplotlib). The **R** software benefits from a very nice library for such a task, the **ggplot2** package developed by *Hadley Wickham*. This package has been quickly became really popular in the bioinformatic field (here categories may be gene, groups of genes, species, signaling pathways, epigenetic marks...) and ordinal variables a discretized level of expression, for instance. The ggplot2 R package is an implementation of the graphical model proposed by *Leland Wilkison* in his book: **The Grammar of Graphics**. In this model, the graph is viewed as an entity composed of *data*, *layers*, *scales*, *coordinate system* and facets. One can create a graphic then add the various component using the **+** operator. Although the syntax may appear a little bit tricky for beginners, one can quickly understand the benefit of such an approach when composing complexe diagrams.
 
-Several project have proposed a port of **ggplot2** under **Python**. The **plotnine** library is one of this project that proposes a rather stable and exhaustive port of **ggplot2** under Python. In the subsequent tutorial, we will use the **chickwts** dataset that is availble in the R **datasets** library. We will propose this dataset through a URL available for download. The information we have about the **chickwts** dataset are the following:
+Several projects have proposed a port of **ggplot2** under **Python**. The **plotnine** library is one of this project that proposes a rather stable and exhaustive port of **ggplot2** under Python. In the subsequent tutorial, we will use the **chickwts** dataset that is available in the R **datasets** library. We will propose this dataset through an URL available for download. The information we have about the **chickwts** dataset are the following:
 
 **Chicken Weights By Feed Type:** An experiment was conducted to measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
 
 
-
-
-
 # Downloading the dataset
 
-We will download the dataset (a tabulated flat file) and load it into a **pandas** DataFrame. The DataFrame object is also a port from a popular object in the R world (data.frame). This data.frame can be viewed as a matrix whose columns may be of various types (Objects, int64, floats...). The DataFrame object contains various functions to perform operations on the dataset. 
+We will download the dataset (a tabulated flat file) and load it into a **pandas** DataFrame. The **DataFrame¨** object is also a port from a popular object in the R world (**data.frame**). This DataFrame can be viewed as a matrix whose columns may be of various types (Objects, int64, floats...). The DataFrame object contains various functions to perform operations on the dataset. 
+
  
 ```{python}
 import pandas as pd
@@ -114,7 +112,7 @@ print(chickwts.dtypes)
 
 ## Example with boxplot and violin plots
 
-The boxplot and violin plots can be used to display the distribution of the underlying variables:
+The boxplot and violin plots can be used to display the distributions of the underlying variables:
 
 
 ```{python, fig.show='asis'}
@@ -145,6 +143,7 @@ print(p + geom_violin())
 ## Changing the global diagram theme
 
 The diagram theme can be changed using call to functions from plotnine starting with **theme_**. 
+
 <div class="exo">
 - Using completion, discover the various functions proposing builtin themes for the diagrams.
 - Test some of them to change the global graphic rendering.
@@ -161,12 +160,11 @@ print(p + geom_boxplot() + theme_seaborn())
 # Using black and white theme (my favorite :))
 print(p + geom_boxplot() + theme_bw())
 ```
-
-<\div>
+</div>
 
 ## Theming your diagram
 
-The diagram can be tweaked more deeply by passing some arguments to the **theme()** function. Several aspects of the diagram are thus **themeable**. The list of  **themeable** elements is provided [here](https://plotnine.readthedocs.io/en/stable/api.html#themeables). The themeables are object of several classes:
+The diagrams can be tweaked more deeply by passing some arguments to the **theme()** function. Several aspects of the diagram are thus **themeable**. The list of  **themeable** elements is provided [here](https://plotnine.readthedocs.io/en/stable/api.html#themeables). The themeables are object of several classes:
 
 - [element_line](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_line.html#plotnine.themes.element_line) --  a line.
 - [element_rect](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_rect.html#plotnine.themes.element_rect) --  a rectangle.
@@ -210,11 +208,11 @@ my_plot = p + geom_boxplot() + theme(axis_text=element_text(color='#e41a1c',size
                           )
 print(my_plot)
 ```
-<\div>
+</div>
 
 ## More on aesthetics/mapping
 
-At the moment, we have defined, for a boxplot or violin plot, the categories that should appear on the x axis and the values whose distributions should appear on the y axis. We may also assign additional aesthetics. These additional aesthetics may be 'fill' (for the color of the boxes in the boxplot) or the 'color' for the colors of the box borders.
+At the moment, we have defined, for a boxplot or violin plot, the categories that should appear on the x axis and the values whose distributions should appear on the y axis. We may also assign additional aesthetics. These additional aesthetics may be 'fill' (for the color of the boxes in the boxplot) or the 'color' for the colors of the box borders (there are also additional aesthetic depending on the geom function).
 
 If 'fill' and 'color' are passed to the **geom_boxplot()** this mean that colors should be the same for all boxes. 
 
@@ -231,8 +229,7 @@ print(my_plot)
 ```
 
 
-Now, another solution is to path 'fill' and 'colors' to the **aes()** function. In this case it means that we want to change the color according to the categories found in 'feed'. This also mean that we need a way to tell plotnine which colors we want to apply as it will just use a set of default colors. 
-
+Now, another solution is to path 'fill' and 'colors' to the **aes()** function. In this case it means that we want to change the colors according to the categories found in 'feed'. This also mean that we need a way to tell plotnine which colors we want to apply as it will just use a set of default colors. 
 
 
 ```{python, fig.show='asis'}
@@ -245,7 +242,7 @@ print(my_plot)
 
 ```
 
-To change the color we now need to use the **scale_color_manual()** and **scale_fill_manual()** function to which we can pass a dictionnary containing the class to color mapping. Here the classes are the following:
+To change the colors we now need to use the **scale_color_manual()** and **scale_fill_manual()** functions to which we can pass a dictionnary containing the classes to colors mapping. Here the classes are the following:
 
 ```{python, fig.show='asis'}
 print(pd.Categorical(chickwts['feed']).categories)
@@ -304,7 +301,7 @@ my_plot += theme(legend_position="bottom",
                       legend_title=element_blank())
 print(my_plot)
 ```
-
+</div>
 
 ## Other diagrams
 
@@ -313,7 +310,8 @@ There are about [40 different graphics](https://plotnine.readthedocs.io/en/stabl
 
 ### Histograms and densities
 
-In the case of histograms, the x axis corresponds to intervals ('bins') and the y axis to the number of values falling in the intervals. There is thus only one value to pass to **aes()**.
+In the case of histograms, the x axis corresponds to intervals ('bins') and the y axis to the number of values falling in the intervals. Thus, there is only one value to pass to **aes()**.
+
 
 ```{python, fig.show='asis'}
 ## Here the code for an histogram
@@ -322,7 +320,7 @@ print(my_plot)
 ```
 
 
-Probability density can be displayed using **geom_density()**. Unfortunatly, the number of data in each class is clearly too limited...
+Probability density can be displayed using **geom_density()**. Unfortunatly, the number of data in each class is clearly too limited here. We will see a better example later.
 
 ```{python, fig.show='asis'}
 my_plot = ggplot(data=chickwts, mapping=aes(x='weight', fill='feed')) + geom_density(adjust = 1/4, alpha=0.5)
@@ -333,7 +331,8 @@ print(my_plot)
 
 ## Overlaying diagrams 
 
-One can overlay several diagrams of various type very easily, just using the '+' operator. For instance one can create a simple scatterplot using **geom_point()**. 
+One can overlay several diagrams of various types very easily, just using the '+' operator. For instance one can first create a simple scatterplot using **geom_point()**. 
+
 
 ```{python, fig.show='asis'}
 ## We can, for instance, show the values associated to each feed
@@ -344,7 +343,7 @@ my_plot = ggplot(data=chickwts,
 print(my_plot)
 ```
 
-However as they are some ties it may be advised to use the jitter option that will add some randomness to the value of the x axis (that here are categorical but can be viewed as 1, 2, 3...)
+However as they are some ties it may be advised to use the **geom_jitter()** function that will add some randomness to the value of the x axis (that here are categorical but can be viewed as 1, 2, 3...)
 
 ```{python, fig.show='asis'}
 my_plot += geom_jitter(size=4)
@@ -361,7 +360,7 @@ print(my_plot)
 
 # Partitioning graphics using facets
 
-Partitioning the diagram based on a given factor/variable allows one to explore the dataset. For the following example, we will create a matrix containing the results of an artificial ELISA experiment in which several the measures done at two different times and by four different researchers are recorded.
+Partitioning the diagram based on a given factor/variable allows one to explore deeply the dataset. For the following example, we will create a matrix containing the results of an artificial ELISA experiment in which several measures done at two different times and by four different researchers are recorded.
 
 ## Loading the dataset
 
@@ -388,7 +387,7 @@ elisa.shape[1]
 ```
 
 
-These are ELISA plate so each of them contain 96 elements.
+These are ELISA plates so each of them contain 96 elements.
 
 ```{python, fig.show='asis'}
 elisa.groupby(['day','user']).size()
@@ -397,6 +396,7 @@ elisa.groupby(['day','user']).size()
 ## Facetting
 
 Using plotnine or ggplot2 syntax, it becomes very easy to assess the distribution of the results (available in the 'values' column) depending on users:
+
 
 ```{python, fig.show='asis'}
 my_plot = ggplot(data = elisa, mapping = aes(x='value'))
@@ -431,6 +431,7 @@ print(my_plot + facet_grid(facets = 'user + day ~') + theme(strip_text = element
 
 As we are working with an artificial ELISA dataset, it can be interesting to reproduce a color-coded image of the 'original' ELISA plates. The **geom_tile()** function can be used to create heatmaps. 
 
+
 ```{python, fig.show='asis'}
 my_plot = ggplot(data = elisa, mapping = aes(x='columns', y='rows', fill='value'))
 my_plot += geom_tile() 
@@ -453,12 +454,192 @@ print(my_plot + facet_grid(facets = 'day ~ user'))
 
 # Exercices
 
+
 ## The dataset
 
 Here, our dataset contains several informations related to transcripts in the human genome. They were computed using *pygtftk* (v0.9.8) from a GTF file downloaded from ensembl (genome version GRCh38, release 92). First we will load the dataset, set the row names to the transcript ids and inspect the column names.
 
+
 ```{python, fig.show='asis'}
-## Read the dataset into a 
+## The URL pointing to the dataset
 URL = "https://tinyurl.com/hg38-tx-info-txt"
-tx_info = pd.read_csv(filepath_or_buffer=URL, header=0, sep="\t")
+
+## Read the dataset into a pandas DataFrame
+## The transcript names are located in column 11 (10 in zero-based)
+## The first line (0 in zero-based) is the header
+tx_info = pd.read_csv(filepath_or_buffer=URL, header=0, sep="\t", index_col=10)
 ```
+
+
+<div class="exo">
+- What is the type of tx_info ?
+- How many lines does the dataset contain ?
+- How many columns ?
+- What are the columns names ?
+- How many chromosomes are defined ? You can access columns using tx_info['column_name'].
+- How many different transcripts ? The row names can be found in the '.index' attributes of the DataFrame.
+- How many gene can be found in the dataset ? Use the gene_id column.
+- What are the possible values for 'gene_biotype' ?
+</div>
+
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+# What is the type of tx_info ?
+print(type(tx_info))
+```
+
+```{python, fig.show='asis'}
+# How many lines does the dataset contain ?
+print(tx_info.shape[0])
+```
+
+```{python, fig.show='asis'}
+# How many columns ?
+print(tx_info.shape[1])
+```
+
+```{python, fig.show='asis'}
+# What are the columns names ?
+# or in a more readable way: sorted(tx_info.columns)
+print(sorted(tx_info.columns.tolist()))
+```
+
+```{python, fig.show='asis'}
+# How many chromosomes (seqid) are defined ?
+set(tx_info['seqid'].tolist())
+```
+
+```{python, fig.show='asis'}
+# How many different transcripts ?
+len(set(tx_info.index.tolist()))
+```
+
+```{python, fig.show='asis'}
+# How many gene can be found in the dataset ?
+len(set(tx_info['gene_id'].tolist()))
+```
+
+```{python, fig.show='asis'}
+# What are the possible values for 'gene_biotype' ?
+set(tx_info['gene_biotype'].tolist())
+```
+</div>
+
+## Subseting the dataset
+
+In the subsequent analysis we will only focus on transcript classes ('gene_biotype') for which at least 500 transcripts are found.
+
+```{python, fig.show='asis'}
+tx_info = tx_info.groupby('gene_biotype').filter(lambda x: len(x) > 500)
+set(tx_info.gene_biotype)
+```
+
+## Splitting gene categories on several lines
+
+
+```{python, fig.show='asis'}
+tx_info.gene_biotype = [x.replace("_", "\n") for x in tx_info.gene_biotype]
+```
+
+## Looking at transcript length and the case of processed pseudogene
+
+
+<div class="exo">
+- Explore the transcript genomic length ('tx_genomic_size', size of exons plus introns) variable. What can you say about the distributions of transcript genomic length regarding chromosome and gene_biotype ? You can use **geom_density()** or **geom_histogram()** for graphical display.
+- What about the size of **processed pseudo-genes** ? How may one explain this difference ?
+</div>
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+## The global distribution
+my_plot = ggplot(data=tx_info, mapping=aes( x='tx_genomic_size'))
+my_plot += geom_histogram(bins=100, fill="#E69F00", color="white")
+my_plot += scale_x_continuous(trans='log10')
+my_plot += theme_bw()
+print(my_plot)
+```
+
+```{python, fig.show='asis'}
+## The distribution faceted by chromosomes
+## There seems not to be any particular association between 
+## Chromosomes and transcript length
+print(my_plot + facet_grid('seqid~', scales="free_y") + theme(strip_text=element_text(rotation=0, size=5), panel_grid=element_blank(), axis_text_y=element_text(size=4), panel_spacing=0))
+```
+
+
+```{python, fig.show='asis'}
+## The distribution faceted by chromosomes
+## There seems not to be any particular association between 
+## Chromosomes and transcript length
+print(my_plot + facet_grid('gene_biotype~', scales="free_y") + theme(strip_text=element_text(rotation=0, size=5), panel_grid=element_blank(), axis_text_y=element_text(size=4), panel_spacing=0.2))
+```
+
+```{python, fig.show='asis'}
+## The distribution faceted by chromosomes
+## can be viewed alternatively using a density
+my_plot = ggplot(data=tx_info, mapping=aes( x='tx_genomic_size', fill='gene_biotype'))
+my_plot += geom_density(alpha=0.5)
+my_plot += scale_x_continuous(trans='log10')
+my_plot += theme_bw()
+my_plot += theme(strip_text=element_text(rotation=0, size=5), panel_grid=element_blank(), axis_text_y=element_text(size=4), panel_spacing=0.2)
+my_plot += facet_grid('gene_biotype~', scales="free_y")
+print(my_plot)
+```
+</div>
+
+<div class="exo">
+- Now, what can you say about the number of exons for transcripts depending on 'gene_biotype' ? Use a proper graphic to display this information. 
+- What can we say about **processed pseudo-genes** ? Is that expected ?
+</div>
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+## The global distribution
+my_plot = ggplot(data=tx_info, mapping=aes( x='gene_biotype', y='nb_exons', fill='gene_biotype', color='gene_biotype'))
+my_plot += geom_boxplot()
+my_plot += scale_y_continuous(trans='log2')
+my_plot += theme_bw()
+my_plot += ylab('log2(number of exons)')
+my_plot += theme(axis_text_x=element_text(size=6, rotation=45),
+                panel_grid_minor=element_line(size=1))
+my_plot += geom_abline(intercept = 1, slope=0)
+print(my_plot)
+```
+</div>
+
+
+<div class="exo">
+- What can you say about the distribution of each gene biotype across chromosomes (*i.e* the number of each category per chromosome). Draw a stacked barplot (**geom_bar**) showing the number of transcripts from each gene_biotype class on each chromosome.
+- What can we say about 'processed pseudogene' ?
+- What is another intriging feature of the Y chromosome ?
+</div>
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo_code">
+```{python, fig.show='asis'}
+# geom bar with position "stack"
+my_plot = ggplot(tx_info, aes(x='seqid', fill='gene_biotype', label='stat(count)')) 
+my_plot +=   theme(axis_text_x = element_text(angle = 45, hjust=1),
+                   strip_text_x = element_text(size = 7,  colour = 'black', angle = 90),
+                   legend_position='top')
+print(my_plot + geom_bar(color="white", position='stack'))
+```
+
+```{python, fig.show='asis'}
+# geom bar with position "dodge"
+print(my_plot + geom_bar(color="white", position='dodge'))
+```
+
+```{python, fig.show='asis'}
+# geom bar with position "fill"
+print(my_plot + geom_bar(color="white", position='fill'))
+```
+</div>
+
+# References
+
+Todo
