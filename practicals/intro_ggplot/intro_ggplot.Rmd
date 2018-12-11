@@ -19,6 +19,7 @@ output:
     toc_depth: 3
   word_document: default
 css: course.css
+bibliography: bibliography.bib
 ---
 
 
@@ -72,9 +73,9 @@ use_python("/Users/puthier/miniconda3/envs/pygtftk_conda/bin/python")
 
 # About plotnine
 
-When doing descriptive statistics we frequently need to partition the graphics based on categorical (*i.e.* qualitative) or ordinal variables. Doing such graphics may be be particularly difficult when using classical Python graphical libraries (*e.g* matplotlib). The **R** software benefits from a very nice library for such a task, the **ggplot2** package developed by *Hadley Wickham*. This package has been quickly became really popular in the bioinformatic field (here categories may be gene, groups of genes, species, signaling pathways, epigenetic marks...) and ordinal variables a discretized level of expression, for instance. The ggplot2 R package is an implementation of the graphical model proposed by *Leland Wilkison* in his book: **The Grammar of Graphics**. In this model, the graph is viewed as an entity composed of *data*, *layers*, *scales*, *coordinate system* and facets. One can create a graphic then add the various component using the **+** operator. Although the syntax may appear a little bit tricky for beginners, one can quickly understand the benefit of such an approach when composing complexe diagrams.
+When doing descriptive statistics we frequently need to partition the graphics based on categorical (*i.e.* qualitative) or ordinal variables. Doing such graphics may be particularly difficult when using classical Python graphical libraries (*e.g* matplotlib). The **R** software benefits from a very nice library for such a task, the **ggplot2** package developed by *Hadley Wickham* [@ggplot2] This package has been quickly became really popular in the bioinformatic field (here categories may be gene, groups of genes, species, signaling pathways, epigenetic marks...) and ordinal variables a discretized level of expression, for instance. The ggplot2 R package is an implementation of the graphical model proposed by *Leland Wilkison* in his book: **The Grammar of Graphics** [@grammar]. In this model, the graph is viewed as an entity composed of *data*, *layers*, *scales*, *coordinate system* and facets. One can create a graphic then add the various component using the **+** operator. Although the syntax may appear a little bit tricky for beginners, one can quickly understand the benefit of such an approach when composing complexe diagrams.
 
-Several projects have proposed a port of **ggplot2** under **Python**. The **plotnine** library is one of this project that proposes a rather stable and exhaustive port of **ggplot2** under Python. In the subsequent tutorial, we will use the **chickwts** dataset that is available in the R **datasets** library. We will propose this dataset through an URL available for download. The information we have about the **chickwts** dataset are the following:
+Several projects have proposed a port of **ggplot2** under **Python**. The **plotnine** library is one of these projects that proposes a rather stable and exhaustive port of **ggplot2** under Python. In the subsequent tutorial, we will use the **chickwts** dataset that is available in the R **datasets** library. We will propose this dataset through an URL available for download. The information we have about the **chickwts** dataset are the following:
 
 **Chicken Weights By Feed Type:** An experiment was conducted to measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
 
@@ -116,7 +117,7 @@ The boxplot and violin plots can be used to display the distributions of the und
 
 
 ```{python, fig.show='asis'}
-## loading the plonine package
+## loading the plotnine package
 ## Here we load all object enclosed in the package.
 ## This is useful for analysis but may be harmful
 ## in a development context
@@ -164,7 +165,7 @@ print(p + geom_boxplot() + theme_bw())
 
 ## Theming your diagram
 
-The diagrams can be tweaked more deeply by passing some arguments to the **theme()** function. Several aspects of the diagram are thus **themeable**. The list of  **themeable** elements is provided [here](https://plotnine.readthedocs.io/en/stable/api.html#themeables). The themeables are object of several classes:
+The diagrams can be tweaked more deeply by passing some arguments to the **theme()** function. Several aspects of the diagram are thus **themeable**. The list of  **themeable** elements is provided [here](https://plotnine.readthedocs.io/en/stable/api.html#themeables). The themeables are objects of several classes:
 
 - [element_line](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_line.html#plotnine.themes.element_line) --  a line.
 - [element_rect](https://plotnine.readthedocs.io/en/stable/generated/plotnine.themes.element_rect.html#plotnine.themes.element_rect) --  a rectangle.
@@ -242,7 +243,7 @@ print(my_plot)
 
 ```
 
-To change the colors we now need to use the **scale_color_manual()** and **scale_fill_manual()** functions to which we can pass a dictionnary containing the classes to colors mapping. Here the classes are the following:
+To change the colors we now need to use the **scale_color_manual()** and **scale_fill_manual()** functions to which we can pass a dictionary containing the classes to colors mapping. Here the classes are the following:
 
 ```{python, fig.show='asis'}
 print(pd.Categorical(chickwts['feed']).categories)
@@ -305,7 +306,7 @@ print(my_plot)
 
 ## Other diagrams
 
-There are about [40 different graphics](https://plotnine.readthedocs.io/en/stable/api.html#geoms) currently available in **plotnine**. The names of the associated functions starts with 'geom_*' (*e.g.* geom_boxplot, geom_tile, geom_text, geom_smooth, geom_rug, geom_hist, geom_bar...). 
+There are about [40 different graphics](https://plotnine.readthedocs.io/en/stable/api.html#geoms) currently available in **plotnine**. The names of the associated functions start with 'geom_*' (*e.g.* geom_boxplot, geom_tile, geom_text, geom_smooth, geom_rug, geom_hist, geom_bar...). 
 
 
 ### Histograms and densities
@@ -387,7 +388,7 @@ elisa.shape[1]
 ```
 
 
-These are ELISA plates so each of them contain 96 elements.
+These are ELISA plates so each of them contains 96 elements.
 
 ```{python, fig.show='asis'}
 elisa.groupby(['day','user']).size()
@@ -640,6 +641,7 @@ print(my_plot + geom_bar(color="white", position='fill'))
 ```
 </div></div>
 
+
+
 # References
 
-Todo
