@@ -68,7 +68,7 @@ p {
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
-use_python("/Users/puthier/miniconda3/envs/pygtftk_conda/bin/python")
+use_python("/Users/puthier/miniconda3/envs/pygtftk/bin/python")
 ```
 
 # About plotnine
@@ -453,7 +453,7 @@ print(my_plot + facet_grid(facets = 'day ~ user'))
 
 
 
-# Exercices
+# Practical 1 (About processed pseudogenes)
 
 
 ## The dataset
@@ -612,9 +612,21 @@ print(my_plot)
 ```
 </div></div>
 
+For the next diagrams we will order the chromosome from 1 to 22 then X, Y. Plotnine doesn't know about the chromosomes order. By default it will just display them the way they were encountered. However, we can define the order of a qualitative variable. To this aim we need to use *pd.Categorical()* that can change a dataframe column so that it becomes a categorial variable that can even be ordered (ordinal variable):
+
+```{python, fig.show='asis'}
+## Define an ordinal variable
+chrom_list = ["chr" + str(x) for x in range(1,23) ]
+chrom_list += ['chrX', 'chrY']
+tx_info.seqid = pd.Categorical(tx_info.seqid.tolist(), categories=chrom_list, ordered=True)
+
+## The categories are know part 
+## of the column definition
+print(tx_info.seqid.head())
+```
 
 <div class="exo">
-- What can you say about the distribution of each gene biotype across chromosomes (*i.e* the number of each category per chromosome). Draw a stacked barplot (**geom_bar**) showing the number of transcripts from each gene_biotype class on each chromosome.
+- What can you say about the distribution of each gene biotype across chromosomes (*i.e* the number of each category per chromosome). Draw a barplot (**geom_bar**) showing the number of transcripts from each gene_biotype class on each chromosome. Use **geom_bar** with argument **position** set to 'stack', 'dodge' or 'fill'. depending on this argument, do you get the same feeling about the way the distribution of gene biotype across the chromosomes. What are the pros and cons of each representation ?
 - What can we say about 'processed pseudogene' ?
 - What is another intriging feature of the Y chromosome ?
 </div>
@@ -641,7 +653,4 @@ print(my_plot + geom_bar(color="white", position='fill'))
 ```
 </div></div>
 
-
-
-# References
 
