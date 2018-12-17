@@ -35,6 +35,17 @@ Ce cours est disponible via un dépôt github à l'adresse suivante: [https://gi
 
 -------------------------------------------------------
 
+
+#### Dataset
+
+
+| Nom | Lien | Description
+-----|------|--------------
+| GTF dataset (5k transcripts)  | http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf |	An example dataset.
+
+
+
+-------------------------------------------------------
 #### Cours théoriques
 
 Vous trouverez ci-dessous des  informations portant sur les concepts nécessaires à la réalisation des travaux dirigés.
