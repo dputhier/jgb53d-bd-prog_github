@@ -1,0 +1,115 @@
+---
+title: "Putting all together."
+author: "Denis Puthier"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    collapsed: false
+    smooth_scroll: false
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: no
+    toc_depth: 3
+  word_document: default
+css: course.css
+---
+
+<script type="">
+    $(function(x) {
+        $(".hideshow").click(function() {
+                $(this).find(".exo_code").first().slideToggle(0);
+        });
+            
+    })
+</script>
+
+<style>
+.exo_code {
+  display:none;
+}
+
+pre  {
+  background-color: #2C3539!important;
+  color: white;
+} 
+
+pre.text {
+  background-color: #2C3539 !important;
+}
+
+hr {
+  color: grey !important;
+}
+
+
+hr {
+  color: grey !important;
+}
+
+p {
+  font-size: 15px;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_python("/Users/puthier/miniconda3/envs/pygtftk/bin/python")
+```
+
+# Creating a program computing intron sizes
+
+## Objective 
+
+The final program that you will have to write is expected to do the following things:
+
+- Load a gtf file (e.g. [this one](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf))
+- Compute the size of introns.
+- Draw the distribution of intron size.
+
+## Constrains
+
+- If needed/possible, use regular expression (e.g. to extract transcript name).
+- Use an argument parser so that one can call it from command line.
+- The color of the diagram should be proposed as an argument to the parser.
+
+```{python, eval=F, fig.show='asis'}
+# Declare an argument parser
+import argparse 
+
+DESCRIPTION = "The program description."
+
+parser = argparse.ArgumentParser(add_help=True, description=DESCRIPTION)
+
+parser.add_argument('-i', '--inputfile',
+                            help="The input file.",
+                            default=None,
+                            type=argparse.FileType('r'),
+                            required=True)
+
+parser.add_argument('-o', '--outputfile',
+                            help="The outputfile.",
+                            default=None,
+                            type=argparse.FileType('r'),
+                            required=True)
+
+parser.add_argument('-c', '--color',
+                            help="The color of the diagram.",
+                            default="magenta",
+                            type=str,
+                            required=False)
+
+args = parser.parse_args()
+args = dict(args.__dict__)
+
+```
+
+
