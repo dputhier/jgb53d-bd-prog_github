@@ -46,6 +46,7 @@ Ce cours est disponible via un dépôt github à l'adresse suivante: [https://gi
 
 
 -------------------------------------------------------
+
 #### Cours théoriques
 
 Vous trouverez ci-dessous des  informations portant sur les concepts nécessaires à la réalisation des travaux dirigés.
@@ -81,5 +82,6 @@ Vous trouverez ci-dessous la liste des exercices réalisés.
 | [Calculer la taille des cDNAs](practicals/10_python_2015/cdna_len.html) | Consolider les acquis
 | [Extraire une liste de transcripts ou de gènes](practicals/09_python_2015/get_values.html) | Consolider les acquis.
 | [An introduction to the grammar of graphics (plotnine)](practicals/intro_ggplot/intro_ggplot.html) | Découvrir le monde des graphiques avec plotnine.
+| [Calculer la taille des introns](practicals/introns/introns.html) | Créer un programme complet.
 
 | [Enoncé examen 2014-2015](examen/2014-2015/Examen_2014-2015_Unix_session-1.pdf) | exercice.
