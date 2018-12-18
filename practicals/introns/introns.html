@@ -1873,6 +1873,11 @@ hr {
 p {
   font-size: 15px;
 }
+
+li {
+  font-size: 15px;
+}
+
 </style>
 <div id="creating-a-program-computing-intron-sizes" class="section level1">
 <h1>Creating a program computing intron sizes</h1>
@@ -1892,27 +1897,41 @@ p {
 <li>Use an argument parser so that one can call it from command line.</li>
 <li>The color of the diagram should be proposed as an argument to the parser.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># Declare an argument parser</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="im">import</span> argparse </a>
-<a class="sourceLine" id="cb1-3" title="3">DESCRIPTION <span class="op">=</span> <span class="st">&quot;The program description.&quot;</span></a>
-<a class="sourceLine" id="cb1-4" title="4">parser <span class="op">=</span> argparse.ArgumentParser(add_help<span class="op">=</span><span class="va">True</span>, description<span class="op">=</span>DESCRIPTION)</a>
-<a class="sourceLine" id="cb1-5" title="5">parser.add_argument(<span class="st">&#39;-i&#39;</span>, <span class="st">&#39;--inputfile&#39;</span>,</a>
-<a class="sourceLine" id="cb1-6" title="6">                            <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The input file.&quot;</span>,</a>
-<a class="sourceLine" id="cb1-7" title="7">                            default<span class="op">=</span><span class="va">None</span>,</a>
-<a class="sourceLine" id="cb1-8" title="8">                            <span class="bu">type</span><span class="op">=</span>argparse.FileType(<span class="st">&#39;r&#39;</span>),</a>
-<a class="sourceLine" id="cb1-9" title="9">                            required<span class="op">=</span><span class="va">True</span>)</a>
-<a class="sourceLine" id="cb1-10" title="10">parser.add_argument(<span class="st">&#39;-o&#39;</span>, <span class="st">&#39;--outputfile&#39;</span>,</a>
-<a class="sourceLine" id="cb1-11" title="11">                            <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The outputfile.&quot;</span>,</a>
-<a class="sourceLine" id="cb1-12" title="12">                            default<span class="op">=</span><span class="va">None</span>,</a>
-<a class="sourceLine" id="cb1-13" title="13">                            <span class="bu">type</span><span class="op">=</span>argparse.FileType(<span class="st">&#39;r&#39;</span>),</a>
-<a class="sourceLine" id="cb1-14" title="14">                            required<span class="op">=</span><span class="va">True</span>)</a>
-<a class="sourceLine" id="cb1-15" title="15">parser.add_argument(<span class="st">&#39;-c&#39;</span>, <span class="st">&#39;--color&#39;</span>,</a>
-<a class="sourceLine" id="cb1-16" title="16">                            <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The color of the diagram.&quot;</span>,</a>
-<a class="sourceLine" id="cb1-17" title="17">                            default<span class="op">=</span><span class="st">&quot;magenta&quot;</span>,</a>
-<a class="sourceLine" id="cb1-18" title="18">                            <span class="bu">type</span><span class="op">=</span><span class="bu">str</span>,</a>
-<a class="sourceLine" id="cb1-19" title="19">                            required<span class="op">=</span><span class="va">False</span>)</a>
-<a class="sourceLine" id="cb1-20" title="20">args <span class="op">=</span> parser.parse_args()</a>
-<a class="sourceLine" id="cb1-21" title="21">args <span class="op">=</span> <span class="bu">dict</span>(args.__dict__)</a></code></pre></div>
+</div>
+<div id="note-about-regular-expressions" class="section level2">
+<h2>Note about regular expressions</h2>
+<p>In the regular expression below ([^&quot;]+) the parentheses are used to capture a motif (here, a succession of characters that are different from ‘&quot;’. The found motif can be recovered using the group() method.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="im">import</span> re</a>
+<a class="sourceLine" id="cb1-2" title="2">a_string <span class="op">=</span> <span class="st">&#39;cds_id &quot;cds1&quot;; transcript_id &quot;tx1&quot;; gene_id &quot;g1&quot;;&#39;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">hit <span class="op">=</span> re.search(<span class="st">&#39;transcript_id &quot;([^&quot;]+)&quot;&#39;</span>, a_string)</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="cf">if</span> hit:</a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="bu">print</span>(hit.group(<span class="dv">1</span>))</a></code></pre></div>
+<pre><code>## tx1</code></pre>
+</div>
+<div id="note-about-argument-parser" class="section level2">
+<h2>Note about argument parser</h2>
+<p>The argument parser can be used</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Declare an argument parser</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="im">import</span> argparse </a>
+<a class="sourceLine" id="cb3-3" title="3">DESCRIPTION <span class="op">=</span> <span class="st">&quot;The program description.&quot;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">parser <span class="op">=</span> argparse.ArgumentParser(add_help<span class="op">=</span><span class="va">True</span>, description<span class="op">=</span>DESCRIPTION)</a>
+<a class="sourceLine" id="cb3-5" title="5">parser.add_argument(<span class="st">&#39;-i&#39;</span>, <span class="st">&#39;--inputfile&#39;</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6">                            <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The input file.&quot;</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7">                            default<span class="op">=</span><span class="va">None</span>,</a>
+<a class="sourceLine" id="cb3-8" title="8">                            <span class="bu">type</span><span class="op">=</span>argparse.FileType(<span class="st">&#39;r&#39;</span>),</a>
+<a class="sourceLine" id="cb3-9" title="9">                            required<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb3-10" title="10">parser.add_argument(<span class="st">&#39;-o&#39;</span>, <span class="st">&#39;--outputfile&#39;</span>,</a>
+<a class="sourceLine" id="cb3-11" title="11">                            <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The outputfile.&quot;</span>,</a>
+<a class="sourceLine" id="cb3-12" title="12">                            default<span class="op">=</span><span class="va">None</span>,</a>
+<a class="sourceLine" id="cb3-13" title="13">                            <span class="bu">type</span><span class="op">=</span>argparse.FileType(<span class="st">&#39;r&#39;</span>),</a>
+<a class="sourceLine" id="cb3-14" title="14">                            required<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb3-15" title="15">parser.add_argument(<span class="st">&#39;-c&#39;</span>, <span class="st">&#39;--color&#39;</span>,</a>
+<a class="sourceLine" id="cb3-16" title="16">                            <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The color of the diagram.&quot;</span>,</a>
+<a class="sourceLine" id="cb3-17" title="17">                            default<span class="op">=</span><span class="st">&quot;magenta&quot;</span>,</a>
+<a class="sourceLine" id="cb3-18" title="18">                            <span class="bu">type</span><span class="op">=</span><span class="bu">str</span>,</a>
+<a class="sourceLine" id="cb3-19" title="19">                            required<span class="op">=</span><span class="va">False</span>)</a>
+<a class="sourceLine" id="cb3-20" title="20">args <span class="op">=</span> parser.parse_args()</a>
+<a class="sourceLine" id="cb3-21" title="21">args <span class="op">=</span> <span class="bu">dict</span>(args.__dict__)</a></code></pre></div>
 </div>
 </div>
 

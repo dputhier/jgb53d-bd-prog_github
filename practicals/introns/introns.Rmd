@@ -56,6 +56,11 @@ hr {
 p {
   font-size: 15px;
 }
+
+li {
+  font-size: 15px;
+}
+
 </style>
 
 
@@ -80,6 +85,23 @@ The final program that you will have to write is expected to do the following th
 - If needed/possible, use regular expression (e.g. to extract transcript name).
 - Use an argument parser so that one can call it from command line.
 - The color of the diagram should be proposed as an argument to the parser.
+
+
+## Note about regular expressions
+
+In the regular expression below ([^"]+) the parentheses are used to capture a motif (here, a succession of characters that are different from '"'. The found motif can be recovered using the group() method.
+
+```{python, fig.show='asis'}
+import re
+a_string = 'cds_id "cds1"; transcript_id "tx1"; gene_id "g1";'
+hit = re.search('transcript_id "([^"]+)"', a_string)
+if hit:
+  print(hit.group(1))
+```
+
+## Note about argument parser
+
+The argument parser can be used 
 
 ```{python, eval=F, fig.show='asis'}
 # Declare an argument parser
