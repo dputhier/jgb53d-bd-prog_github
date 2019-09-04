@@ -85,3 +85,10 @@ Vous trouverez ci-dessous la liste des exercices réalisés.
 | [Calculer la taille des introns](practicals/introns/introns.html) | Créer un programme complet.
 
 | [Enoncé examen 2014-2015](examen/2014-2015/Examen_2014-2015_Unix_session-1.pdf) | exercice.
+
+
+#### Récréatif
+
+- Des mots croisés avec des expression régulières ! Voir le site [regexcrossword])(https://regexcrossword.com).
+- On s'entraine à coder en Python avec [codewars](https://www.codewars.com/?language=python).
+- Une introduction au Shell avec [Datacamp](https://www.datacamp.com/courses/introduction-to-shell-for-data-science).
