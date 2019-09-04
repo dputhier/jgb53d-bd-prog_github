@@ -25,7 +25,7 @@ Ce cours est disponible via un dépôt github à l'adresse suivante: [https://gi
 
 | Nom | Lien | Description
 -----|------|--------------
-| JGB53D  | http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/ |	Site du cours 
+| JGB53D  | https://dputhier.github.io/jgb53d-bd-prog_github/ |	Site du cours 
 | GNU Bash	| http://www.gnu.org/software/bash/	| Un interpréteur de commandes installé par défaut sur la pluspart des environnements Linux.
 | Python	| https://www.python.org/	| Un langage très populaire dans la communauté bioinformatique. Pour ce cours, nous utiliserons la version 3 de Python.
 | Python	| https://docs.python.org/3.3/	| Official site for the documentation of the Python langage.
@@ -54,7 +54,7 @@ Vous trouverez ci-dessous des  informations portant sur les concepts nécessaire
 
 | Nom | Description 
 |-----|-----------
-|[Bioinformatique: applications dans le contexte de la génomique](theorical/Bioinformatique.pdf)  | Les challenges en bioinformatique dans le domaine de la génomique notamment
+|[Bioinformatique: applications dans le contexte de la génomique](http://bit.ly/2ktBWd1)  | Les challenges en bioinformatique dans le domaine de la génomique notamment.
 | [Vue d'ensemble du système Unix](theorical/bash/unix_course_dp.pdf)| Bash, arborescence, commandes de base, redirections, expressions régulières, réseau, exemple d'outils pour la bioinformatique... 
 | [Premiers pas avec Python](theorical/python/hello_world.html) | Hello world, manipulation de variables.
 | [Les tableaux en python](theorical/python/hello_world.html) | Listes, tuples et dictionnaires.
