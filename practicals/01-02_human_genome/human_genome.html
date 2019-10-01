@@ -575,39 +575,130 @@ cut -f9,13 refGene_hg38.txt | sort -n | tail -1   # The gene containing the maxi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     <hr>    
     <a name='writing'></a>    
-    <h2>Writing to file</h2>
+    <h2>Writing a script</h2>
+
+    A Shell/Bash script can be use to automate any task that can be written programmatically. The first step is to open a file (with ".sh" extension) and write a shebang as first line to indicate the program that must be used to interpret the code. The program can then be executed by asking the bash command to interpret the code.
+
+    <pre>
+        #!/bin/bash
+
+        echo "I am you first bash script"
+        echo "Do you like it ?"
+    </pre>
+
+    <div class="tips">
+        The script can be interpreted using:
+        <pre class="brush:bash;">
+        bash my_script_name.sh
+        </pre>
+    </div>
 
     <div class='exo'>
+        <ol>
+            <li>For instance we can write a code to compute the number of genes in hg38. For that you will need to download the refGene.txt file in an approriate folder (e.g. ~/genome/hg38), uncompress it, compute the number of genes and write it to a file.</li>
+        </ol>
 
-      <ol>
-  <li>Search for any gene whose symbol starts with Bcl. Write all the related lines to a file called genes.txt</li> 
-  <li>Search for any gene whose symbol starts with 'CD' followed by one or several numeric character. Added the corresponding lines to genes.txt </li>
-  <li>Use a loop to search for genes whose symbol start with 'AB', 'NOT' and  'BRD'. Add the corresponding line to the file.</li>  
-    
-    <a href="javascript:sizeTbl2('block','sol_cs')">View solution</a>| 
-    <a href="javascript:sizeTbl2('none','sol_cs')">Hide solution</a>
-    <div id=sol_cs  style="overflow:hidden;display:none">
+    <a href="javascript:sizeTbl2('block','sol_cs1')">View solution</a>|
+    <a href="javascript:sizeTbl2('none','sol_cs1')">Hide solution</a>
+    <div id=sol_cs1  style="overflow:hidden;display:none">
       <h4>Solution</h4>
       
       <pre class="brush:bash;">
-#Todo
-  </pre>    
-</div>
+          #It's your turn to find the solution...
+        </pre>
+    </div>
+    </div>
+
+    <hr>
+    <a name='argument'></a>
+    <h2>Providing arguments to the script.</h2>
+
+        Your script can take a set of arguments. In unix: $0 is the command name, $1 is the first argument, $2 the second, $3 the third...
+
+        <pre>
+        #!/bin/bash
+
+        echo "First arg: "$0
+        echo "second arg: "$1
+        echo "Third arg: "$2
+        echo "..."
+    </pre>
+
+        <div class="tips">
+            The script can be interpreted using:
+            <pre class="brush:bash;">
+        bash my_script_name.sh toto blabla
+        </pre>
+        </div>
+
+        Now the arguments can be stored in any variables and used later in the code:
+
+        <pre>
+        #!/bin/bash
+
+        GENOME=$0
+        echo "You are working with version ${GENOME} of the genome"
+
+        </pre>
+
+        <div class="tips">
+        Note that any variable should be called using the "$" prefix or using "$" and brace (e.g. ${GENOME}.
+        Note also that the variable names are in uppercase here. This is just a convention when variable are constants.
+        </div>
+
+        <div class='exo'>
+            <ol>
+                <li>For instance we can write a code to compute the number of genes in hg38. For that you will need to download the refGene.txt file in an approriate folder (e.g. ~/genome/hg38), uncompress it, compute the number of genes and write it to a file.</li>
+                <li>The link for hg38 is http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz</li>
+                <li>It could thus be written as http://hgdownload.soe.ucsc.edu/goldenPath/${GENOME}/database/refGene.txt.gz</li>
+                </ol>
 
 
+            <a href="javascript:sizeTbl2('block','sol_cs2')">View solution</a>|
+            <a href="javascript:sizeTbl2('none','sol_cs2')">Hide solution</a>
+            <div id=sol_cs2  style="overflow:hidden;display:none">
+                <h4>Solution</h4>
+
+                <pre class="brush:bash;">
+             #It's your turn to find the solution...
+            </pre>
+            </div>
+        </div>
+
+            <hr>
+            <a name='Looping'></a>
+            <h2>Looping</h2>
+
+            You may loop through a set of values using shell.
+
+            <pre>
+            cd /tmp
+            for i in 4 5 6; do echo $i; done
+            for i in "hg38 mm10 mm9"; do echo $i; done
+            for ((i=1; i <= 20; i++)); do touch $i.txt;done
+            ls
+            cd -
+    </pre>
+
+
+
+            <div class='exo'>
+                <ol>
+                    <li>Write a loop to compute the number of genes in hg38, mm10 and rn6.</li>
+                </ol>
+
+                <a href="javascript:sizeTbl2('block','sol_cs3')">View solution</a>|
+                <a href="javascript:sizeTbl2('none','sol_cs3')">Hide solution</a>
+                <div id=sol_cs3  style="overflow:hidden;display:none">
+                    <h4>Solution</h4>
+
+                    <pre class="brush:bash;">
+          #It's your turn to find the solution...
+        </pre>
+                </div>
+            </div>
 
 </html>
 
