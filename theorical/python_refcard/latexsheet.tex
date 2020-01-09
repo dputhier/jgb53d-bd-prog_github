@@ -258,6 +258,15 @@ len(prix.values()) # le nombre de valeurs
 \end{lstlisting}
 
 
+\section{Sets}
+Dans  un \textit{set} (ensemble) on pourra stocker un liste non redondante d'objets. Si un objet existe déjà dans le set, il n'est pas ajouté.
+
+\begin{lstlisting}
+uniq = set() # déclare un set vide
+uniq.add('a') # ajoute la chaîne de caractères 'a'
+uniq.remove('a') # delete la chaîne de caractères 'a'
+\end{lstlisting}
+
 \section{Boucles}
 
 \subsection{Boucles for}
@@ -433,6 +442,40 @@ def printBreakfast(a=2, b=3):
 
 printBreakfast()
 
+\end{lstlisting}
+
+
+\section{Expressions régulières}
+Pour utiliser les expressions régulières dans Python, on utilisera le module \textit{re}.
+\begin{lstlisting}
+import re # Importe le module en mémoire
+string =  "abcdef" # Déclare une chaîne de caractère (test)
+hit = re.search('bcd', string) # Cherche l'occurence de bcd dans string
+if hit:
+	print('bcd was found')
+\end{lstlisting}
+
+Dans le cas où l'expression régulière doit être réutilisée plusieurs fois, il est préférable de la \textit{compiler} au préalable:
+
+\begin{lstlisting}
+import re # Importe le module en mémoire
+has_bcd = re.compile("bcd") # on crée un objet pour rechercher
+# On peut alors effectuer des recherches de 'bcd'
+string =  "abcdef" # Déclare une chaîne de caractère (test)
+if has_bcd("string"):
+	print('bcd was found')
+\end{lstlisting}
+
+On peut parfois être intéressé à capture des sous-chaines de caractères à partir d'une expression régulière. On utilise alors les parenthèses dans l'expression régulière pour indiquer le(s) motif(s) à capturer.
+
+\begin{lstlisting}
+import re # Importe le module en mémoire
+string =  "abcdefghijklmnop" # Déclare une chaîne de caractère (test)
+hit = re.search('c(.*)e.*g(.*)l', string) 
+if hit:
+	print(hit.group(0)) # le contexte ('cdefghijkl')
+	print(hit.group(0)) # la première capture ('d')
+	print(hit.group(0)) # la seconde capture ('hijk')
 \end{lstlisting}
 
 \section{Aide}
