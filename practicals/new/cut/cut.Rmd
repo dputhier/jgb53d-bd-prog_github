@@ -58,6 +58,31 @@ output:
 ---
 
 
+<script type="">
+    $(function() {
+        $(".hideshow").click(function() {
+                $(this).parent().find(".exo").toggle();
+        });
+
+    })
+</script>
+
+<style>
+.exo {
+  display:none;
+}
+
+pre:not(.sourceCode) > code {
+  background-color: white !important;
+  color: grey !important;
+}
+
+hr {
+  color: grey !important;
+}
+</style>
+
+
 # Objectif
 
 On se propose de re-implémenter la commande cut (que nous avons précédemment lors des cours sur le language BASH). L'objectif est de créer un programme (sous sa forme la plus simple), capable de:
@@ -81,7 +106,7 @@ cd TD_python
 wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf
 ```
 
-## Les Format GTF
+## Le Format GTF
 
 Le format GTF est un fichier tabulé (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:
 
@@ -113,56 +138,12 @@ ipython notebook # ou ipython3 notebook
 
 Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "cut". 
 
-## Comment ouvrir un fichier ?
-
-### L'objet file
-
-**Fonction open**
-
-Avant de pouvoir lire (ou écrire) dans un fichier, vous devez créer l'objet Python qui servira de lien avec le fichier résidant sur votre machine. Pour cela, on utilise la fonction Python *open*, qui prend en arguments *la localisation (relative ou absolue) du fichier* ainsi que *le mode d'ouverture*. Une fois que créé l'objet fichier, vous pourrez appeler ses méthodes pour lire (ou écrire). Finalement, la fonction close permet de terminer la connexion avec le fichier.
-
-**Modes d'ouverture**
-
-- "r": Ouvre un fichier en lecture uniquement. Le pointeur est placé au début du fichier. C'est la valeur par défault.
-- "w":	Ouvre un fichier en écriture uniquement. Écrase le contenu du fichier s'il existe déjà, crée un nouveau fichier sinon. Le pointeur est placé au début du fichier.
-- "a":	Ouvre un fichier en écriture uniquement. Le pointeur est placé à la fin du fichier s'il existe, sinon un nouveau fichier est créé.
-
-**Exemples**
-
-- Pour ouvrir le fichier on peut par exemple créer un objet que l'on va appeler *file_handler* et y stocker le résultat de *open*.
-
-```{python, eval=F}
-file_handler = open("hg38_5k.gtf", "r")
-
-# On lit un ligne
-file_handler.readline()
-
-# On lit toutes les lignes
-file_handler.readlines()
-
-# On lit les lignes les 
-# unes après les autres
-
-for line in file_handler:
-  print(lin)
-```
-
-- Quel est le type de l'objet file_handler? 
-- Cherchez sur internet les attributs et méthodes de ce type d'objet.
-- Comment vérifier que le fichier est bien ouvert?
-- Que se passe-t-il quand vous ouvrez en lecture un fichier qui n'existe pas encore? 
-
-Lire dans un fichier
-Après avoir ouvert un fichier en mode lecture, plusieurs fonctions vous permettent d'en stocker le contenu. Testez les principales, listées ci-dessous. Puis répondez aux questions suivantes
-
-Quel est l'effet d'appels succéssifs à la méthode read(int) ou readline()?
-Quelle méthode permet de replacer le curseur au début du fichier?
-Afficher la troisième ligne du fichier, puis la deuxième avec la méthode readline() puis recommencer avec la méthode readlines().
-Retourner à l'objectif de départ du TD.
-
-## Solution
 
 
+# Solution
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
 ```{python, eval=F}
 # -*- coding: utf-8 -*-
 # La ligne précédente permet d'utiliser des caractères accentués
@@ -191,3 +172,5 @@ for line in file_handler:
         column = line.split("\t")
         # column[0] si l'on veut la première colonne
         print(column[ col_to_print - 1])
+```
+</div>

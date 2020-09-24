@@ -1572,6 +1572,28 @@ div.tocify {
 </div>
 
 
+<script type>
+    $(function() {
+        $(".hideshow").click(function() {
+                $(this).parent().find(".exo").toggle();
+        });
+
+    })
+</script>
+<style>
+.exo {
+  display:none;
+}
+
+pre:not(.sourceCode) > code {
+  background-color: white !important;
+  color: grey !important;
+}
+
+hr {
+  color: grey !important;
+}
+</style>
 <div id="objectif" class="section level1">
 <h1>Objectif</h1>
 <p>On se propose de re-implémenter la commande cut (que nous avons précédemment lors des cours sur le language BASH). L’objectif est de créer un programme (sous sa forme la plus simple), capable de:</p>
@@ -1592,8 +1614,8 @@ div.tocify {
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="bu">cd</span> TD_python</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="fu">wget</span> http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf</a></code></pre></div>
 </div>
-<div id="les-format-gtf" class="section level2">
-<h2>Les Format GTF</h2>
+<div id="le-format-gtf" class="section level2">
+<h2>Le Format GTF</h2>
 <p>Le format GTF est un fichier tabulé (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:</p>
 <ul>
 <li>Colonne 1 - Nom du chromosome.</li>
@@ -1617,74 +1639,40 @@ div.tocify {
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">ipython</span> notebook <span class="co"># ou ipython3 notebook</span></a></code></pre></div>
 <p>Une fois le notebook lancé, dans le menu de gauche, choisissez “new &gt; Python 3”. Une nouvelle fenêtre apparait. Double cliquez sur “Untitled” pour renommer le notebook en “cut”.</p>
 </div>
-<div id="comment-ouvrir-un-fichier" class="section level2">
-<h2>Comment ouvrir un fichier ?</h2>
-<div id="lobjet-file" class="section level3">
-<h3>L’objet file</h3>
-<p><strong>Fonction open</strong></p>
-<p>Avant de pouvoir lire (ou écrire) dans un fichier, vous devez créer l’objet Python qui servira de lien avec le fichier résidant sur votre machine. Pour cela, on utilise la fonction Python <em>open</em>, qui prend en arguments <em>la localisation (relative ou absolue) du fichier</em> ainsi que <em>le mode d’ouverture</em>. Une fois que créé l’objet fichier, vous pourrez appeler ses méthodes pour lire (ou écrire). Finalement, la fonction close permet de terminer la connexion avec le fichier.</p>
-<p><strong>Modes d’ouverture</strong></p>
-<ul>
-<li>“r”: Ouvre un fichier en lecture uniquement. Le pointeur est placé au début du fichier. C’est la valeur par défault.</li>
-<li>“w”: Ouvre un fichier en écriture uniquement. Écrase le contenu du fichier s’il existe déjà, crée un nouveau fichier sinon. Le pointeur est placé au début du fichier.</li>
-<li>“a”: Ouvre un fichier en écriture uniquement. Le pointeur est placé à la fin du fichier s’il existe, sinon un nouveau fichier est créé.</li>
-</ul>
-<p><strong>Exemples</strong></p>
-<ul>
-<li>Pour ouvrir le fichier on peut par exemple créer un objet que l’on va appeler <em>file_handler</em> et y stocker le résultat de <em>open</em>.</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1">file_handler <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;hg38_5k.gtf&quot;</span>, <span class="st">&quot;r&quot;</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># On lit un ligne</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">file_handler.readline()</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># On lit toutes les lignes</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">file_handler.readlines()</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co"># On lit les lignes les </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co"># unes après les autres</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="cf">for</span> line <span class="kw">in</span> file_handler:</a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">  <span class="bu">print</span>(lin)</a></code></pre></div>
-<ul>
-<li>Quel est le type de l’objet file_handler?</li>
-<li>Cherchez sur internet les attributs et méthodes de ce type d’objet.</li>
-<li>Comment vérifier que le fichier est bien ouvert?</li>
-<li>Que se passe-t-il quand vous ouvrez en lecture un fichier qui n’existe pas encore?</li>
-</ul>
-<p>Lire dans un fichier Après avoir ouvert un fichier en mode lecture, plusieurs fonctions vous permettent d’en stocker le contenu. Testez les principales, listées ci-dessous. Puis répondez aux questions suivantes</p>
-<p>Quel est l’effet d’appels succéssifs à la méthode read(int) ou readline()? Quelle méthode permet de replacer le curseur au début du fichier? Afficher la troisième ligne du fichier, puis la deuxième avec la méthode readline() puis recommencer avec la méthode readlines(). Retourner à l’objectif de départ du TD.</p>
 </div>
+<div id="solution" class="section level1">
+<h1>Solution</h1>
+<div class="hideshow">
+&lt;&lt; Hide | Show &gt;&gt;
 </div>
-<div id="solution" class="section level2">
-<h2>Solution</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># -*- coding: utf-8 -*-</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># La ligne précédente permet d'utiliser des caractères accentués</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># dans les commentaires</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># La colonne qu l'on souhaite imprimer</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">col_to_print <span class="op">=</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co"># On ouvre le fichier</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co"># Adaptez le chemin en fonction de la localisation du</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co"># file_handler est un objet 'file'. C'est un objet capable de lire </span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co"># les lignes d'un fichier.</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">file_handler <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;hg38_5k.gtf&quot;</span>, <span class="st">&quot;r&quot;</span>)</a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co"># Dans la structure for ci-dessous,</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co"># line est une variable renvoyée </span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co"># par file_handler. On parcours donc</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co"># le fichier ligne à ligne</span></a>
-<a class="sourceLine" id="cb5-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="cf">for</span> line <span class="kw">in</span> file_handler:</a>
-<a class="sourceLine" id="cb5-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb5-22" data-line-number="22">        <span class="co"># A chaque itération/ligne,</span></a>
-<a class="sourceLine" id="cb5-23" data-line-number="23">        <span class="co"># On découpe la chaîne de caractère</span></a>
-<a class="sourceLine" id="cb5-24" data-line-number="24">        <span class="co"># sur le séparateur tabulation (\t).</span></a>
-<a class="sourceLine" id="cb5-25" data-line-number="25">        column <span class="op">=</span> line.split(<span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb5-26" data-line-number="26">        <span class="co"># column[0] si l'on veut la première colonne</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27">        <span class="bu">print</span>(column[ col_to_print <span class="op">-</span> <span class="dv">1</span>])</a></code></pre></div>
+<div class="exo">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># -*- coding: utf-8 -*-</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># La ligne précédente permet d'utiliser des caractères accentués</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># dans les commentaires</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># La colonne qu l'on souhaite imprimer</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">col_to_print <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># On ouvre le fichier</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co"># Adaptez le chemin en fonction de la localisation du</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co"># file_handler est un objet 'file'. C'est un objet capable de lire </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co"># les lignes d'un fichier.</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">file_handler <span class="op">=</span> <span class="bu">open</span>(<span class="st">&quot;hg38_5k.gtf&quot;</span>, <span class="st">&quot;r&quot;</span>)</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co"># Dans la structure for ci-dessous,</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co"># line est une variable renvoyée </span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co"># par file_handler. On parcours donc</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co"># le fichier ligne à ligne</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="cf">for</span> line <span class="kw">in</span> file_handler:</a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22">        <span class="co"># A chaque itération/ligne,</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23">        <span class="co"># On découpe la chaîne de caractère</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24">        <span class="co"># sur le séparateur tabulation (\t).</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25">        column <span class="op">=</span> line.split(<span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb4-26" data-line-number="26">        <span class="co"># column[0] si l'on veut la première colonne</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27">        <span class="bu">print</span>(column[ col_to_print <span class="op">-</span> <span class="dv">1</span>])</a></code></pre></div>
 </div>
 </div>
 
