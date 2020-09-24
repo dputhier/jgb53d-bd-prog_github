@@ -1,0 +1,325 @@
+---
+title: "Ré-implémentation de la commande head"
+author: "D. Puthier"
+date: "9/24/2020"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  slidy_presentation:
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    highlight: tango
+    incremental: no
+    keep_md: no
+    self_contained: yes
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  ioslides_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_md: no
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 3
+  beamer_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_tex: no
+    slide_level: 2
+    theme: Montpellier
+    toc: yes
+---
+
+
+<script type="">
+    $(function() {
+        $(".hideshow").click(function() {
+                $(this).parent().find(".exo").toggle();
+        });
+
+    })
+</script>
+
+<style>
+.exo {
+  display:none;
+}
+
+pre:not(.sourceCode) > code {
+  background-color: white !important;
+  color: grey !important;
+}
+
+hr {
+  color: grey !important;
+}
+</style>
+
+
+# Objectif
+
+On se propose de re-implémenter la commande head (que nous avons précédemment lors des cours sur le language BASH). L'objectif est de créer un programme (sous sa forme la plus simple), capable de:
+
+  - Ouvrir un fichier tabulé.
+  - Parcourir le fichier ligne à ligne.
+  - Si le numéro de ligne est inférieur ou égal à 10.
+      - Imprimer la ligne.
+  
+# Données
+
+## Téléchargement
+
+A l'aide du terminal créez un dossier dossier TD_python. Placez vous dans ce dossier et téléchargez le fichier [hg38_5k.gtf](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf). 
+
+
+```{bash, eval=F}
+# Si le TD_python n'existe pas !
+mkdir -p TD_python
+
+# On se déplace 
+cd TD_python
+
+# Si vous n'avez pas déjà téléchargé le fichier !
+wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf
+```
+
+## Le Format GTF
+
+Le format GTF est un fichier tabulé (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:
+
+- Colonne 1 - Nom du chromosome.
+- Colonne 2 - Source de l'annotation.
+- Colonne 3 - Type d'élément (exon, CDS, 5'UTR, 3'UTR,...).
+- Colonne 4 - Position de départ (Start).
+- Colonne 5 - Position de fin (End).
+- Colonne 6 - Score.
+- Colonne 7 - Le brin (+ ou -).
+- Colonne 8 - Frame (0,1,2). '0' indique que la première base de l'élément est la première base d'un codon, '1' que la deuxième base est la première base d'un codon, etc...
+- Colonne 9 - Attribute. Une liste de couples clefs/valeurs séparées par un point virgule.
+
+Visualisez les cinq premières  et  dernières lignes du fichier avec *head* et *tail*
+
+```{bash, eval=F}
+head -n 5 hg38_5k.gtf
+tail -n 5 hg38_5k.gtf
+```
+
+## Préparation du notebook
+
+On utilisera ici le *notebook jupyter* comme éditeur de code. Vous devriez pouvoir lancer le jupyter en utilisant le menu principal du système. Sinon, vous pouvez le lancer en ligne de commande.
+
+```{bash, eval=F}
+# lancer le notebook
+ipython notebook # ou ipython3 notebook
+```
+
+Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "head". 
+
+
+
+# Solution
+
+On présente ci-dessous quatres solutions. Les quatres solutions sont présentées ci-dessous. Le fichier à lire est toujours refGene_hg38.txt (cf exercice précédent). Les solutions 3 et 4 sont sans doute les plus classiques/élégantes. Prénez le temps de bien analyser le code afin de comprendre les différentes approches.
+
+**solution 1**
+
+Cette solution fonctionne mais elle est longue puisque l'on parcourra l'ensemble du fichier en faisant un test sur chacune des lignes (on ne s'arrête pas à la dixième ligne).
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+file_handler = open("hg38_5k.gtf", "r")
+
+# On définit une variable line_number
+# qui contiendra le numéro de la ligne courante
+line_number = 0
+
+# On utilise une boucle for pour 
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+        
+        # On incrémente la variable line_number
+        # On est maintenant à la ligne 'line_number'
+        line_number = line_number + 1
+        
+        # On test si l'expression suivante (line_number <= 10)
+        # est vrai (i.e si elle est vérifiée).
+        if line_number <= 10:
+                # Si la condition est vrai on retire le caractère 
+                # "\n" à droite. En effet, print produira lui même un 
+                # caractère "\n".
+                line = line.rstrip("\n")
+                print(line)
+```
+</div>
+
+**Solution 2**
+
+Toujours avec une boucle for mais cette fois ci nous utilisons le module sys afin d'importer la fonction *exit()* permettant d'arrêter le programme si la condition n'est pas vérifiée.
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+import sys # on importe le module sys
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+file_handler = open("hg38_5k.gtf", "r")
+
+# On définit une variable line_number
+# qui contiendra le numéro de la ligne courante
+line_number = 0
+
+# On utilise une boucle for pour 
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+        
+        # On incrémente la variable line_number
+        # On est maintenant à la ligne 'line_number'
+        line_number = line_number + 1
+        
+        # On test si l'expression suivante (line_number <= 10)
+        # est vrai (i.e si elle est vérifiée).
+        if line_number <= 10:
+                # Si la condition est vrai on retire le caractère 
+                # "\n" à droite. En effet, print produira lui même un 
+                # caractère "\n".
+                line = line.rstrip("\n")
+                print(line)
+        else:
+            # Si on est au delà de la ligne 10
+            # on quitte le programme (on ne lit
+            # pas les lignes suivantes)
+            sys.exit()
+```
+</div>
+
+**Solution 3**
+
+Toujours avec une boucle for mais cette fois ci nous utilisons le mot clef break permettant d'arrêter la boucle si la condition n'est pas vérifiée.
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+file_handler = open("hg38_5k.gtf", "r")
+
+# On définit une variable line_number
+# qui contiendra le numéro de la ligne courante
+line_number = 0
+
+# On utilise une boucle for pour 
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+        
+        # On incrémente la variable line_number
+        # On est maintenant à la ligne 'line_number'
+        line_number = line_number + 1
+        
+        # On test si l'expression suivante (line_number <= 10)
+        # est vrai (i.e si elle est vérifiée).
+        if line_number <= 10:
+                # Si la condition est vrai on retire le caractère 
+                # "\n" à droite. En effet, print produira lui même un 
+                # caractère "\n".
+                line = line.rstrip("\n")
+                print(line)
+        else:
+            # Si on est au delà de la ligne 10
+            # on quitte la boucle
+            break
+```
+</div>
+
+
+**Solution 4**
+
+On change de point de vue et on utilise une boucle while. Le principe est de dire:
+
+  - Tant que le numero de ligne est inférieur ou égal à 10
+      - Lit une ligne.
+
+C'est un peu différent du point de vue de la syntaxe et plus concis A noter l'utilisation de la méthode readline() disponible pour les objets de type/classe file.
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+file_handler = open("hg38_5k.gtf", "r")
+
+# On définit une variable line_number
+# qui contiendra le numéro de la ligne courante
+line_number = 0
+
+while  line_number < 10:
+
+        # On lit une ligne du fichier avec 
+        # la méthode readline()
+        line =  file_handler.readline()
+        # On retire le caractère 
+        # "\n" à droite. En effet, print produira lui même un 
+        # caractère "\n".        
+        line = line.rstrip("\n")
+        print(line)
+        
+        # On ajoute 1 à line_number
+        # Sinon la condition 'line_number < 10'
+        # sera toujours vérifiée
+        line_number = line_number + 1
+```
+</div>
+
