@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Denis Puthier, Nicolas Terrapon, Arnaud Sergé" />
@@ -255,9 +255,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -271,7 +269,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -282,22 +279,81 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -307,8 +363,8 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">jgb53d — 3ème année Polytech Marseille - Programmation et analyse de données</h1>
-<h4 class="author"><em>Denis Puthier, Nicolas Terrapon, Arnaud Sergé</em></h4>
-<h4 class="date"><em>2019-2020</em></h4>
+<h4 class="author">Denis Puthier, Nicolas Terrapon, Arnaud Sergé</h4>
+<h4 class="date">2016-2017</h4>
 
 </div>
 
@@ -320,67 +376,9 @@ $(document).ready(function () {
 <li>Denis Puthier (DP)</li>
 <li>Arnaud Sergé</li>
 <li>Nicolas Terrapon</li>
+<li>Eugène Christo-Foroux</li>
 </ul>
 </blockquote>
-</div>
-<div id="depot-github" class="section level4">
-<h4>Dépôt github</h4>
-<p>Ce cours est disponible via un dépôt github à l’adresse suivante: <a href="https://github.com/dputhier/jgb53d-bd-prog_github">https://github.com/dputhier/jgb53d-bd-prog_github</a></p>
-</div>
-<div id="resources" class="section level4">
-<h4>Resources</h4>
-<table>
-<colgroup>
-<col width="20%"></col>
-<col width="24%"></col>
-<col width="56%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th>Nom</th>
-<th>Lien</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>JGB53D</td>
-<td><a href="https://dputhier.github.io/jgb53d-bd-prog_github/" class="uri">https://dputhier.github.io/jgb53d-bd-prog_github/</a></td>
-<td>Site du cours</td>
-</tr>
-<tr class="even">
-<td>GNU Bash</td>
-<td><a href="http://www.gnu.org/software/bash/" class="uri">http://www.gnu.org/software/bash/</a></td>
-<td>Un interpréteur de commandes installé par défaut sur la pluspart des environnements Linux.</td>
-</tr>
-<tr class="odd">
-<td>Python</td>
-<td><a href="https://www.python.org/" class="uri">https://www.python.org/</a></td>
-<td>Un langage très populaire dans la communauté bioinformatique. Pour ce cours, nous utiliserons la version 3 de Python.</td>
-</tr>
-<tr class="even">
-<td>Python</td>
-<td><a href="https://docs.python.org/3.3/" class="uri">https://docs.python.org/3.3/</a></td>
-<td>Official site for the documentation of the Python langage.</td>
-</tr>
-<tr class="odd">
-<td>Python Style Guide</td>
-<td><a href="https://www.python.org/dev/peps/pep-0008/" class="uri">https://www.python.org/dev/peps/pep-0008/</a></td>
-<td>Un guide concis pour les règles d’écriture en Python.</td>
-</tr>
-<tr class="even">
-<td>Pylint</td>
-<td><a href="http://www.pylint.org/" class="uri">http://www.pylint.org/</a></td>
-<td>C’est l’ordinateur qui vous note, plus le prof…</td>
-</tr>
-<tr class="odd">
-<td>Python Cheat Sheet</td>
-<td><a href="http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/theorical/python_refcard/latexsheet.pdf">python_refcard</a></td>
-<td>Pour tricher mais pas trop…</td>
-</tr>
-</tbody>
-</table>
-<hr />
 </div>
 <div id="dataset" class="section level4">
 <h4>Dataset</h4>
@@ -405,11 +403,9 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<hr />
 </div>
-<div id="cours-theoriques" class="section level4">
-<h4>Cours théoriques</h4>
-<p>Vous trouverez ci-dessous des informations portant sur les concepts nécessaires à la réalisation des travaux dirigés.</p>
+<div id="introduction-à-la-bioinformatique" class="section level4">
+<h4>Introduction à la bioinformatique</h4>
 <table>
 <colgroup>
 <col width="31%"></col>
@@ -426,10 +422,53 @@ $(document).ready(function () {
 <td><a href="http://bit.ly/2ktBWd1">Bioinformatique: applications dans le contexte de la génomique</a></td>
 <td>Les challenges en bioinformatique dans le domaine de la génomique notamment.</td>
 </tr>
-<tr class="even">
+</tbody>
+</table>
+</div>
+<div id="cours-unix" class="section level4">
+<h4>Cours Unix</h4>
+<table>
+<colgroup>
+<col width="31%"></col>
+<col width="68%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td><a href="theorical/bash/unix_course_dp.pdf">Vue d’ensemble du système Unix</a></td>
 <td>Bash, arborescence, commandes de base, redirections, expressions régulières, réseau, exemple d’outils pour la bioinformatique…</td>
 </tr>
+<tr class="even">
+<td><a href="practicals/01-02_human_genome/human_genome.html">Découvrir le génome humain avec Unix</a></td>
+<td>Quelques statistiques basiques sur le génome humain effectués programmatiquement via le langage Bash</td>
+</tr>
+<tr class="odd">
+<td><a href="practicals/03_bedtools/index.html">Découvrir le génome avec bedtools</a></td>
+<td>Consolidation des acquis sur les commandes de base. Présentation des commandes Bedtools (sortBed, mergeBed…)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cours-python" class="section level4">
+<h4>Cours Python</h4>
+<p><strong>Cours théoriques</strong></p>
+<table>
+<colgroup>
+<col width="31%"></col>
+<col width="68%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nom</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
 <td><a href="theorical/python/hello_world.html">Premiers pas avec Python</a></td>
 <td>Hello world, manipulation de variables.</td>
@@ -448,76 +487,60 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<hr />
-</div>
-<div id="travaux-diriges" class="section level4">
-<h4>Travaux dirigés</h4>
-<p>Vous trouverez ci-dessous la liste des exercices réalisés.</p>
+<p><strong>Exercices</strong></p>
 <table>
 <colgroup>
-<col width="41%"></col>
-<col width="58%"></col>
+<col width="31%"></col>
+<col width="68%"></col>
 </colgroup>
 <thead>
 <tr class="header">
 <th>Nom</th>
-<th>Concept présentés</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="practicals/01-02_human_genome/human_genome.html">Découvrir le génome humain avec Unix</a></td>
-<td>Quelques statistiques basiques sur le génome humain effectués programmatiquement via le langage Bash</td>
-</tr>
-<tr class="even">
-<td><a href="practicals/03_bedtools/index.html">Découvrir le génome avec bedtools</a></td>
-<td>Consolidation des acquis sur les commandes de base. Présentation des commandes Bedtools (sortBed, mergeBed…)</td>
-</tr>
-<tr class="odd">
-<td><a href="theorical/python/hello_world.html">Prise en main du langage avec ipython3</a></td>
-<td>manipulation de variables (int, float, str), listes.</td>
-</tr>
-<tr class="even">
 <td><a href="practicals/02_python_read-write-files_2016/TD02_NT.html">Re-implémentation de la commande cut</a></td>
 <td>Lecture de fichiers, méthodes des objets str, recherche dans l’aide, les listes.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="practicals/03_python_2015/head_cmd.html">Re-implémentation de la commande head</a></td>
 <td>Lecture de fichiers, méthode sur l’objet file, structure conditionnelle, import du module sys, boucle while, boucle for.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="practicals/04_python_2015/count_cmd.html">Implémentation d’une commande count.py</a></td>
 <td>Lecture de fichier, boucle for, listes, dictionnaires, module re (regular expression), l’importance du choix des structures de stockage.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="practicals/05_python_2015/tx_len.html">Implémentation d’un programme tx_len.py</a></td>
 <td>Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="practicals/06_python_2015/nb_exons.py.html">Implémentation d’un programme nb_exons.py</a></td>
 <td>Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="practicals/07_python_2015/functions.html">Exercice autour des fonctions. Créer des modules</a></td>
 <td>Insertion de fonctions dans le code. création d’un module.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="practicals/08_python_2015/final_program.html">Créer un programme complet appelant les modules</a></td>
 <td>Importer les modules dans un programme principal. Appeler ces modules. Créer un analyseur d’arguments</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="practicals/10_python_2015/cdna_len.html">Calculer la taille des cDNAs</a></td>
 <td>Consolider les acquis</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="practicals/09_python_2015/get_values.html">Extraire une liste de transcripts ou de gènes</a></td>
 <td>Consolider les acquis.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="practicals/intro_ggplot/intro_ggplot.html">An introduction to the grammar of graphics (plotnine)</a></td>
 <td>Découvrir le monde des graphiques avec plotnine.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="practicals/introns/introns.html">Calculer la taille des introns</a></td>
 <td>Créer un programme complet.</td>
 </tr>
@@ -525,7 +548,7 @@ $(document).ready(function () {
 </table>
 <div class="line-block"><a href="examen/2014-2015/Examen_2014-2015_Unix_session-1.pdf">Enoncé examen 2014-2015</a> | exercice.</div>
 </div>
-<div id="recreatif" class="section level4">
+<div id="récréatif" class="section level4">
 <h4>Récréatif</h4>
 <ul>
 <li>Des mots croisés avec des expression régulières ! Voir le site [regexcrossword])(<a href="https://regexcrossword.com" class="uri">https://regexcrossword.com</a>).</li>
@@ -551,6 +574,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

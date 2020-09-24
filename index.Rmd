@@ -14,26 +14,7 @@ output:
  > - Denis Puthier (DP)
  > - Arnaud Sergé
  > - Nicolas Terrapon
-
-
-#### Dépôt github
-
-Ce cours est disponible via un dépôt github à l'adresse suivante: [https://github.com/dputhier/jgb53d-bd-prog_github](https://github.com/dputhier/jgb53d-bd-prog_github) 
-
-
-#### Resources
-
-| Nom | Lien | Description
------|------|--------------
-| JGB53D  | https://dputhier.github.io/jgb53d-bd-prog_github/ |	Site du cours 
-| GNU Bash	| http://www.gnu.org/software/bash/	| Un interpréteur de commandes installé par défaut sur la pluspart des environnements Linux.
-| Python	| https://www.python.org/	| Un langage très populaire dans la communauté bioinformatique. Pour ce cours, nous utiliserons la version 3 de Python.
-| Python	| https://docs.python.org/3.3/	| Official site for the documentation of the Python langage.
-| Python Style Guide	| https://www.python.org/dev/peps/pep-0008/	| Un guide concis pour les règles d'écriture en Python.
-| Pylint | http://www.pylint.org/| C'est l'ordinateur qui vous note, plus le prof...
-| Python Cheat Sheet | [python_refcard](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/theorical/python_refcard/latexsheet.pdf) | Pour tricher mais pas trop...
-
--------------------------------------------------------
+ > - Eugène Christo-Foroux
 
 
 #### Dataset
@@ -43,35 +24,39 @@ Ce cours est disponible via un dépôt github à l'adresse suivante: [https://gi
 -----|------|--------------
 | GTF dataset (5k transcripts)  | http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf |	An example dataset.
 
-
-
--------------------------------------------------------
-
-#### Cours théoriques
-
-Vous trouverez ci-dessous des  informations portant sur les concepts nécessaires à la réalisation des travaux dirigés.
-
+#### Introduction à la bioinformatique
 
 | Nom | Description 
 |-----|-----------
 |[Bioinformatique: applications dans le contexte de la génomique](http://bit.ly/2ktBWd1)  | Les challenges en bioinformatique dans le domaine de la génomique notamment.
+
+
+#### Cours Unix
+
+| Nom | Description 
+|-----|-----------
 | [Vue d'ensemble du système Unix](theorical/bash/unix_course_dp.pdf)| Bash, arborescence, commandes de base, redirections, expressions régulières, réseau, exemple d'outils pour la bioinformatique... 
+| [Découvrir le génome humain avec Unix](practicals/01-02_human_genome/human_genome.html) | Quelques statistiques basiques sur le génome humain effectués programmatiquement via le langage Bash
+| [Découvrir le génome avec bedtools](practicals/03_bedtools/index.html) | Consolidation des acquis sur les commandes de base. Présentation des commandes Bedtools (sortBed, mergeBed...)
+
+
+#### Cours Python
+
+**Cours théoriques**
+
+| Nom | Description 
+|-----|-----------
 | [Premiers pas avec Python](theorical/python/hello_world.html) | Hello world, manipulation de variables.
 | [Les tableaux en python](theorical/python/hello_world.html) | Listes, tuples et dictionnaires.
 | [Lire et écrire dans un fichier](theorical/python/read_write.html) | la-classe 'file', modes-d'ouverture, fermeture du fichier
 | [Les fonctions](theorical/python/functions.html)  | définition et appel, passage d'arguments par noms, variable retour, portée des variables
 
--------------------------------------------------------
 
-#### Travaux dirigés
+**Exercices**
 
-Vous trouverez ci-dessous la liste des exercices réalisés.
 
-| Nom |  Concept présentés
-|-------|----------
-| [Découvrir le génome humain avec Unix](practicals/01-02_human_genome/human_genome.html) | Quelques statistiques basiques sur le génome humain effectués programmatiquement via le langage Bash
-| [Découvrir le génome avec bedtools](practicals/03_bedtools/index.html) | Consolidation des acquis sur les commandes de base. Présentation des commandes Bedtools (sortBed, mergeBed...)
-| [Prise en main du langage avec ipython3](theorical/python/hello_world.html)   | manipulation de variables (int, float, str), listes.
+| Nom | Description 
+|-----|-----------
 | [Re-implémentation de la commande cut](practicals/02_python_read-write-files_2016/TD02_NT.html) | Lecture de fichiers, méthodes des objets str, recherche dans l'aide, les listes.
 | [Re-implémentation de la commande head](practicals/03_python_2015/head_cmd.html) | Lecture de fichiers,  méthode sur l'objet file, structure conditionnelle, import du module sys, boucle while, boucle for.
 | [Implémentation d'une commande count.py](practicals/04_python_2015/count_cmd.html) | Lecture de fichier, boucle for, listes, dictionnaires, module re (regular expression), l'importance du choix des structures de stockage.
