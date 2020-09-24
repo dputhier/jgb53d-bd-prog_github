@@ -24,13 +24,6 @@ output:
 -----|------|--------------
 | GTF dataset (5k transcripts)  | http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf |	An example dataset.
 
-#### Introduction à la bioinformatique
-
-| Nom | Description 
-|-----|-----------
-|[Bioinformatique: applications dans le contexte de la génomique](http://bit.ly/2ktBWd1)  | Les challenges en bioinformatique dans le domaine de la génomique notamment.
-
-
 #### Cours Unix
 
 | Nom | Description 
