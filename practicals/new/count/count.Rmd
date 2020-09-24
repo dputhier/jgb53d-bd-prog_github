@@ -1,0 +1,358 @@
+---
+title: "Ré-implémentation de la commande count"
+author: "D. Puthier"
+date: "9/24/2020"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  slidy_presentation:
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    highlight: tango
+    incremental: no
+    keep_md: no
+    self_contained: yes
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  ioslides_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_md: no
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 3
+  beamer_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_tex: no
+    slide_level: 2
+    theme: Montpellier
+    toc: yes
+---
+
+
+<script type="">
+    $(function() {
+        $(".hideshow").click(function() {
+                $(this).parent().find(".exo").toggle();
+        });
+
+    })
+</script>
+
+<style>
+.exo {
+  display:none;
+}
+
+pre:not(.sourceCode) > code {
+  background-color: white !important;
+  color: grey !important;
+}
+
+hr {
+  color: grey !important;
+}
+</style>
+
+
+# Objectif
+
+On se propose de d'implémenter une commande count capable de compter le nombre non-redondant de transcrits dans un fichier gtf. On illustre, par ailleurs, ci-dessous l'importance de bien choisir les structures stockant les données, le choix d'une liste ou d'un dictionnaire ayant un effet remarquable sur le temps d'éxécution.
+  
+# Données
+
+## Téléchargement
+
+A l'aide du terminal créez un dossier dossier TD_python. Placez vous dans ce dossier et téléchargez le fichier [hg38_5k.gtf](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf). 
+
+
+```{bash, eval=F}
+# Si le TD_python n'existe pas !
+mkdir -p TD_python
+
+# On se déplace 
+cd TD_python
+
+# Si vous n'avez pas déjà téléchargé le fichier !
+wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf
+```
+
+## Le Format GTF
+
+Le format GTF est un fichier tabulé (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:
+
+- Colonne 1 - Nom du chromosome.
+- Colonne 2 - Source de l'annotation.
+- Colonne 3 - Type d'élément (exon, CDS, 5'UTR, 3'UTR,...).
+- Colonne 4 - Position de départ (Start).
+- Colonne 5 - Position de fin (End).
+- Colonne 6 - Score.
+- Colonne 7 - Le brin (+ ou -).
+- Colonne 8 - Frame (0,1,2). '0' indique que la première base de l'élément est la première base d'un codon, '1' que la deuxième base est la première base d'un codon, etc...
+- Colonne 9 - Attribute. Une liste de couples clefs/valeurs séparées par un point virgule.
+
+Visualisez les cinq premières  et  dernières lignes du fichier avec *head* et *tail*
+
+```{bash, eval=F}
+head -n 5 hg38_5k.gtf
+tail -n 5 hg38_5k.gtf
+```
+
+## Préparation du notebook
+
+On utilisera ici le *notebook jupyter* comme éditeur de code. Vous devriez pouvoir lancer le jupyter en utilisant le menu principal du système. Sinon, vous pouvez le lancer en ligne de commande.
+
+```{bash, eval=F}
+# lancer le notebook
+ipython notebook # ou ipython3 notebook
+```
+
+Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "head". 
+
+
+## Stratégie
+
+Nous devrons à un moment ou à un autre pouvoir conserver quelque part la liste nous redondante des transcripts. On propose de stocker l'information en utilisant trois objets differents et, donc, d'implémenter trois solutions:
+
+  - L'une utilisant une **liste** dans laquelle on stockera la liste non-redondante des transcripts.
+  - L'autre utilisant un **dictionnaire** dont les clefs seront les transcripts, et les valeurs '1' si le transcript a été vu.
+  - L'une utilisant **un ensemble (set)** qui constitue un ensemble non ordonné d'éléments uniques.
+
+Nous verrons par la suite que ce choix a un impact très important sur la vitesse d'exécution de notre programme. La première version (liste) prenant plusieurs minutes contre quelques secondes pour la deuxième et troisième version (dictionnaire et ensemble).
+
+## Implémentation avec une liste
+
+Le pseudo -code ci-dessous illustre la stratégie du programme:
+
+  - Créer une liste vide, list_of_tx_name.
+  - Ouvrir le fichier.
+  - Parcourir le fichier ligne à ligne.
+      - Substituer les caractères précédant 'transcript_id "' par une chaîne de caractères vides.
+      - Substituer les caractères succédant l'identifiant du transcript par une chaîne de caractères vides.
+      - Si le nom du transcript de la ligne courante n'est pas dans la liste list_of_tx_name:
+          - l'ajouter à list_of_tx_name.
+  - Imprimer la taille du tableau.
+  
+  
+L'implémentation de cette solution en Python se traduit par le code suivant:
+
+**NB:** on peut remplacer les deux substitutions successive par une capture d'expression régulière.  
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# On importe le module re 
+# afin de pouvoir rechercher
+# une expression régulière dans une 
+# chaîne de caractères.
+import re 
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+
+file_handler = open("../data/hg38_5k.gtf", "r")
+
+# Cette liste contiendra l'ensemble des transcrits (tx)
+list_of_tx_name = list()
+
+# On utilise une boucle for pour 
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+    # On substitue dans 'line' n'importe quel caractère (.) répété 0 fois ou plus (*) et 
+    # suivit de transcript_id, d'un espace et d'un double guillemet par 
+        # une chaine de caractères vide ("").
+    tx_name = re.sub('.* transcript_id "', "", line)
+    # On substitue tout ce qui se trouve à droite du nom du transcrit: un guillemet suivit de 
+    # n'importe quel caractère (.) répété 0 fois ou plus (*) et d'un caractère retour à la ligne.
+    tx_name = re.sub('".*\n', "", tx_name)
+    
+    # Si le transcrit n'est pas dans la liste, on l'ajoute
+    if tx_name not in list_of_tx_name:
+            
+            list_of_tx_name = list_of_tx_name + [tx_name] # ou tx_list.append(tx_name)
+
+
+# Après être sorti de la boucle
+# on imprime le nombre de transcrits.
+# len(tx_list) est un entier (int). Pour pouvoir le concatener 
+# avec une chaîne de caractères (le message), il faut le transformer 
+# en chaîne de caractères (str()). 
+print("Le nombre de transcrits est: " + str(len(list_of_tx_name))) # n = 5000 
+```
+</div>
+
+On voit de manière évidente que le temps d'exécution est long (8.592s sur ma machine) pour un ensemble d'opérations qui semble relativement simple. Quel est le problème ? Ici nous utilisons une liste et quand celle ci s'étend, les temps de recherche (tx_name not in list_of_tx_name) deviennent relativement importants. En effet, pour ce test, il faut comparer une chaîne de caractères à toutes les autres. La solution est ici d'utiliser plutôt un dictionnaire.
+
+## Implémentation avec un dictionnaire
+
+Quand on utilise un dictionnaire, les cases du tableau (les clefs) sont associées à des valeurs. La recherche du clef dans la liste des clefs est optimisée afin de ne pas avoir à comparer lettre à lettre une chaîne de caractère à toutes les autres. Le pseudo -code ci-dessous illustre la stratégie du programme:
+
+
+  - Créer un dictionnaire vide, dict_of_tx_name.
+  - Ouvrir le fichier.
+  - Parcourir le fichier ligne à ligne.
+      - Substituer les caractères précédant 'transcript_id "' par une chaîne de caractères vides.
+      - Substituer les caractères succédant l'identifiant du transcript par une chaîne de caractères vides.
+      - Si le nom du transcript de la ligne courante n'est pas défini dans dict_of_tx_name:
+        - l'ajouter à dict_of_tx_name.
+  - Imprimer la taille de dict_of_tx_name (i.e le nombre de clefs).
+
+
+L'implémentation de cette solution en Python se traduit par le code suivant (les changements apportés sont notés par trois astérisques successifs):
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# On importe le module re 
+# afin de pouvoir rechercher
+# une expression régulière dans une 
+# chaîne de caractères.
+import re 
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+file_handler = open("../data/hg38_5k.gtf", "r")
+
+
+# ***
+# Ce dictionnaire contiendra l'ensemble des transcrits (tx)
+dict_of_tx_name = dict()
+
+# On utilise une boucle for pour 
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+    
+    # On substitue dans 'line' n'importe quel caractère (.) répété 0 fois ou plus (*) et 
+    # suivit de transcript_id, d'un espace et d'un double guillemet par 
+    # une chaine de caractères vide ("").
+    tx_name = re.sub('.* transcript_id "', "", line)
+    # On substitue tout ce qui se trouve à droite du nom du transcrit: un guillemet suivit de 
+    # n'importe quel caractère (.) répété 0 fois ou plus (*) et d'un caractère retour à la ligne.
+    tx_name = re.sub('".*\n', "", tx_name)
+
+    # Si le transcrit n'est pas dans la liste, on l'ajoute
+    # ***
+    if tx_name not in dict_of_tx_name:
+        # ***
+        # On déclare une nouvelle clef dans le dictionnaire
+        # et on place sa valeur à 1.
+        dict_of_tx_name[tx_name] = 1
+
+
+# Après être sorti de la boucle
+# on imprime le nombre de transcrits.
+# len(tx_list) est un entier (int) qui correspond au nombre de clef du dictionnaire. Pour pouvoir le concatener 
+# avec une chaîne de caractères (le message), il faut le transformer 
+# en chaîne de caractères (str()). 
+print("Le nombre de transcrits est: " + str(len(dict_of_tx_name)))  #  n = 5000 
+```
+</div>
+
+
+Alors que le résultat est identique, le temps d'exécution tombe à 0.627s. Soit un gain de temps important.
+
+
+Implémentation avec un ensemble (set)
+
+
+Le set est lui aussi un objet très optimisé pour les recherche. Il ne contient que des éléments uniques qui sont non ordonnés. Dans notre cas nous sommes intéressés par la liste non-redondante et l'ordre dans cette liste nous importe peu. Il apparait comme une solution très intéressante. Il occupera par ailleurs moins d'espace mémoire que le dictionnaire.
+
+  - Créer un ensemble vide, set_of_tx_name.
+  - Ouvrir le fichier.
+  - Parcourir le fichier ligne à ligne.
+    - Substituer les caractères précédant 'transcript_id "' par une chaîne de caractères vides.
+    - Substituer les caractères succédant l'identifiant du transcript par une chaîne de caractères vides.
+    - Si le nom du transcript de la ligne courante n'est pas défini dans set_of_tx_name:
+      - l'ajouter à set_of_tx_name (méthode add).
+  - Imprimer la taille de set_of_tx_name (i.e le nombre de clefs).
+
+L'implémentation de cette solution en Python se traduit par le code suivant (les changements apportés sont notés par trois astérisques successifs):
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# On importe le module re 
+# afin de pouvoir rechercher
+# une expression régulière dans une 
+# chaîne de caractères.
+import re 
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur 
+file_handler = open("../data/hg38_5k.gtf", "r")
+
+
+# ***
+# Cet ensemble contiendra l'ensemble des transcrits (tx)
+set_of_tx_name = set()
+
+# On utilise une boucle for pour 
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+    
+    # On substitue dans 'line' n'importe quel caractère (.) répété 0 fois ou plus (*) et 
+    # suivit de transcript_id, d'un espace et d'un double guillemet par 
+    # une chaine de caractères vide ("").
+    tx_name = re.sub('.* transcript_id "', "", line)
+    # On substitue tout ce qui se trouve à droite du nom du transcrit: un guillemet suivit de 
+    # n'importe quel caractère (.) répété 0 fois ou plus (*) et d'un caractère retour à la ligne.
+    tx_name = re.sub('".*\n', "", tx_name)
+
+    set_of_tx_name.add(tx_name) # on utilise la méthode add.
+
+
+# Après être sorti de la boucle
+# on imprime le nombre de transcrits.
+# len(tx_list) est un entier (int) qui correspond au nombre de clef du dictionnaire. Pour pouvoir le concatener 
+# avec une chaîne de caractères (le message), il faut le transformer 
+# en chaîne de caractères (str()). 
+print("Le nombre de transcrits est: " + str(len(set_of_tx_name)))  #  n = 5000 
+```
+</div>
+
