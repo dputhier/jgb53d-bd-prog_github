@@ -1,0 +1,274 @@
+---
+title: "Calcul de la taille génomique des transcripts"
+author: "D. Puthier"
+date: "9/24/2020"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  slidy_presentation:
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    highlight: tango
+    incremental: no
+    keep_md: no
+    self_contained: yes
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  ioslides_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_md: no
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 3
+  beamer_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_tex: no
+    slide_level: 2
+    theme: Montpellier
+    toc: yes
+---
+
+
+<script type="">
+    $(function() {
+        $(".hideshow").click(function() {
+                $(this).parent().find(".exo").toggle();
+        });
+
+    })
+</script>
+
+<style>
+.exo {
+  display:none;
+}
+
+pre:not(.sourceCode) > code {
+  background-color: white !important;
+  color: grey !important;
+}
+
+hr {
+  color: grey !important;
+}
+</style>
+
+
+# Objectif
+
+On se propose de d'implémenter une commande tx_len capable de renvoyer pour chaque transcript d'un fichier gtf la couverture génomique (i.e la taille exons et introns compris). Le fichier donné en entrée par l'utilisateur n'est pas forcément trié par coordonnées génomiques. Etant donné que les coordonnées génomiques sont toujours données en fonction du brin plus du génome, cela revient à rechercher dans le fichier GTF le START le plus petit et le END le pus grand pour chaque transcrit.
+  
+# Données
+
+## Téléchargement
+
+A l'aide du terminal créez un dossier dossier TD_python. Placez vous dans ce dossier et téléchargez le fichier [hg38_5k.gtf](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf). 
+
+
+```{bash, eval=F}
+# Si le TD_python n'existe pas !
+mkdir -p TD_python
+
+# On se déplace 
+cd TD_python
+
+# Si vous n'avez pas déjà téléchargé le fichier !
+wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf
+```
+
+## Le Format GTF
+
+Le format GTF est un fichier tabulé (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:
+
+- Colonne 1 - Nom du chromosome.
+- Colonne 2 - Source de l'annotation.
+- Colonne 3 - Type d'élément (exon, CDS, 5'UTR, 3'UTR,...).
+- Colonne 4 - Position de départ (Start).
+- Colonne 5 - Position de fin (End).
+- Colonne 6 - Score.
+- Colonne 7 - Le brin (+ ou -).
+- Colonne 8 - Frame (0,1,2). '0' indique que la première base de l'élément est la première base d'un codon, '1' que la deuxième base est la première base d'un codon, etc...
+- Colonne 9 - Attribute. Une liste de couples clefs/valeurs séparées par un point virgule.
+
+Visualisez les cinq premières  et  dernières lignes du fichier avec *head* et *tail*
+
+```{bash, eval=F}
+head -n 5 hg38_5k.gtf
+tail -n 5 hg38_5k.gtf
+```
+
+## Préparation du notebook
+
+On utilisera ici le *notebook jupyter* comme éditeur de code. Vous devriez pouvoir lancer le jupyter en utilisant le menu principal du système. Sinon, vous pouvez le lancer en ligne de commande.
+
+```{bash, eval=F}
+# lancer le notebook
+ipython notebook # ou ipython3 notebook
+```
+
+Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "head". 
+
+
+## Stratégie
+
+
+Le pseudo -code ci-dessous illustre la stratégie du programme:
+
+  - Créer un dictionnaire permettant de mémoriser le nom du transcrit (clef) et son 'start' (valeur).
+  - Créer un dictionnaire permettant de mémoriser le nom du transcrit (clef) et son 'end' (valeur).
+  - Ouvrir le fichier.
+  - Parcourir le fichier ligne à ligne.
+    - Substituer les caractères précédant 'transcript_id "' par une chaîne de caractères vides.
+    - Substituer les caractères succédant l'identifiant du transcript par une chaîne de caractères vides.
+    - Si le transcript_id courant n'est pas dans l'un des dictionnaire (choisir l'un ou l'autre):
+      - Initialiser tous les dictionnaires
+    - Sinon:
+      - Si la valeur de 'start' courante pour le transcrit est inférieure à la valeur connu pour ce transcrit:
+        - Assigner cette valeur au transcrit courant.
+      - Si la valeur de 'end' courante pour le transcrit est supérieure à la valeur connu pour ce transcrit:
+        - Assigner cette valeur au transcrit courant.
+  - Parcourir les clefs de l'un des dictionnaire:
+  - Imprimer transcrit et sa valeur end-start + 1
+
+## Implémentation avec une liste
+
+Le pseudo -code ci-dessous illustre la stratégie du programme:
+
+  - Créer une liste vide, list_of_tx_name.
+  - Ouvrir le fichier.
+  - Parcourir le fichier ligne à ligne.
+      - Substituer les caractères précédant 'transcript_id "' par une chaîne de caractères vides.
+      - Substituer les caractères succédant l'identifiant du transcript par une chaîne de caractères vides.
+      - Si le nom du transcript de la ligne courante n'est pas dans la liste list_of_tx_name:
+          - l'ajouter à list_of_tx_name.
+  - Imprimer la taille du tableau.
+  
+  
+L'implémentation de cette solution en Python se traduit par le code suivant:
+
+**NB:** on peut remplacer les deux substitutions successive par une capture d'expression régulière.  
+
+<div class="hideshow"> << Hide | Show >> </div>
+<div class="exo">
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+"""
+Author D. Puthier
+date: Wed Oct 28 16:44:29 CET 2015
+program: tx_len.py
+This program is intended to compute the genomic coverage of transcripts (exon
+ + intron length).
+"""
+# On importe le module re
+# afin de pouvoir rechercher
+# une expression régulière dans une
+# chaîne de caractères.
+import re
+
+# Ce dictionnaire contiendra les coordonnées de
+# départ (start) des transcrits
+
+transcript_starts = dict()
+
+# Ce dictionnaire contiendra les coordonnées de
+# fin (end) des transcrits
+transcript_ends = dict()
+
+
+# Pensez à adapter le chemin vers le fichier.
+# Ici, il est dans le dossier data présent dans le
+# répertoire supérieur
+
+file_handler = open("hg38_5k.gtf", "r")
+
+
+# On utilise une boucle for pour
+# lire des lignes renvoyées par l'objet
+# file_handler
+for line in file_handler:
+
+    # On découpe la ligne sur le séparateur "\t"
+
+    columns = line.split("\t")
+
+    # On récupère le start et le end du transcrit courant
+
+    start_current = int(columns[3]) # attention au type
+    end_current = int(columns[4]) # attention au type
+
+
+
+    # On substitue dans la colonne 9 n'importe quel caractère (.)
+    # répété 0 fois ou plus (*) et
+    # suivit de transcript_id, d'un espace et d'un double guillemet par
+    # une chaine de caractères vide ("").
+
+    tx_name = re.sub('.* transcript_id "', "", columns[8])
+
+    # On substitue tout ce qui se trouve à droite du nom du transcrit: un guillemet suivit de
+    # n'importe quel caractère (.) répété 0 fois ou plus (*) et d'un caractère retour à la ligne.
+    tx_name = re.sub('".*\n', "", tx_name)
+
+
+    # Si le transcript n'est pas dans transcript_starts
+    # il n'est pas non plus dans les autres dictionnaires.
+    # On les initialise.
+    if not transcript_starts.get(tx_name):
+
+        transcript_starts[tx_name] = start_current
+        transcript_ends[tx_name] = end_current
+
+    else:
+        # Sinon le start est plus petit que le start connu,
+        # on le conserve.
+        if start_current < transcript_starts[tx_name]:
+
+            transcript_starts[tx_name] = start_current
+
+        # Si le end est plus grand que celui connu pour ce transcrit,
+        # On le conserve.
+        if end_current > transcript_ends[tx_name]:
+
+            transcript_ends[tx_name] = end_current
+
+# Pour toutes les clefs du dictionnaire transcript_starts
+
+for tx_name in transcript_starts:
+
+    print(tx_name + "\t" + str(transcript_ends[tx_name] - transcript_starts[tx_name] + 1))
+```
+</div>
+
+
