@@ -1,0 +1,193 @@
+---
+title: "Implémentation de la commande cut"
+author: "D. Puthier"
+date: "9/24/2020"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    self_contained: yes
+    theme: cerulean
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+  slidy_presentation:
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    highlight: tango
+    incremental: no
+    keep_md: no
+    self_contained: yes
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  ioslides_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_md: no
+    slide_level: 2
+    smaller: yes
+    theme: cerulean
+    toc: yes
+    widescreen: yes
+  pdf_document:
+    fig_caption: yes
+    highlight: zenburn
+    toc: yes
+    toc_depth: 3
+  beamer_presentation:
+    colortheme: dolphin
+    fig_caption: yes
+    fig_height: 4
+    fig_width: 6
+    fonttheme: structurebold
+    highlight: tango
+    incremental: no
+    keep_tex: no
+    slide_level: 2
+    theme: Montpellier
+    toc: yes
+---
+
+
+# Objectif
+
+On se propose de re-implémenter la commande cut (que nous avons précédemment lors des cours sur le language BASH). L'objectif est de créer un programme (sous sa forme la plus simple), capable de:
+  
+  - Ouvrir un fichier tabulé.
+  - Parcourir le fichier ligne à ligne 
+  - Couper (en anglais, split) chacune des lignes en fonction du séparateur (ici une tabulation, "\t").
+  - Récuperer la colonne d'intérêt en indexant la liste.
+  - Imprimer la colonne recherchée.
+
+# Données
+
+## Téléchargement
+
+A l'aide du terminal créez un dossier dossier TD_python. Placez vous dans ce dossier et téléchargez le fichier [hg38_5k.gtf](http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf). 
+
+
+```{bash, eval=F}
+mkdir TD_python
+cd TD_python
+wget http://pedagogix-tagc.univ-mrs.fr/courses/jgb53d-bd-prog/practicals/data/hg38_5k.gtf
+```
+
+## Les Format GTF
+
+Le format GTF est un fichier tabulé (i.e. dont les colonnes sont séparées par des tabulations) qui contient des informations concernant des éléments génomiques (souvent des transcripts et leurs exons). Les informations portées par les colonnes sont les suivantes:
+
+- Colonne 1 - Nom du chromosome.
+- Colonne 2 - Source de l'annotation.
+- Colonne 3 - Type d'élément (exon, CDS, 5'UTR, 3'UTR,...).
+- Colonne 4 - Position de départ (Start).
+- Colonne 5 - Position de fin (End).
+- Colonne 6 - Score.
+- Colonne 7 - Le brin (+ ou -).
+- Colonne 8 - Frame (0,1,2). '0' indique que la première base de l'élément est la première base d'un codon, '1' que la deuxième base est la première base d'un codon, etc...
+- Colonne 9 - Attribute. Une liste de couples clefs/valeurs séparées par un point virgule.
+
+Visualisez les cinq premières  et  dernières lignes du fichier avec *head* et *tail*
+
+```{bash, eval=F}
+head -n 5 hg38_5k.gtf
+tail -n 5 hg38_5k.gtf
+```
+
+## Préparation du notebook
+
+On utilisera ici le *notebook jupyter* comme éditeur de code. Vous devriez pouvoir lancer le jupyter en utilisant le menu principal du système. Sinon, vous pouvez le lancer en ligne de commande.
+
+```{bash, eval=F}
+# lancer le notebook
+ipython notebook # ou ipython3 notebook
+```
+
+Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "cut". 
+
+## Comment ouvrir un fichier ?
+
+### L'objet file
+
+**Fonction open**
+
+Avant de pouvoir lire (ou écrire) dans un fichier, vous devez créer l'objet Python qui servira de lien avec le fichier résidant sur votre machine. Pour cela, on utilise la fonction Python *open*, qui prend en arguments *la localisation (relative ou absolue) du fichier* ainsi que *le mode d'ouverture*. Une fois que créé l'objet fichier, vous pourrez appeler ses méthodes pour lire (ou écrire). Finalement, la fonction close permet de terminer la connexion avec le fichier.
+
+**Modes d'ouverture**
+
+- "r": Ouvre un fichier en lecture uniquement. Le pointeur est placé au début du fichier. C'est la valeur par défault.
+- "w":	Ouvre un fichier en écriture uniquement. Écrase le contenu du fichier s'il existe déjà, crée un nouveau fichier sinon. Le pointeur est placé au début du fichier.
+- "a":	Ouvre un fichier en écriture uniquement. Le pointeur est placé à la fin du fichier s'il existe, sinon un nouveau fichier est créé.
+
+**Exemples**
+
+- Pour ouvrir le fichier on peut par exemple créer un objet que l'on va appeler *file_handler* et y stocker le résultat de *open*.
+
+```{python, eval=F}
+file_handler = open("hg38_5k.gtf", "r")
+
+# On lit un ligne
+file_handler.readline()
+
+# On lit toutes les lignes
+file_handler.readlines()
+
+# On lit les lignes les 
+# unes après les autres
+
+for line in file_handler:
+  print(lin)
+```
+
+- Quel est le type de l'objet file_handler? 
+- Cherchez sur internet les attributs et méthodes de ce type d'objet.
+- Comment vérifier que le fichier est bien ouvert?
+- Que se passe-t-il quand vous ouvrez en lecture un fichier qui n'existe pas encore? 
+
+Lire dans un fichier
+Après avoir ouvert un fichier en mode lecture, plusieurs fonctions vous permettent d'en stocker le contenu. Testez les principales, listées ci-dessous. Puis répondez aux questions suivantes
+
+Quel est l'effet d'appels succéssifs à la méthode read(int) ou readline()?
+Quelle méthode permet de replacer le curseur au début du fichier?
+Afficher la troisième ligne du fichier, puis la deuxième avec la méthode readline() puis recommencer avec la méthode readlines().
+Retourner à l'objectif de départ du TD.
+
+## Solution
+
+
+```{python, eval=F}
+# -*- coding: utf-8 -*-
+# La ligne précédente permet d'utiliser des caractères accentués
+# dans les commentaires
+
+# La colonne qu l'on souhaite imprimer
+col_to_print = 4
+
+# On ouvre le fichier
+# Adaptez le chemin en fonction de la localisation du
+# file_handler est un objet 'file'. C'est un objet capable de lire 
+# les lignes d'un fichier.
+
+file_handler = open("hg38_5k.gtf", "r")
+
+# Dans la structure for ci-dessous,
+# line est une variable renvoyée 
+# par file_handler. On parcours donc
+# le fichier ligne à ligne
+
+for line in file_handler:
+
+        # A chaque itération/ligne,
+        # On découpe la chaîne de caractère
+        # sur le séparateur tabulation (\t).
+        column = line.split("\t")
+        # column[0] si l'on veut la première colonne
+        print(column[ col_to_print - 1])
