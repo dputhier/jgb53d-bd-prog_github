@@ -57,7 +57,7 @@ output:
 
 | Nom | Description 
 |-----|-----------
-| [Re-implémentation de la commande cut](practicals/02_python_read-write-files_2016/TD02_NT.html) | Lecture de fichiers, méthodes des objets str, recherche dans l'aide, les listes.
+| [Re-implémentation de la commande cut](practicals/new/cut/cut.html) | Lecture de fichiers, méthodes des objets str, recherche dans l'aide, les listes.
 | [Re-implémentation de la commande head](practicals/03_python_2015/head_cmd.html) | Lecture de fichiers,  méthode sur l'objet file, structure conditionnelle, import du module sys, boucle while, boucle for.
 | [Implémentation d'une commande count.py](practicals/04_python_2015/count_cmd.html) | Lecture de fichier, boucle for, listes, dictionnaires, module re (regular expression), l'importance du choix des structures de stockage.
 | [Implémentation d'un programme tx_len.py](practicals/05_python_2015/tx_len.html) | Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.
