@@ -53,16 +53,18 @@ output:
 | [Re-implémentation de la commande head](practicals/new/head/head.html) | Lecture de fichiers,  méthode sur l'objet file, structure conditionnelle, import du module sys, boucle while, boucle for.
 | [Implémentation d'une commande count.py](practicals/new/count/count.html) | Lecture de fichier, boucle for, listes, dictionnaires, module re (regular expression), l'importance du choix des structures de stockage.
 | [Implémentation d'un programme tx_len.py](practicals/new/tx_len/tx_len.html) | Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.
-| [Implémentation d'un programme nb_exons.py](practicals/06_python_2015/nb_exons.py.html) | Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.
-| [Exercice autour des fonctions. Créer des modules](practicals/07_python_2015/functions.html) | Insertion de fonctions dans le code. création d'un module.
-| [Créer un programme complet appelant les modules](practicals/08_python_2015/final_program.html) | Importer les modules dans un programme principal. Appeler ces modules. Créer un analyseur d'arguments
-| [Calculer la taille des cDNAs](practicals/10_python_2015/cdna_len.html) | Consolider les acquis
+| [Implémentation d'un programme nb_exons.py](practicals/new/nb_exons/nb_exons.html) | Lecture de fichier, boucle for, dictionnaires, listes, module re (capture de motif), structure conditionnelles.
+| [Calculer la taille des cDNAs](practicals/cdna_len/cdna_len.html) | Consolider les acquis
 | [Extraire une liste de transcripts ou de gènes](practicals/09_python_2015/get_values.html) | Consolider les acquis.
 | [An introduction to the grammar of graphics (plotnine)](practicals/intro_ggplot/intro_ggplot.html) | Découvrir le monde des graphiques avec plotnine.
 | [Calculer la taille des introns](practicals/introns/introns.html) | Créer un programme complet.
 
-| [Enoncé examen 2014-2015](examen/2014-2015/Examen_2014-2015_Unix_session-1.pdf) | exercice.
+#### Pour aller plus loin
 
+| Nom | Description 
+|-----|-----------
+| [Exercice autour des fonctions. Créer des modules](practicals/07_python_2015/functions.html) | Insertion de fonctions dans le code. création d'un module.
+| [Créer un programme complet appelant les modules](practicals/08_python_2015/final_program.html) | Importer les modules dans un programme principal. Appeler ces modules. Créer un analyseur d'arguments
 
 #### Récréatif
 

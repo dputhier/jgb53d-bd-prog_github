@@ -1,5 +1,5 @@
 ---
-title: "Calcul de la taille génomique des transcripts"
+title: "Calcul de la taille des transcrits épissés"
 author: "D. Puthier"
 date: "9/24/2020"
 output:
@@ -83,11 +83,15 @@ hr {
 </style>
 
 
-# Objectif
+## Objectifs
+A partir du fichier gtf contenant les coordonnées de 5000 transcripts humains, réalisez un programme (mature_tx_len) qui:
 
-On se propose de d'implémenter une commande tx_len capable de renvoyer pour chaque transcript d'un fichier gtf la couverture génomique (i.e la taille exons et introns compris). Le fichier donné en entrée par l'utilisateur n'est pas forcément trié par coordonnées génomiques. Etant donné que les coordonnées génomiques sont toujours données en fonction du brin plus du génome, cela revient à rechercher dans le fichier GTF le START le plus petit et le END le pus grand pour chaque transcrit.
-  
-# Données
+  - Charge ce fichier.
+  - Calcul la taille des transcripts matures (i.e somme des exons).
+  - Stocke cette information sur le disque, dans un fichier.
+  - Relit ce fichier avec pandas.
+  - Créé un diagramme montrant la distribution des tailles de ces transcripts en fonction de la classe du transcript (gene_biotype).
+  - Sauvegarde le diagramme sur le disque au format pdf.
 
 ## Téléchargement
 
@@ -135,7 +139,7 @@ On utilisera ici le *notebook jupyter* comme éditeur de code. Vous devriez pouv
 ipython notebook # ou ipython3 notebook
 ```
 
-Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "tx_len". 
+Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "mature_tx_len". 
 
 
 ## Stratégie
@@ -270,17 +274,4 @@ for tx_name in transcript_starts:
     print(tx_name + "\t" + str(transcript_ends[tx_name] - transcript_starts[tx_name] + 1))
 ```
 </div>
-
-
-## Note à propos des expressions régulières
-
-**NB:** Dans le code ci-dessus on peut remplacer les deux substitutions successive par une capture d'expression régulière.  En effet on peut ajouter des jeux de parenthèses dans une expression régulière afin de capturer un ou plusieurs motifs de texte. Ici le motif qu'on cherche à capturer est l'identifiant du transcrit. Un exemple d'utilisation est donné ci-dessous.
-
-```{python, eval=F}
-import re
-a_string = 'cds_id "cds1"; transcript_id "tx1"; gene_id "g1";'
-hit = re.search('transcript_id "([^"]+)"', a_string)
-if hit:
-  print(hit.group(1))
-```
 

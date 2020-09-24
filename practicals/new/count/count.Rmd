@@ -135,7 +135,7 @@ On utilisera ici le *notebook jupyter* comme éditeur de code. Vous devriez pouv
 ipython notebook # ou ipython3 notebook
 ```
 
-Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "head". 
+Une fois le notebook lancé, dans le menu de gauche, choisissez "new > Python 3". Une nouvelle fenêtre apparait. Double cliquez sur "Untitled" pour renommer le notebook en "count". 
 
 
 ## Stratégie
