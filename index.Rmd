@@ -40,6 +40,7 @@ output:
 | Nom | Description 
 |-----|-----------
 | [Premiers pas avec Python](theorical/python/hello_world.html) | Hello world, manipulation de variables, listes, tuples et dictionnaires.
+| [Structures conditionelles et boucles](theorical/python/struct_cond_and_loop.html) | tester des conditions, parcourir des objets.
 | [Lire et écrire dans un fichier](theorical/python/read_write.html) | la-classe 'file', modes-d'ouverture, fermeture du fichier
 | [Les fonctions](theorical/python/functions.html)  | définition et appel, passage d'arguments par noms, variable retour, portée des variables
 
